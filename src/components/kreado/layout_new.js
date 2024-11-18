@@ -14,7 +14,6 @@ import TitleLeftFourModulesRight from '../common_components/product-benefits-wit
 import TitleRightTableLeft from '../common_components/call-to-action-with-a-table';
 import FAQ from '../common_components/faqs';
 import ComparisonTable from '../common_components/product_comparison_table';
-import TitleTopPricingDown from '../common_components/pricing-with-three-cards';
 
 // 更新组件映射表
 const COMPONENT_MAP = {
