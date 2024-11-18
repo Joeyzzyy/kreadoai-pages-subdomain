@@ -204,80 +204,85 @@ const ComparisonTable = ({ author, section }) => {
   const tableData = section;
 
   return (
-    <div className="bg-gradient-radial from-gray-50 via-white to-gray-50 py-20">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className={`mb-4 ${styles.h1.fontSize} ${styles.h1.fontWeight} ${styles.h1.color}`}>
+    <div className="bg-gradient-radial from-gray-50 via-white to-gray-50 py-8 md:py-20 px-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-8 md:mb-16">
+          <h2 className={`mb-3 md:mb-4 ${styles.h1.fontSize} ${styles.h1.fontWeight} ${styles.h1.color}`}>
             {tableData.topContent.title}
           </h2>
-          <p className={`${styles.paragraph.fontSize} ${styles.paragraph.color}`}>
+          <p className={`${styles.paragraph.fontSize} ${styles.paragraph.color} px-4`}>
             {tableData.topContent.subtitle}
           </p>
         </div>
         
         <div className="relative">
-          <div className="absolute inset-0 transform translate-y-4 translate-x-2">
+          <div className="absolute inset-0 transform translate-y-4 translate-x-2 hidden md:block">
             <div className="w-full h-full bg-gray-100/50 rounded-xl"></div>
           </div>
           
-          <div className="relative overflow-hidden rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] 
-            backdrop-blur-sm bg-white/90 border border-gray-100 
-            transition-all duration-300 hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] 
-            hover:-translate-y-1">
-            <table className="w-full border-separate border-spacing-0">
-              <thead>
-                <tr>
-                  <th className="py-8 px-8 text-left bg-gradient-to-r from-gray-50 via-gray-100 to-gray-50 
-                    text-gray-600 font-medium w-1/2 first:rounded-tl-xl backdrop-blur-sm">
-                    Features
-                  </th>
-                  <th className={`py-6 px-4 text-center border-[0.7px] border-gray-200 bg-red-50 ${styles.paragraph.fontSize} ${styles.paragraph.color} w-1/4`}>
-                    {tableData.topContent.companies.competitor}
-                  </th>
-                  <th className={`py-6 px-4 text-center border-[0.7px] border-gray-200 bg-green-50 ${styles.paragraph.fontSize} ${styles.paragraph.color} w-1/4`}>
-                    <div className="flex items-center justify-center gap-2">
-                      <Image 
-                        src={KreadoIcon} 
-                        alt={`${author} icon`}
-                        width={24}
-                        height={24}
-                      />
-                      {tableData.topContent.companies.us}
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableData.bottomContent.features.map((feature, index) => (
-                  <tr key={index} 
-                      className="hover:bg-gray-50/50 transition-all duration-200 ease-in-out
-                      hover:backdrop-blur-sm">
-                    <td className="py-6 px-8 border-t border-gray-100/60 w-1/2">
-                      <div className="flex items-center gap-4">
-                        {/* 将字符串转换为实际的图标组件 */}
-                        {(() => {
-                          const IconComponent = getIconByFeatureName(feature.name);
-                          return IconComponent ? <IconComponent className="text-blue-500 text-xl" /> : null;
-                        })()}
-                        <span className="font-medium text-gray-700">{feature.name}</span>
-                      </div>
-                    </td>
-                    <td className={`py-6 px-4 text-center border-[0.7px] border-gray-200 ${feature.competitor ? 'bg-green-50' : 'bg-red-50'} w-1/4`}>
-                      {feature.competitor ? 
-                        <IoCheckmarkCircle className="inline text-green-500 text-3xl" /> : 
-                        <IoCloseCircle className="inline text-red-500 text-3xl" />
-                      }
-                    </td>
-                    <td className={`py-6 px-4 text-center border-[0.7px] border-gray-200 ${feature.us ? 'bg-green-50' : 'bg-red-50'} w-1/4`}>
-                      {feature.us ? 
-                        <IoCheckmarkCircle className="inline text-green-500 text-3xl" /> : 
-                        <IoCloseCircle className="inline text-red-500 text-3xl" />
-                      }
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="relative rounded-xl overflow-hidden">
+            <div className="overflow-x-auto scrollbar-hide">
+              <div className="inline-block min-w-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] 
+                backdrop-blur-sm bg-white/90 border border-gray-100">
+                <table className="w-full border-separate border-spacing-0">
+                  <thead>
+                    <tr>
+                      <th className="py-4 md:py-6 px-4 md:px-6 text-left bg-gradient-to-r from-gray-50 via-gray-100 to-gray-50 
+                        text-gray-600 font-medium w-[240px] md:w-[320px] first:rounded-tl-xl backdrop-blur-sm text-sm md:text-base">
+                        Features
+                      </th>
+                      <th className="py-4 md:py-6 px-3 md:px-4 text-center border-[0.7px] border-gray-200 bg-red-50 
+                        w-[100px] md:w-[140px] text-sm md:text-base">
+                        {tableData.topContent.companies.competitor}
+                      </th>
+                      <th className="py-4 md:py-6 px-3 md:px-4 text-center border-[0.7px] border-gray-200 bg-green-50 
+                        w-[100px] md:w-[140px] text-sm md:text-base">
+                        <div className="flex items-center justify-center gap-2">
+                          <Image 
+                            src={KreadoIcon} 
+                            alt={`${author} icon`}
+                            width={20}
+                            height={20}
+                            className="w-4 h-4 md:w-5 md:h-5"
+                          />
+                          {tableData.topContent.companies.us}
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tableData.bottomContent.features.map((feature, index) => (
+                      <tr key={index} 
+                          className="hover:bg-gray-50/50 transition-all duration-200 ease-in-out
+                          hover:backdrop-blur-sm">
+                        <td className="py-6 px-8 border-t border-gray-100/60 w-1/2">
+                          <div className="flex items-center gap-4">
+                            {/* 将字符串转换为实际的图标组件 */}
+                            {(() => {
+                              const IconComponent = getIconByFeatureName(feature.name);
+                              return IconComponent ? <IconComponent className="text-blue-500 text-xl" /> : null;
+                            })()}
+                            <span className="font-medium text-gray-700">{feature.name}</span>
+                          </div>
+                        </td>
+                        <td className={`py-6 px-4 text-center border-[0.7px] border-gray-200 ${feature.competitor ? 'bg-green-50' : 'bg-red-50'} w-1/4`}>
+                          {feature.competitor ? 
+                            <IoCheckmarkCircle className="inline text-green-500 text-3xl" /> : 
+                            <IoCloseCircle className="inline text-red-500 text-3xl" />
+                          }
+                        </td>
+                        <td className={`py-6 px-4 text-center border-[0.7px] border-gray-200 ${feature.us ? 'bg-green-50' : 'bg-red-50'} w-1/4`}>
+                          {feature.us ? 
+                            <IoCheckmarkCircle className="inline text-green-500 text-3xl" /> : 
+                            <IoCloseCircle className="inline text-red-500 text-3xl" />
+                          }
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>

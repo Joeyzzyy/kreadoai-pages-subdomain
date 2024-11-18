@@ -6,7 +6,7 @@ const MoreInsights = ({ data }) => {
   const insights = data.topContent;
 
   return (
-    <div className="more-insights mt-0 mb-12 container mx-auto px-4">
+    <div className="more-insights mt-0 container mx-auto px-4">
       <h2 className="text-3xl mb-8 text-gray-900 font-bold tracking-tight text-center">More Insights</h2>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         {insights.map((insight, index) => (

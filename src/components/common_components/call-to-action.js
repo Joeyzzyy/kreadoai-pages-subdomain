@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import CustomButton from './custom_button';
+import CustomButton from './widget-custom_button';
 import authorStyles from '../../styles/textStyles';
 import buttonLinks from '../../config/buttonLinks';
 import Image from 'next/image';

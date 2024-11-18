@@ -10,7 +10,7 @@ const ArticleContent = ({ data }) => {
   
   return (
     <div className="relative z-10">
-      <header className="header pt-12">
+      <header className="header">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className={`text-xl md:text-2xl font-bold mb-8 text-gray-900 leading-tight ${titleAlignment}`}>
             {title}

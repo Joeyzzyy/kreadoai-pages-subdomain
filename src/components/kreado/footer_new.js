@@ -6,9 +6,9 @@ import { FaTwitter, FaFacebook, FaInstagram, FaDiscord, FaLinkedin, FaXTwitter, 
 export const KreadoFooter = () => {
   return (
     <footer className="bg-[#262B3A]">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center space-x-4">
+      <div className="max-w-7xl mx-auto py-8 md:py-12 px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 space-y-4 md:space-y-0">
+          <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-2 sm:space-y-0">
             <Link href="/" className="flex items-center">
               <Image
                 src="/images/kreado-logo.png"
@@ -20,12 +20,12 @@ export const KreadoFooter = () => {
                 priority
               />
             </Link>
-            <p className="text-gray-300 text-base">
+            <p className="text-gray-300 text-base text-center sm:text-left">
               AIGC Digital Marketing Creation
             </p>
           </div>
           
-          <div className="flex space-x-6">
+          <div className="flex justify-center space-x-6">
             <a 
               href="https://www.youtube.com/@kreadoai" 
               className="text-gray-400 hover:text-gray-200"
@@ -65,51 +65,28 @@ export const KreadoFooter = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center space-x-4 text-sm text-gray-400">
-          <a 
-            href="mailto:support@kreadoai.com" 
-            className="hover:text-gray-200"
-          >
+        <div className="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-400">
+          <a href="mailto:support@kreadoai.com" className="hover:text-gray-200">
             support@kreadoai.com
           </a>
-          <span>|</span>
-          <a 
-            href="https://help.kreadoai.com/zh-CN/" 
-            className="hover:text-gray-200"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <span className="hidden sm:inline">|</span>
+          <a href="https://help.kreadoai.com/zh-CN/" className="hover:text-gray-200">
             Help Center
           </a>
-          <span>|</span>
-          <a 
-            href="https://www.kreadoai.com/terms-of-service" 
-            className="hover:text-gray-200"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <span className="hidden sm:inline">|</span>
+          <a href="https://www.kreadoai.com/terms-of-service" className="hover:text-gray-200">
             Service Terms
           </a>
-          <span>|</span>
-          <a 
-            href="https://www.kreadoai.com/privacy-policy" 
-            className="hover:text-gray-200"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <span className="hidden sm:inline">|</span>
+          <a href="https://www.kreadoai.com/privacy-policy" className="hover:text-gray-200">
             Privacy Policy
           </a>
-          <span>|</span>
+          <span className="hidden sm:inline">|</span>
           <p>Copyright © www.kreadoai.com</p>
-          <span>|</span>
+          <span className="hidden sm:inline">|</span>
           <p>陕ICP备16009628号-11</p>
-          <span>|</span>
-          <a 
-            href="https://beian.cac.gov.cn/#/index" 
-            className="hover:text-gray-200"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <span className="hidden sm:inline">|</span>
+          <a href="https://beian.cac.gov.cn/#/index" className="hover:text-gray-200">
             网信算备610102726918801240017号
           </a>
         </div>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import buttonLinks from '../../config/buttonLinks';
-import CustomButton from './custom_button';
+import CustomButton from './widget-custom_button';
 
 const TitleLeftModulesRight = ({ section, author }) => {
   const { leftContent, rightContent } = section;
@@ -22,27 +22,29 @@ const TitleLeftModulesRight = ({ section, author }) => {
 
   return (
     <div className="flex justify-center bg-white">
-      <div className="w-[80%] flex min-h-screen">
+      <div className="w-full md:w-[80%] flex flex-col md:flex-row min-h-screen p-4">
         {/* 左侧内容 */}
-        <div className="w-2/5 p-20 flex flex-col justify-center space-y-8">
-          <div className="text-6xl">{leftContent.icon}</div>
-          <h2 className="text-4xl font-bold">{leftContent.title}</h2>
-          <p style={{ color: 'rgb(55, 83, 117)' }} className="text-xl">
+        <div className="w-full md:w-2/5 p-6 md:p-20 flex flex-col justify-center space-y-6 md:space-y-8">
+          <div className="text-4xl md:text-6xl">{leftContent.icon}</div>
+          <h2 className="text-3xl md:text-4xl font-bold">{leftContent.title}</h2>
+          <p style={{ color: 'rgb(55, 83, 117)' }} className="text-lg md:text-xl">
             {leftContent.subtitle}
           </p>
-          <CustomButton variant={author} href={getButtonLink()}>
-            {leftContent.buttonText}
-          </CustomButton>
+          <div className="w-full md:w-auto">
+            <CustomButton variant={author} href={getButtonLink()}>
+              {leftContent.buttonText}
+            </CustomButton>
+          </div>
         </div>
 
-        {/* 右侧模块 - 更新样式 */}
-        <div className="w-3/5 p-10 grid grid-cols-1 gap-6">
+        {/* 右侧模块 */}
+        <div className="w-full md:w-3/5 p-4 md:p-10 grid grid-cols-1 md:grid-cols-1 gap-4 md:gap-6">
           {rightContent.map((module, index) => (
             <div 
               key={index} 
               className={`
                 relative
-                p-6 
+                p-4 md:p-6 
                 rounded-xl 
                 backdrop-blur-xl
                 bg-gradient-to-br ${getModuleStyle(index)}

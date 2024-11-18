@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from 'next/image';
@@ -215,6 +215,7 @@ export const Navigation = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
+  const [mobileSubmenu, setMobileSubmenu] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -236,8 +237,13 @@ export const Navigation = () => {
   const handleMouseLeave = () => {
     const newTimeoutId = setTimeout(() => {
       setActiveDropdown(null);
-    }, 100); // 100ms 延迟
+    }, 100);
     setTimeoutId(newTimeoutId);
+  };
+
+  // 移动端菜单切换
+  const toggleMobileSubmenu = (key) => {
+    setMobileSubmenu(mobileSubmenu === key ? null : key);
   };
 
   return (
@@ -245,300 +251,404 @@ export const Navigation = () => {
       hasScrolled || activeDropdown ? 'bg-white shadow' : 'bg-transparent'
     }`}>
       <div className="max-w-[1450px] mx-auto px-6">
+        {/* 主导航栏 */}
         <div className="flex justify-between h-[4.2rem]">
-          <div className="flex items-center justify-between w-full">
-            <div className="flex-shrink-0 flex items-center w-[200px]">
-              <Link href="/" className="flex items-center">
-                <Image
-                  src="/images/kreado-logo.png"
-                  alt="Joggai Logo"
-                  width={110}
-                  height={53}
-                  className="h-9 w-auto"
-                  quality={100}
-                  priority
-                />
-              </Link>
-            </div>
-            <div className="hidden sm:flex sm:items-center sm:justify-center flex-1">
-              <div className="flex space-x-8">
-                {menuItems.map((item) => (
-                  <div 
-                    key={item.key} 
-                    className="relative static"
-                    onMouseEnter={() => item.submenu && handleMouseEnter(item.key)}
-                    onMouseLeave={handleMouseLeave}
+          {/* Logo */}
+          <div className="flex-shrink-0 flex items-center">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/images/kreado-logo.png"
+                alt="Kreado Logo"
+                width={110}
+                height={53}
+                className="h-9 w-auto"
+                quality={100}
+                priority
+              />
+            </Link>
+          </div>
+
+          {/* 桌面端菜单 */}
+          <div className="hidden md:flex items-center justify-center flex-1">
+            <div className="flex space-x-8">
+              {menuItems.map((item) => (
+                <div
+                  key={item.key}
+                  className="relative"
+                  onMouseEnter={() => item.submenu && handleMouseEnter(item.key)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <Link
+                    href={item.href}
+                    target={item.submenu ? undefined : "_blank"}
+                    rel={item.submenu ? undefined : "noopener noreferrer"}
+                    onClick={(e) => {
+                      if (item.submenu) {
+                        e.preventDefault();
+                      }
+                    }}
+                    className={`text-[15px] font-medium transition-all duration-300 flex items-center ${
+                      hasScrolled || activeDropdown
+                        ? 'text-gray-900 hover:text-blue-600'
+                        : 'text-white hover:text-blue-300'
+                    }`}
                   >
-                    <Link
-                      href={item.href}
-                      target={item.submenu ? undefined : "_blank"}
-                      rel={item.submenu ? undefined : "noopener noreferrer"}
-                      onClick={(e) => {
-                          if (item.submenu) {
-                              e.preventDefault();
-                          }
-                      }}
-                      className={`text-[15px] font-medium transition-all duration-300 flex items-center ${
-                        hasScrolled || activeDropdown
-                            ? 'text-gray-900 hover:bg-gradient-to-r hover:from-indigo-900 hover:to-purple-900 hover:bg-clip-text hover:text-transparent'
-                            : 'text-white hover:text-blue-300'
-                      } ${activeDropdown === item.key ? 'text-gray-900' : ''}`}
+                    {item.label}
+                    {item.submenu && (
+                      <svg
+                        className={`ml-1 h-4 w-4 transition-transform duration-200 ${
+                          activeDropdown === item.key ? 'rotate-180' : ''
+                        }`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    )}
+                  </Link>
+
+                  {/* 桌面端下拉菜单 - 保持原有逻辑 */}
+                  {item.submenu && activeDropdown === item.key && (
+                    <div 
+                      className="fixed top-[4.2rem] left-0 right-0 w-full bg-[#FAFBFF] -mt-[1px]"
+                      onMouseEnter={() => handleMouseEnter(item.key)}
+                      onMouseLeave={handleMouseLeave}
                     >
-                      {item.label}
+                        <div className="max-w-[1450px] mx-auto px-6 py-8">
+                            <div className="flex">
+                                {/* 左侧区域 - 根据不同的 key 显示不同内容 */}
+                                <div className="w-[280px] flex-shrink-0 pr-8 border-r border-gray-200">
+                                    {item.key === 'features' ? (
+                                        // Features 的原有内容
+                                        <>
+                                            <Image
+                                                src="/images/kreado-header-menu.png"
+                                                width={240}
+                                                height={135}
+                                                alt="Latest Updates"
+                                                className="rounded-lg w-full"
+                                            />
+                                            <h3 className="text-base font-medium tracking-wide text-gray-700 my-6 flex items-center">
+                                                {item.submenu.updates.title}
+                                            </h3>
+                                            <div className="space-y-4">
+                                                {item.submenu.updates.items.map((update, index) => (
+                                                    <div key={index}>
+                                                        <a 
+                                                            href={update.href} 
+                                                            className="text-sm text-gray-600/90 hover:text-blue-600 transition-colors duration-200"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            {update.title}
+                                                        </a>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </>
+                                    ) : (
+                                        // Resource 的新内容
+                                        <>
+                                            <h3 className="text-base font-medium tracking-wide text-gray-700 mb-6">
+                                                {item.submenu.updates.title}
+                                            </h3>
+                                            <div className="space-y-3">
+                                                {item.submenu.updates.items.map((update, index) => (
+                                                    <div key={index}>
+                                                        {update.type === "row" ? (
+                                                            <div className="flex items-center space-x-4 mt-4">
+                                                                {update.items.map((rowItem, rowIndex) => (
+                                                                    <>
+                                                                        <a 
+                                                                            key={rowIndex}
+                                                                            href={rowItem.href} 
+                                                                            className="text-sm text-gray-600/90 hover:text-blue-600 transition-colors duration-200 flex items-center"
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                        >
+                                                                            {rowItem.title === "HelpCenter" && (
+                                                                                <span className="mr-2">🎯</span>
+                                                                            )}
+                                                                            {rowItem.title === "Email" && (
+                                                                                <span className="mr-2">✉️</span>
+                                                                            )}
+                                                                            {rowItem.title}
+                                                                        </a>
+                                                                        {rowIndex === 0 && (
+                                                                            <div className="h-4 w-px bg-gray-200"></div>
+                                                                        )}
+                                                                    </>
+                                                                ))}
+                                                            </div>
+                                                        ) : (
+                                                            <a 
+                                                                href={update.href} 
+                                                                className="text-sm text-gray-600/90 hover:text-blue-600 transition-colors duration-200 block pb-3 border-b border-gray-100"
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                            >
+                                                                {update.title}
+                                                            </a>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </>
+                                    )}
+                                    {item.key === 'features' && item.submenu.updates.action && (
+                                        <a 
+                                            href={item.submenu.updates.action.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="mt-6 border border-gray-200 text-gray-500 px-6 py-2 rounded-md hover:bg-gray-50/70 hover:border-gray-300 transition-all duration-300 w-full text-center block"
+                                        >
+                                            {item.submenu.updates.action.label}
+                                        </a>
+                                    )}
+                                </div>
+                                
+                                {/* 右侧功能区域 */}
+                                <div className="flex-1 pl-8">
+                                    <div className="flex">
+                                        {item.submenu.categories.map((category, categoryIndex) => (
+                                            <div 
+                                                key={categoryIndex} 
+                                                className={`${
+                                                    categoryIndex > 0 ? 'ml-8 pl-8 border-l border-gray-200' : ''
+                                                } ${
+                                                    item.key === "resource" 
+                                                        ? 'w-full'
+                                                        : category.title === "VIDEO CREATIVE" 
+                                                            ? 'w-[45%]' 
+                                                            : category.title === "AI TOOLS"
+                                                                ? 'w-[30%]'
+                                                                : 'w-[25%]'
+                                                }`}
+                                            >
+                                                <h3 className="text-base font-medium tracking-wide text-gray-700 mb-6">{category.title}</h3>
+                                                <div className={`grid ${
+                                                    item.key === "resource"
+                                                        ? 'grid-cols-4'
+                                                        : category.title === "VIDEO CREATIVE" 
+                                                            ? 'grid-cols-2' 
+                                                            : 'grid-cols-1'
+                                                } gap-4`}>
+                                                    {category.items.map((item, index) => (
+                                                        <div 
+                                                            key={index} 
+                                                            className="flex items-start space-x-3 p-2.5 rounded-lg hover:bg-gray-50/50 transition-all duration-300 cursor-pointer"
+                                                            onClick={() => {
+                                                                if (item.href) {
+                                                                    window.open(item.href, '_blank', 'noopener,noreferrer');
+                                                                }
+                                                            }}
+                                                        >
+                                                            <div>
+                                                                <h4 className="font-medium text-gray-800 text-sm mb-1">
+                                                                    {item.title}
+                                                                </h4>
+                                                                <p className="text-xs text-gray-500/80">
+                                                                    {item.description}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 右侧链接 */}
+          <div className="hidden md:flex items-center">
+            <Link
+              href="https://www.kreadoai.com/ai/workbench"
+              className={`text-base transition duration-300 ${
+                hasScrolled || activeDropdown ? 'text-gray-800 hover:text-blue-600' : 'text-white hover:text-blue-300'
+              }`}
+            >
+              Home
+            </Link>
+          </div>
+
+          {/* 移动端菜单按钮 */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className={`p-2 rounded-md ${
+                hasScrolled ? 'text-gray-900' : 'text-white'
+              }`}
+            >
+              <span className="sr-only">Open menu</span>
+              {!isOpen ? (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              ) : (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* 移动端菜单面板 */}
+        {isOpen && (
+          <div className="md:hidden bg-[#FAFBFF] border-t border-gray-200">
+            <div className="max-h-[80vh] overflow-y-auto">
+              <div className="px-4 py-4 space-y-2">
+                {menuItems.map((item) => (
+                  <div key={item.key} className="relative">
+                    {/* 主菜单项 */}
+                    <div
+                      className="flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 cursor-pointer"
+                      onClick={() => {
+                        if (item.submenu) {
+                          toggleMobileSubmenu(item.key);
+                        } else {
+                          window.open(item.href, '_blank');
+                        }
+                      }}
+                    >
+                      <span>{item.label}</span>
                       {item.submenu && (
-                        <svg 
-                          className={`ml-1 h-4 w-4 transition-all duration-200 ${
-                            activeDropdown === item.key || hasScrolled || activeDropdown 
-                              ? 'text-gray-900' 
-                              : 'text-white'
-                          } ${
-                            activeDropdown === item.key ? 'rotate-180' : ''
+                        <svg
+                          className={`ml-2 h-5 w-5 transition-transform duration-200 ${
+                            mobileSubmenu === item.key ? 'rotate-180' : ''
                           }`}
-                          fill="none" 
-                          viewBox="0 0 24 24" 
+                          fill="none"
+                          viewBox="0 0 24 24"
                           stroke="currentColor"
                         >
-                          <path 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round" 
-                            strokeWidth={2} 
-                            d="M19 9l-7 7-7-7" 
-                          />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                       )}
-                    </Link>
-                    {item.submenu && activeDropdown === item.key && (
-                      <div 
-                        className="fixed top-[4.2rem] left-0 right-0 w-full bg-[#FAFBFF] -mt-[1px]"
-                        onMouseEnter={() => handleMouseEnter(item.key)}
-                        onMouseLeave={handleMouseLeave}
-                      >
-                          <div className="max-w-[1450px] mx-auto px-6 py-8">
-                              <div className="flex">
-                                  {/* 左侧区域 - 根据不同的 key 显示不同内容 */}
-                                  <div className="w-[280px] flex-shrink-0 pr-8 border-r border-gray-200">
-                                      {item.key === 'features' ? (
-                                          // Features 的原有内容
-                                          <>
-                                              <Image
-                                                  src="/images/kreado-header-menu.png"
-                                                  width={240}
-                                                  height={135}
-                                                  alt="Latest Updates"
-                                                  className="rounded-lg w-full"
-                                              />
-                                              <h3 className="text-base font-medium tracking-wide text-gray-700 my-6 flex items-center">
-                                                  {item.submenu.updates.title}
-                                              </h3>
-                                              <div className="space-y-4">
-                                                  {item.submenu.updates.items.map((update, index) => (
-                                                      <div key={index}>
-                                                          <a 
-                                                              href={update.href} 
-                                                              className="text-sm text-gray-600/90 hover:text-blue-600 transition-colors duration-200"
-                                                              target="_blank"
-                                                              rel="noopener noreferrer"
-                                                          >
-                                                              {update.title}
-                                                          </a>
-                                                      </div>
-                                                  ))}
-                                              </div>
-                                          </>
-                                      ) : (
-                                          // Resource 的新内容
-                                          <>
-                                              <h3 className="text-base font-medium tracking-wide text-gray-700 mb-6">
-                                                  {item.submenu.updates.title}
-                                              </h3>
-                                              <div className="space-y-3">
-                                                  {item.submenu.updates.items.map((update, index) => (
-                                                      <div key={index}>
-                                                          {update.type === "row" ? (
-                                                              <div className="flex items-center space-x-4 mt-4">
-                                                                  {update.items.map((rowItem, rowIndex) => (
-                                                                      <>
-                                                                          <a 
-                                                                              key={rowIndex}
-                                                                              href={rowItem.href} 
-                                                                              className="text-sm text-gray-600/90 hover:text-blue-600 transition-colors duration-200 flex items-center"
-                                                                              target="_blank"
-                                                                              rel="noopener noreferrer"
-                                                                          >
-                                                                              {rowItem.title === "HelpCenter" && (
-                                                                                  <span className="mr-2">🎯</span>
-                                                                              )}
-                                                                              {rowItem.title === "Email" && (
-                                                                                  <span className="mr-2">✉️</span>
-                                                                              )}
-                                                                              {rowItem.title}
-                                                                          </a>
-                                                                          {rowIndex === 0 && (
-                                                                              <div className="h-4 w-px bg-gray-200"></div>
-                                                                          )}
-                                                                      </>
-                                                                  ))}
-                                                              </div>
-                                                          ) : (
-                                                              <a 
-                                                                  href={update.href} 
-                                                                  className="text-sm text-gray-600/90 hover:text-blue-600 transition-colors duration-200 block pb-3 border-b border-gray-100"
-                                                                  target="_blank"
-                                                                  rel="noopener noreferrer"
-                                                              >
-                                                                  {update.title}
-                                                              </a>
-                                                          )}
-                                                      </div>
-                                                  ))}
-                                              </div>
-                                          </>
-                                      )}
-                                      {item.key === 'features' && item.submenu.updates.action && (
-                                          <a 
-                                              href={item.submenu.updates.action.href}
-                                              target="_blank"
-                                              rel="noopener noreferrer"
-                                              className="mt-6 border border-gray-200 text-gray-500 px-6 py-2 rounded-md hover:bg-gray-50/70 hover:border-gray-300 transition-all duration-300 w-full text-center block"
-                                          >
-                                              {item.submenu.updates.action.label}
-                                          </a>
-                                      )}
+                    </div>
+
+                    {/* 移动端子菜单 */}
+                    {item.submenu && mobileSubmenu === item.key && (
+                      <div className="mt-3 space-y-4">
+                        {/* Updates 部分 */}
+                        <div className="px-3">
+                          {item.key === 'features' && (
+                            <div className="mb-4">
+                              <Image
+                                src="/images/kreado-header-menu.png"
+                                width={160}
+                                height={90}
+                                alt="Latest Updates"
+                                className="rounded-lg w-full max-w-[160px]"
+                              />
+                            </div>
+                          )}
+                          <h3 className="text-base font-medium tracking-wide text-gray-700 mb-3">
+                            {item.submenu.updates.title}
+                          </h3>
+                          <div className="space-y-3">
+                            {item.submenu.updates.items.map((updateItem, index) => (
+                              <div key={index}>
+                                {updateItem.type === "row" ? (
+                                  <div className="flex items-center space-x-4 mt-4">
+                                    {updateItem.items.map((rowItem, rowIndex) => (
+                                      <Fragment key={rowIndex}>
+                                        <a 
+                                          href={rowItem.href} 
+                                          className="text-sm text-gray-600/90 hover:text-blue-600 transition-colors duration-200 flex items-center"
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          {rowItem.title === "HelpCenter" && (
+                                            <span className="mr-2">🎯</span>
+                                          )}
+                                          {rowItem.title === "Email" && (
+                                            <span className="mr-2">✉️</span>
+                                          )}
+                                          {rowItem.title}
+                                        </a>
+                                        {rowIndex === 0 && (
+                                          <div className="h-4 w-px bg-gray-200"></div>
+                                        )}
+                                      </Fragment>
+                                    ))}
                                   </div>
-                                  
-                                  {/* 右侧功能区域 */}
-                                  <div className="flex-1 pl-8">
-                                      <div className="flex">
-                                          {item.submenu.categories.map((category, categoryIndex) => (
-                                              <div 
-                                                  key={categoryIndex} 
-                                                  className={`${
-                                                      categoryIndex > 0 ? 'ml-8 pl-8 border-l border-gray-200' : ''
-                                                  } ${
-                                                      item.key === "resource" 
-                                                          ? 'w-full'
-                                                          : category.title === "VIDEO CREATIVE" 
-                                                              ? 'w-[45%]' 
-                                                              : category.title === "AI TOOLS"
-                                                                  ? 'w-[30%]'
-                                                                  : 'w-[25%]'
-                                                  }`}
-                                              >
-                                                  <h3 className="text-base font-medium tracking-wide text-gray-700 mb-6">{category.title}</h3>
-                                                  <div className={`grid ${
-                                                      item.key === "resource"
-                                                          ? 'grid-cols-4'
-                                                          : category.title === "VIDEO CREATIVE" 
-                                                              ? 'grid-cols-2' 
-                                                              : 'grid-cols-1'
-                                                  } gap-4`}>
-                                                      {category.items.map((item, index) => (
-                                                          <div 
-                                                              key={index} 
-                                                              className="flex items-start space-x-3 p-2.5 rounded-lg hover:bg-gray-50/50 transition-all duration-300 cursor-pointer"
-                                                              onClick={() => {
-                                                                  if (item.href) {
-                                                                      window.open(item.href, '_blank', 'noopener,noreferrer');
-                                                                  }
-                                                              }}
-                                                          >
-                                                              <div>
-                                                                  <h4 className="font-medium text-gray-800 text-sm mb-1">
-                                                                      {item.title}
-                                                                  </h4>
-                                                                  <p className="text-xs text-gray-500/80">
-                                                                      {item.description}
-                                                                  </p>
-                                                              </div>
-                                                          </div>
-                                                      ))}
-                                                  </div>
-                                              </div>
-                                          ))}
-                                      </div>
-                                  </div>
+                                ) : (
+                                  <a 
+                                    href={updateItem.href} 
+                                    className="text-sm text-gray-600/90 hover:text-blue-600 transition-colors duration-200 block pb-3 border-b border-gray-100"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {updateItem.title}
+                                  </a>
+                                )}
                               </div>
+                            ))}
                           </div>
+                        </div>
+
+                        {/* Categories 部分 */}
+                        {item.submenu.categories.map((category, index) => (
+                          <div key={index} className="border-t border-gray-100 pt-4">
+                            <div className="px-3">
+                              <h3 className="text-base font-medium tracking-wide text-gray-700 mb-3">
+                                {category.title}
+                              </h3>
+                              <div className="grid grid-cols-1 gap-3">
+                                {category.items.map((subItem, subIndex) => (
+                                  <a
+                                    key={subIndex}
+                                    href={subItem.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-start space-x-3 p-2.5 rounded-lg hover:bg-gray-50/50 transition-all duration-300"
+                                  >
+                                    <div>
+                                      <h4 className="font-medium text-gray-800 text-sm mb-1">
+                                        {subItem.title}
+                                      </h4>
+                                      <p className="text-xs text-gray-500/80">
+                                        {subItem.description}
+                                      </p>
+                                    </div>
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+
+                        {/* Action 按钮 */}
+                        {item.key === 'features' && item.submenu.updates.action && (
+                          <div className="px-3">
+                            <a 
+                              href={item.submenu.updates.action.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="mt-4 border border-gray-200 text-gray-500 px-6 py-2 rounded-md hover:bg-gray-50/70 hover:border-gray-300 transition-all duration-300 w-full text-center block"
+                            >
+                              {item.submenu.updates.action.label}
+                            </a>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
                 ))}
               </div>
             </div>
-            <div className="hidden sm:flex sm:items-center w-[200px] justify-end">
-              <Link 
-                href="https://www.kreadoai.com/ai/workbench" 
-                className={`mr-4 text-base transition duration-300 ${
-                  hasScrolled || activeDropdown ? 'text-gray-800 hover:text-blue-600' : 'text-white hover:text-blue-300'
-                }`}
-              >
-                Home
-              </Link>
-            </div>
           </div>
-          <div className="-mr-2 flex items-center sm:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              type="button"
-              className={`p-2 rounded-md ${
-                hasScrolled || activeDropdown ? 'text-gray-900' : 'text-white'
-              }`}
-              aria-controls="mobile-menu"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              {!isOpen ? (
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              ) : (
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
+        )}
       </div>
-
-      {isOpen && (
-        <div className="sm:hidden" id="mobile-menu">
-          <div className="pt-2 pb-3 space-y-1">
-            {menuItems.map((item) => (
-              <div key={item.key}>
-                <Link
-                  href={item.href}
-                  target={item.href !== '/' ? "_blank" : undefined}
-                  rel={item.href !== '/' ? "noopener noreferrer" : undefined}
-                  className={classNames(
-                    pathname === item.href
-                      ? 'bg-indigo-50 border-indigo-500 text-white'
-                      : 'border-transparent text-gray-300 hover:bg-gray-800 hover:border-gray-300 hover:text-white',
-                    'block pl-3 pr-4 py-2 border-l-4 text-base font-medium'
-                  )}
-                >
-                  {item.label}
-                </Link>
-                {item.submenu && (
-                  <div className="pl-6">
-                    {item.submenu.map((subItem) => (
-                      <Link
-                        key={subItem.key}
-                        href={subItem.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block py-2 text-sm text-gray-500 hover:text-gray-700"
-                      >
-                        {subItem.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
     </nav>
   );
 };

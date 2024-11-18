@@ -1,20 +1,20 @@
 "use client";
 import React from 'react';
 
-import TableOfContents from '../common_components/table_of_contents';
+import TableOfContents from '../common_components/widget-table_of_contents';
 
-import DemoShowCase from '../common_components/page_top_tool';
-import CommonTextBlock from '../common_components/common_article_content';
-import PageDownCTA from '../common_components/page_bottom_cta';
-import TitleLeftThreeModulesRight from '../common_components/title_left_three_modules_right';
-import TitleTopTwoModulesDown from '../common_components/title_top_two_modules_bottom';
-import TitleTopSixModulesDown from '../common_components/title_top_six_modules_bottom';
-import TitleTopThreeFlowDown from '../common_components/title_top_three_arrow_flow_bottom';
-import TitleLeftFourModulesRight from '../common_components/title_left_four_modules_right';
-import TitleRightTableLeft from '../common_components/title_right_table_left';
-import FAQ from '../common_components/faq';
+import DemoShowCase from '../common_components/hero-section-with-video';
+import CommonTextBlock from '../common_components/text-block';
+import PageDownCTA from '../common_components/call-to-action';
+import TitleLeftThreeModulesRight from '../common_components/how-it-works-with-three-blocks';
+import TitleTopTwoModulesDown from '../common_components/why-choose-us-with-two-huge-blocks';
+import TitleTopSixModulesDown from '../common_components/why-choose-us-with-six-small-blocks';
+import TitleTopThreeFlowDown from '../common_components/how-it-works-with-workflow';
+import TitleLeftFourModulesRight from '../common_components/product-benefits-with-four-blocks';
+import TitleRightTableLeft from '../common_components/call-to-action-with-a-table';
+import FAQ from '../common_components/faqs';
 import ComparisonTable from '../common_components/product_comparison_table';
-import TitleTopPricingDown from '../common_components/title_top_three_pricing_bottom';
+import TitleTopPricingDown from '../common_components/pricing-with-three-cards';
 
 // 更新组件映射表
 const COMPONENT_MAP = {
@@ -53,9 +53,9 @@ const LayoutKoreadoai = ({ article, keywords }) => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col">
-      <div className="content-container relative flex-1">
-        <div className="relative z-10">
+    <div className="w-full min-h-screen flex flex-col p-0 m-0">
+      <div className="relative flex-1 w-full max-w-[100vw] overflow-x-hidden p-0 m-0">
+        <div className="relative z-10 w-full">
           {(() => {
             // 先分离CTA和普通部分
             const normalSections = [];

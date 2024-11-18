@@ -1,0 +1,83 @@
+.banner-height {
+  min-height: 70dvh;
+  height: 70dvh;
+}
+
+.video-container {
+  width: min(100%, 1440px);
+  margin: 0 auto 2rem;
+}
+
+.video-wrapper {
+  width: 90%;
+}
+
+.video-aspect-ratio {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+}
+
+@media (min-width: 31.25rem) {
+  .banner-height {
+    min-height: clamp(37.5rem, 50dvh, 50rem);
+    height: clamp(37.5rem, 50dvh, 50rem);
+  }
+
+  .video-wrapper {
+    width: 60%;
+    max-width: 700px;
+  }
+}
+
+/* 小屏幕设备 (500px - 768px) */
+@media (min-width: 31.25rem) and (max-width: 48rem) {
+  .banner-height {
+    min-height: clamp(37.5rem, 35dvh, 40rem);
+    height: clamp(37.5rem, 35dvh, 40rem);
+  }
+  
+  .video-wrapper {
+    width: 85%;
+    max-width: 600px;
+  }
+}
+
+/* 平板设备 (768px - 1024px) */
+@media (min-width: 48rem) and (max-width: 64rem) {
+  .banner-height {
+    min-height: clamp(37.5rem, 30dvh, 45rem);
+    height: clamp(37.5rem, 30dvh, 45rem);
+  }
+  
+  .video-wrapper {
+    width: 60%;
+    max-width: 650px;
+  }
+}
+
+/* 小型桌面设备 (1024px - 1300px) */
+@media (min-width: 64rem) and (max-width: 81.25rem) {
+  .banner-height {
+    min-height: clamp(45rem, 35dvh, 55rem);
+    height: clamp(45rem, 35dvh, 55rem);
+  }
+  
+  .video-wrapper {
+    width: 60%;
+    max-width: 700px;
+  }
+}
+
+/* 大型桌面设备 (1300px及以上) */
+@media (min-width: 81.25rem) {
+  .banner-height {
+    min-height: clamp(56.25rem, 40dvh, 68.75rem);
+    height: clamp(56.25rem, 40dvh, 68.75rem);
+  }
+  
+  .video-wrapper {
+    width: 60%;
+    max-width: 800px;
+  }
+} 

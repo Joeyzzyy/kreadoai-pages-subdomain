@@ -1,37 +1,39 @@
 import { NextResponse } from 'next/server';
 
-// 需要阻止收录的域名列表
-const BLOCKED_DOMAINS = [
-  'zhuyue.tech',
-];
-
 export function middleware(request) {
-  // 获取当前请求的路径
   const { pathname } = request.nextUrl;
-
-  // 排除掉 Next.js 的内部路径和非文章路径
-  if (pathname.startsWith('/_next') || 
-      pathname.startsWith('/api') ||
-      !pathname.startsWith('/articles/')) {
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const DOMAIN = process.env.DOMAIN || '';
+  
+  // 添加调试日志
+  console.log('Original pathname:', pathname);
+  
+  // 如果路径已经包含 /articles，直接返回
+  if (pathname.startsWith('/articles')) {
+    console.log('Path contains /articles, skipping rewrite');
     return NextResponse.next();
   }
 
-  // 检查请求是否已经被处理过
-  if (request.headers.get('x-middleware-rewrite')) {
-    return NextResponse.next();
+  // 在生产环境中检查是否是子域名访问
+  if (!isDevelopment) {
+    const isSubdomain = request.headers.get('host').startsWith(`pages.${DOMAIN}`);
+    if (!isSubdomain) {
+      return NextResponse.next();
+    }
   }
 
-  // 创建新的 URL
-  const url = new URL(pathname, `https://${process.env.DOMAIN}`);
+  // 重写路径
+  const url = request.nextUrl.clone();
+  url.pathname = `/articles${pathname}`;
   
-  // 设置一个标记，防止循环重定向
-  const response = NextResponse.rewrite(url);
-  response.headers.set('x-middleware-rewrite', '1');
+  // 添加调试日志
+  console.log('Rewritten pathname:', url.pathname);
   
-  return response;
+  return NextResponse.rewrite(url);
 }
 
 export const config = {
-  // 只匹配 /articles 开头的路径
-  matcher: '/articles/:path*',
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
 };

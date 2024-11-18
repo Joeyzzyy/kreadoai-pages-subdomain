@@ -19,7 +19,7 @@ const TitleContent = ({ title, subtitle, author }) => {
     : "flex items-center text-gray-600 justify-start";
 
   return (
-    <div className="relative z-10 pt-20 min-h-[50vh] flex items-center">
+    <div className="relative z-10 min-h-[50vh] flex items-center">
       <header className="header w-full">
         <div className="max-w-4xl mx-auto px-4">
           <h1 className={titleClasses}>

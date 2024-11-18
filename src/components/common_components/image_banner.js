@@ -6,7 +6,7 @@ const ImageBanner = ({ imageUrl, altText }) => {
     <div className="relative z-10 py-8 md:py-12">
       <div className="max-w-[60%] mx-auto px-4">
         <img 
-          src={imageUrl || '/images/placeholder.png'}
+          src={imageUrl || '/images/kreado-top-bg.png'}
           alt={altText || 'Banner image'}
           className="w-full h-auto rounded-lg shadow-md"
         />
