@@ -1,0 +1,55 @@
+'use client';
+import React from 'react';
+import CustomButton from './custom_button';
+import authorStyles from '../../styles/textStyles';
+import buttonLinks from '../../config/buttonLinks';
+import Image from 'next/image';
+
+const PageDownCTA = ({ section, author }) => {
+  const styles = authorStyles[author];
+  const paragraphColorClass = 'text-white';
+
+  const getButtonLink = () => {
+    return buttonLinks.workbench || '#';
+  };
+
+  return (
+    <div className="relative overflow-x-hidden">
+      <div 
+        className="banner-container w-full relative bg-cover bg-center bg-no-repeat flex items-center justify-center"
+        style={{ 
+          minHeight: 'min(400px, 45vh)', 
+          height: 'clamp(400px, 45vh, 600px)'
+        }}
+      >
+        <Image
+          src="/images/kreado-header-bg.png"
+          alt="Background"
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          className="object-cover"
+          unoptimized
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20" />
+
+        <div className="relative z-10 text-center max-w-3xl mx-auto py-8 md:py-16 px-4">
+          <h2 className={`${styles.h2.fontSize} ${styles.h2.fontWeight} ${styles.h2.color} mb-4 md:mb-8`}>
+            {section.title}
+          </h2>
+          <p className={`${styles.paragraph.fontSize} ${paragraphColorClass} mb-6 md:mb-10 px-4 leading-relaxed`}>
+            {section.subTitle}
+          </p>
+          <CustomButton 
+            variant={author}
+            href={getButtonLink()}
+          >
+            {section.buttonText}
+          </CustomButton>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PageDownCTA;
