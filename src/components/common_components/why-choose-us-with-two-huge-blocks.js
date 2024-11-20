@@ -4,6 +4,7 @@ import { checkImage } from '../../utils/imageUtils';
 import CustomButton from './widget-custom_button';
 import authorStyles from '../../styles/textStyles';
 import buttonLinks from '../../config/buttonLinks';
+import Image from 'next/image';
 
 const TitleTopTwoModulesDown = ({ section, author }) => {
   const styles = authorStyles[author];
@@ -63,9 +64,11 @@ const TitleTopTwoModulesDown = ({ section, author }) => {
                 </div>
               </div>
               <div className="w-full md:w-1/2">
-                <img 
+                <Image 
                   src={getImageSrc(content.image, 0)}
                   alt="Business Growth" 
+                  width={800}
+                  height={600}
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
@@ -73,9 +76,11 @@ const TitleTopTwoModulesDown = ({ section, author }) => {
           ) : (
             <>
               <div className="w-full md:w-1/2 order-2 md:order-1">
-                <img 
+                <Image 
                   src={getImageSrc(content.image, 1)}
                   alt="Business Innovation" 
+                  width={800}
+                  height={600}
                   className="w-full h-full object-cover rounded-lg mb-6 md:mb-0"
                 />
               </div>
