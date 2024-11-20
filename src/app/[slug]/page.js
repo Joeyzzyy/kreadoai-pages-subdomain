@@ -72,30 +72,15 @@ export default async function ArticlePage({ params }) {
     
     // 修改返回结构，确保服务器端和客户端渲染结构一致
     return (
-      <div className="flex flex-col min-h-screen">
-        <div data-cache-control="public, max-age=3600, stale-while-revalidate=86400">
-          <Header />
-          <main className="flex-grow">
-            <Layout article={article} />
-          </main>
-          <Footer />
-        </div>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Article",
-              "headline": article.title,
-              "description": article.description,
-              "datePublished": article.publishDate,
-              "author": {
-                "@type": "Organization",
-                "name": article.author
-              }
-            })
-          }}
-        />
+      <div 
+        className="flex flex-col min-h-screen"
+        data-cache-control="public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400"
+      >
+        <Header />
+        <main className="flex-grow">
+          <Layout article={article} />
+        </main>
+        <Footer />
       </div>
     );
   } catch (error) {
@@ -147,9 +132,8 @@ export async function generateMetadata({ params }) {
       console.log('Final metadata:', metadata);
       return {
         ...metadata,
-        // 添加缓存控制
         other: {
-          'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400'
+          'Cache-Control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400'
         }
       };
     } catch (error) {

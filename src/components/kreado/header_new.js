@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from 'next/image';
 import '../../styles/globals.css'
+import { getMessageChannel } from '../../utils/safeChannel';
 
 const menuItems = [
     {
@@ -277,6 +278,20 @@ export const Navigation = () => {
   const toggleMobileSubmenu = (key) => {
     setMobileSubmenu(mobileSubmenu === key ? null : key);
   };
+
+  useEffect(() => {
+    const channel = getMessageChannel('header-channel');
+    
+    const unsubscribe = channel.subscribe((message) => {
+      // 处理消息
+      console.log('Received message:', message);
+    });
+
+    // 清理函数
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
