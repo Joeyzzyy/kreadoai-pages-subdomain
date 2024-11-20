@@ -17,7 +17,7 @@ const PageTopTool = ({ section, author }) => {
       <div className={`banner-container w-full bg-cover bg-center bg-no-repeat ${styles['banner-height']}`}>
         <div className="absolute inset-0">
           <Image
-            src="/images/kreado-top-bg.png"
+            src="/images/kreado-top-bg.webp"
             alt="Background"
             fill
             priority

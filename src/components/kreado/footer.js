@@ -8,7 +8,7 @@ export const KreadoFooter = () => {
         <div className="flex flex-col items-center space-y-4">
           {/* Logo */}
           <Link href="/">
-            <img src="/images/kreado-logo.png" alt="JohnSmith" className="h-8" />
+            <img src="/images/kreado-logo.webp" alt="JohnSmith" className="h-8" />
           </Link>
           
           {/* Email */}

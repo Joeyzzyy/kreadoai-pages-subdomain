@@ -23,7 +23,7 @@ const PageDownCTA = ({ section, author }) => {
         }}
       >
         <Image
-          src="/images/kreado-header-bg.png"
+          src="/images/kreado-header-bg.webp"
           alt="Background"
           fill
           priority

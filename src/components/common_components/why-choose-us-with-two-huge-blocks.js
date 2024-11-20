@@ -27,10 +27,7 @@ const TitleTopTwoModulesDown = ({ section, author }) => {
   // 获取图片源地址
   const getImageSrc = (imagePath, index) => {
     // KREADO 作者使用特定的演示图片
-    return `/images/kreado-demo-pic${index + 1}.png`;
-
-    // 其他作者使用原有的图片验证逻辑
-    // return (imagePath && validImages[imagePath]) ? imagePath : '/images/placeholder.png';
+    return `/images/kreado-demo-pic${index + 1}.webp`;
   };
 
   // 获取作者对应的workbench链接

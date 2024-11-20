@@ -11,7 +11,7 @@ import {
 } from "react-icons/io5";
 import authorStyles from '../../styles/textStyles';
 import PropTypes from 'prop-types';
-import KreadoIcon from '../../../public/images/kreado-logo-content-use.png';
+import KreadoIcon from '../../../public/images/kreado-logo-content-use.webp';
 import Image from 'next/image';
 
 // 创建一个图标映射对象

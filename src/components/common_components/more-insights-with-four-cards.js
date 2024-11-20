@@ -13,7 +13,7 @@ const MoreInsights = ({ data }) => {
           <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
             <div className="relative h-48">
               <Image
-                src={insight.imageUrl || '/images/placeholder.png'}
+                src={insight.imageUrl || '/images/kreado-demo-pic1.webp'}
                 alt={insight.title}
                 layout="fill"
                 objectFit="cover"

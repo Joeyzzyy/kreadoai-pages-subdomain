@@ -257,7 +257,7 @@ export const Navigation = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center">
               <Image
-                src="/images/kreado-logo.png"
+                src="/images/kreado-logo.webp"
                 alt="Kreado Logo"
                 width={110}
                 height={53}
@@ -323,7 +323,7 @@ export const Navigation = () => {
                                         // Features 的原有内容
                                         <>
                                             <Image
-                                                src="/images/kreado-header-menu.png"
+                                                src="/images/kreado-header-menu.webp"
                                                 width={240}
                                                 height={135}
                                                 alt="Latest Updates"
@@ -543,7 +543,7 @@ export const Navigation = () => {
                           {item.key === 'features' && (
                             <div className="mb-4">
                               <Image
-                                src="/images/kreado-header-menu.png"
+                                src="/images/kreado-header-menu.webp"
                                 width={160}
                                 height={90}
                                 alt="Latest Updates"

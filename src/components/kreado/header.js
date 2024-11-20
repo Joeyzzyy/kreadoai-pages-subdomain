@@ -41,7 +41,7 @@ export const Navigation = () => {
       <div 
         className="absolute top-0 left-0 right-0 h-[215px] z-0"
         style={{
-          backgroundImage: "url('/images/kreado-header-bg.png')",
+          backgroundImage: "url('/images/kreado-header-bg.webp')",
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
@@ -53,7 +53,7 @@ export const Navigation = () => {
             <div className="flex-shrink-0">
               <Link href="https://kreadoai.com">
                 <Image
-                  src="/images/kreado-logo.png"
+                  src="/images/kreado-logo.webp"
                   alt="Kreado Logo"
                   width={100}
                   height={38}

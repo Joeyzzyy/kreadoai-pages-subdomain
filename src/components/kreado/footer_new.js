@@ -11,7 +11,7 @@ export const KreadoFooter = () => {
           <div className="flex flex-col sm:flex-row items-center sm:space-x-4 space-y-2 sm:space-y-0">
             <Link href="/" className="flex items-center">
               <Image
-                src="/images/kreado-logo.png"
+                src="/images/kreado-logo.webp"
                 alt="Kreado Logo"
                 width={110}
                 height={53}
