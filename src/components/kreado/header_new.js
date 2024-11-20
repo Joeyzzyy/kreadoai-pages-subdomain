@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, Fragment, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from 'next/image';
@@ -217,14 +217,46 @@ export const Navigation = () => {
   const [timeoutId, setTimeoutId] = useState(null);
   const [mobileSubmenu, setMobileSubmenu] = useState(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setHasScrolled(window.scrollY > 0);
-    };
+  // 使用 ref 来存储上一次滚动位置
+  const lastScrollY = useRef(0);
+  
+  // 使用 useCallback 来记忆化处理函数
+  const handleScroll = useCallback(() => {
+    // 你的滚动处理逻辑
+    const currentScrollY = window.scrollY;
+    
+    // 更新上一次滚动位置
+    lastScrollY.current = currentScrollY;
+  }, []); // 空依赖数组，因为我们使用 ref
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  useEffect(() => {
+    // 使用 passive 选项来优化性能
+    const options = { passive: true };
+    
+    // 只在客户端添加事件监听
+    if (typeof window !== 'undefined') {
+      // 使用 requestAnimationFrame 来节流滚动事件
+      let ticking = false;
+      
+      const scrollListener = () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            handleScroll();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+
+      // 添加事件监听
+      window.addEventListener('scroll', scrollListener, options);
+
+      // 清理函数
+      return () => {
+        window.removeEventListener('scroll', scrollListener, options);
+      };
+    }
+  }, [handleScroll]);
 
   const handleMouseEnter = (key) => {
     if (timeoutId) {
