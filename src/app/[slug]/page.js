@@ -67,49 +67,16 @@ export default async function ArticlePage({ params }) {
     const headersList = headers();
     const host = headersList.get('host');
     
-    // 本地开发环境检查
-    if (host.includes('localhost') || host.includes('127.0.0.1')) {
-      const layout = KREADO_LAYOUT;
-      const { Header, Layout, Footer } = layout;
-      
-      return (
-        <>
-          <Header />
-          {/* 后续记得传入keywords */}
-          <Layout article={article} />
-          <Footer />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Article",
-                "headline": article.title,
-                "description": article.description,
-                "datePublished": article.publishDate,
-                "author": {
-                  "@type": "Organization",
-                  "name": article.author
-                }
-              })
-            }}
-          />
-        </>
-      );
-    }
-
-    // 简化生产环境验证
-    if (article.author !== 'KREADOAI') {
-      redirect('/unauthorized');
-    }
-
     const layout = KREADO_LAYOUT;
     const { Header, Layout, Footer } = layout;
-
+    
+    // 修改返回结构，确保服务器端和客户端渲染结构一致
     return (
-      <>
+      <div className="flex flex-col min-h-screen">
         <Header />
-        <Layout article={article} />
+        <main className="flex-grow">
+          <Layout article={article} />
+        </main>
         <Footer />
         <script
           type="application/ld+json"
@@ -127,7 +94,7 @@ export default async function ArticlePage({ params }) {
             })
           }}
         />
-      </>
+      </div>
     );
   } catch (error) {
     console.error('Error fetching article:', error);

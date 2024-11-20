@@ -9,10 +9,6 @@ const nextConfig = {
     domains: isLocal ? [] : [DOMAIN],
     unoptimized: true,
   },
-  experimental: {
-    disableOptimizedLoading: true,
-    strictMode: false
-  },
   async redirects() {
     return [];
   },
@@ -23,7 +19,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=3600, must-revalidate',
+            value: 'public, max-age=0, must-revalidate',
           },
         ],
       },

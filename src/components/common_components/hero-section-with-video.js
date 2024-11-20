@@ -5,15 +5,19 @@ import buttonLinks from '../../config/buttonLinks';
 import Image from 'next/image';
 import styles from './styles/hero-section-with-video.module.css';
 
-const PageTopTool = ({ section, author }) => {
+const HeroSectionWithVideo = ({ section, author }) => {
+  if (!section?.topContent) {
+    return null;
+  }
+
   const topContent = section.topContent;
 
   const getButtonLink = () => {
-    return buttonLinks.workbench || '#';
+    return buttonLinks?.workbench || '#';
   };
 
   return (
-    <div className="relative overflow-x-hidden">
+    <div className="relative overflow-x-hidden" key="page-top-tool">
       <div className={`banner-container w-full bg-cover bg-center bg-no-repeat ${styles['banner-height']}`}>
         <div className="absolute inset-0">
           <Image
@@ -79,4 +83,4 @@ const PageTopTool = ({ section, author }) => {
   );
 };
 
-export default PageTopTool;
+export default HeroSectionWithVideo;

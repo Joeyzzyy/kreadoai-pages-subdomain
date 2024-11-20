@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Head from 'next/head';
 
 import TableOfContents from '../common_components/widget-table_of_contents';
 
@@ -34,52 +35,82 @@ const COMPONENT_MAP = {
   HeroSectionWithVideo: HeroSectionWithVideo
 };
 
+const generateSchemaMarkup = (article) => {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.description,
+    author: {
+      '@type': 'Person',
+      name: article.author
+    },
+    datePublished: article.publishDate,
+    image: article.ogImage,
+    dateModified: article.updateDate,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Kreado'
+    }
+  };
+};
+
 const LayoutKoreadoai = ({ article, keywords }) => {
-  console.log('heyheyheyarticle: ', article);
+  // 移除 useMemo 外的状态管理，直接在渲染时处理数据
   const sections = article?.sections || [];
+  const sortedSections = sections.sort((a, b) => a.position - b.position);
   const author = article?.author || 'default';
 
-  const renderSection = (section) => {
-    const Component = COMPONENT_MAP[section.componentName];
-    if (!Component) {
-      console.log('未找到对应组件:', section.componentName);
-      return null;
-    }
-    
-    return <Component 
-      key={`${section.componentName}-${section.position}`} 
-      section={section}
-      author={author}
-    />;
-  };
-
   return (
-    <div className="w-full min-h-screen flex flex-col p-0 m-0">
-      <div className="relative flex-1 w-full max-w-[100vw] overflow-x-hidden p-0 m-0">
-        <div className="relative z-10 w-full">
-          {(() => {
-            // 先分离CTA和普通部分
-            const normalSections = [];
-            let ctaSection = null;
-            
-            sections
-              .sort((a, b) => a.position - b.position)
-              .forEach(section => {
-                if (section.componentName === 'CallToAction') {
-                  ctaSection = section;
-                } else {
-                  normalSections.push(section);
-                }
-              });
-
-            // 合并普通部分和CTA部分并渲染
-            return [...normalSections, ...(ctaSection ? [ctaSection] : [])]
-              .map(renderSection);
-          })()}
-        </div>
-        <TableOfContents />
+    <>
+      <Head>
+        <title>{article?.title || 'Default Title'}</title>
+        <meta name="description" content={article?.description || 'Default description'} />
+        <meta name="keywords" content={keywords?.join(', ') || ''} />
+        
+        {/* Open Graph tags for social sharing */}
+        <meta property="og:title" content={article?.title || 'Default Title'} />
+        <meta property="og:description" content={article?.description || 'Default description'} />
+        <meta property="og:image" content={article?.ogImage || '/default-og-image.jpg'} />
+        
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={article?.title || 'Default Title'} />
+        <meta name="twitter:description" content={article?.description || 'Default description'} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(generateSchemaMarkup(article))
+          }}
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content={article?.author || 'default'} />
+        <meta property="article:published_time" content={article?.publishDate} />
+        <meta property="article:modified_time" content={article?.updateDate} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`pages.kreado.ai/${article?.slug}`} />
+        <meta property="og:site_name" content="Kreado" />
+        <meta name="twitter:image" content={article?.ogImage || '/default-og-image.jpg'} />
+      </Head>
+      {/* 简化嵌套结构，移除不必要的div */}
+      <div className="flex-1 w-full max-w-[100vw] overflow-x-hidden">
+        {sortedSections.map(section => {
+          const Component = COMPONENT_MAP[section.componentName];
+          if (!Component) return null;
+          
+          return (
+            <Component 
+              key={`${section.componentName}-${section.position}`} 
+              section={section}
+              author={author}
+            />
+          );
+        })}
+        <nav>
+          <TableOfContents />
+        </nav>
       </div>
-    </div>
+    </>
   );
 };
 
