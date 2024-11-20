@@ -50,7 +50,7 @@ const KREADO_METADATA = {
 };
 
 // 添加缓存控制
-export const revalidate = 3600; // 1小时重新验证一次
+export const revalidate = 86400; // 24小时重新验证一次
 
 // 主页面组件
 export default async function ArticlePage({ params }) {
@@ -73,11 +73,13 @@ export default async function ArticlePage({ params }) {
     // 修改返回结构，确保服务器端和客户端渲染结构一致
     return (
       <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow">
-          <Layout article={article} />
-        </main>
-        <Footer />
+        <div data-cache-control="public, max-age=3600, stale-while-revalidate=86400">
+          <Header />
+          <main className="flex-grow">
+            <Layout article={article} />
+          </main>
+          <Footer />
+        </div>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -143,7 +145,13 @@ export async function generateMetadata({ params }) {
       };
 
       console.log('Final metadata:', metadata);
-      return metadata;
+      return {
+        ...metadata,
+        // 添加缓存控制
+        other: {
+          'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400'
+        }
+      };
     } catch (error) {
       console.error('Error fetching article for metadata:', error);
       return {

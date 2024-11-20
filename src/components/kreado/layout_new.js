@@ -1,8 +1,12 @@
-"use client";
 import React from 'react';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
-import TableOfContents from '../common_components/widget-table_of_contents';
+// 动态导入需要客户端渲染的组件
+const TableOfContents = dynamic(
+  () => import('../common_components/widget-table_of_contents'),
+  { ssr: false }
+);
 
 import HeroSectionWithVideo from '../common_components/hero-section-with-video';
 import TextBlock from '../common_components/text-block';
@@ -62,7 +66,7 @@ const LayoutKoreadoai = ({ article, keywords }) => {
   const author = article?.author || 'default';
 
   return (
-    <>
+    <div suppressHydrationWarning>
       <Head>
         <title>{article?.title || 'Default Title'}</title>
         <meta name="description" content={article?.description || 'Default description'} />
@@ -110,7 +114,7 @@ const LayoutKoreadoai = ({ article, keywords }) => {
           <TableOfContents />
         </nav>
       </div>
-    </>
+    </div>
   );
 };
 

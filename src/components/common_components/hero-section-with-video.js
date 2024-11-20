@@ -70,6 +70,8 @@ const HeroSectionWithVideo = ({ section, author }) => {
                     loop
                     muted
                     playsInline
+                    loading="lazy"
+                    preload="none"
                   />
                 </div>
               </div>
