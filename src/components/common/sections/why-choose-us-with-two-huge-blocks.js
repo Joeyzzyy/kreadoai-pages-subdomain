@@ -1,6 +1,4 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { checkImage } from '../../../utils/imageUtils';
 import CustomButton from '../../ui/button';
 import authorStyles from '../../../styles/textStyles';
 import buttonLinks from '../../ui/button/links';
@@ -9,25 +7,8 @@ import Image from 'next/image';
 const TitleTopTwoModulesDown = ({ section, author }) => {
   const styles = authorStyles[author];
 
-  const [validImages, setValidImages] = useState({});
-
-  useEffect(() => {
-    const validateImages = async () => {
-      const imageValidations = {};
-      for (const content of section.bottomContent) {
-        if (content.image) {
-          const isValid = await checkImage(content.image);
-          imageValidations[content.image] = isValid;
-        }
-      }
-      setValidImages(imageValidations);
-    };
-    validateImages();
-  }, [section.bottomContent]);
-
   // 获取图片源地址
-  const getImageSrc = (imagePath, index) => {
-    // KREADO 作者使用特定的演示图片
+  const getImageSrc = (index) => {
     return `/images/kreado-demo-pic${index + 1}.webp`;
   };
 
@@ -65,7 +46,7 @@ const TitleTopTwoModulesDown = ({ section, author }) => {
               </div>
               <div className="w-full md:w-1/2">
                 <Image 
-                  src={getImageSrc(content.image, 0)}
+                  src={getImageSrc(0)}
                   alt="Business Growth" 
                   width={800}
                   height={600}
@@ -77,7 +58,7 @@ const TitleTopTwoModulesDown = ({ section, author }) => {
             <>
               <div className="w-full md:w-1/2 order-2 md:order-1">
                 <Image 
-                  src={getImageSrc(content.image, 1)}
+                  src={getImageSrc(1)}
                   alt="Business Innovation" 
                   width={800}
                   height={600}

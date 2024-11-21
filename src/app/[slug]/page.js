@@ -61,7 +61,7 @@ export default async function ArticlePage({ params }) {
     }
     
     const article = articleData.data[0];
-        
+
     return (
       <div className="flex flex-col min-h-screen"> 
         <KreadoaiHeader />
