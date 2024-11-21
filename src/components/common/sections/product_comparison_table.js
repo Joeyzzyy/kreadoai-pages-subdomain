@@ -9,9 +9,9 @@ import {
   IoCheckmarkCircle,  // 带圆圈的绿色对勾
   IoCloseCircle       // 带圆圈的红色叉号
 } from "react-icons/io5";
-import authorStyles from '../../styles/textStyles';
+import authorStyles from '../../../styles/textStyles';
 import PropTypes from 'prop-types';
-import KreadoIcon from '../../../public/images/kreado-logo-content-use.webp';
+import KreadoIcon from '../../../../public/images/kreado-logo-content-use.webp';
 import Image from 'next/image';
 
 // 创建一个图标映射对象

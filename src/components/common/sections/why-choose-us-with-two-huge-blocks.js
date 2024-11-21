@@ -1,9 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { checkImage } from '../../utils/imageUtils';
-import CustomButton from './widget-custom_button';
-import authorStyles from '../../styles/textStyles';
-import buttonLinks from '../../config/buttonLinks';
+import { checkImage } from '../../../utils/imageUtils';
+import CustomButton from '../../ui/button';
+import authorStyles from '../../../styles/textStyles';
+import buttonLinks from '../../ui/button/links';
 import Image from 'next/image';
 
 const TitleTopTwoModulesDown = ({ section, author }) => {

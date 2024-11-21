@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import authorStyles from '../../styles/textStyles';
+import authorStyles from '../../../styles/textStyles';
 
 const FAQ = ({ section, author }) => {
   const styles = authorStyles[author];

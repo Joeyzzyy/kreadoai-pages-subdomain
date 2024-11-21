@@ -1,26 +1,12 @@
-import { getArticleBySlug, getAllArticles } from '../../lib/api';
+import { getArticleBySlug } from '../../lib/api/index';
+import dynamicImport from 'next/dynamic';
 import { notFound } from 'next/navigation';
-import LayoutKreadoai from '../../components/kreado/layout_new';
-import { KreadoHeader } from '../../components/kreado/header_new';
-import { KreadoFooter } from '../../components/kreado/footer_new';
-import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
-
-// 在文件顶部添加调试日志
-console.log('Loading page.js file');
 
 // 添加这个配置来启用动态路由
 export const dynamic = 'force-dynamic'
 
 // 如果需要的话，也可以添加这个配置来处理不同的域名
 export const dynamicParams = true
-
-// 创建一个布局映射对象来简化重复代码
-const KREADO_LAYOUT = {
-  Header: KreadoHeader,
-  Layout: LayoutKreadoai,
-  Footer: KreadoFooter
-};
 
 // 添加一个新的常量映射来存储不同作者的元数据配置
 const KREADO_METADATA = {
@@ -52,6 +38,17 @@ const KREADO_METADATA = {
 // 添加缓存控制
 export const revalidate = 86400; // 24小时重新验证一次
 
+// 动态导入客户端组件
+const KreadoaiHeader = dynamicImport(() => import('../../components/layouts/kreado/header').then(mod => mod.KreadoaiHeader), {
+  ssr: false
+});
+const KreadoaiFooter = dynamicImport(() => import('../../components/layouts/kreado/footer').then(mod => mod.KreadoaiFooter), {
+  ssr: false
+});
+
+// Layout 组件可以正常导入，因为它是服务器组件
+import KreadoaiLayout from '../../components/layouts/kreado/layout';
+
 // 主页面组件
 export default async function ArticlePage({ params }) {
   const { slug } = params;
@@ -60,32 +57,23 @@ export default async function ArticlePage({ params }) {
     const articleData = await getArticleBySlug(slug, process.env.TOKEN);
     
     if (!articleData?.data?.[0]) {
-      return notFound();
+      notFound();
     }
     
     const article = articleData.data[0];
-    const headersList = headers();
-    const host = headersList.get('host');
-    
-    const layout = KREADO_LAYOUT;
-    const { Header, Layout, Footer } = layout;
-    
-    // 修改返回结构，确保服务器端和客户端渲染结构一致
+        
     return (
-      <div 
-        className="flex flex-col min-h-screen"
-        data-cache-control="public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400"
-      >
-        <Header />
+      <div className="flex flex-col min-h-screen"> 
+        <KreadoaiHeader />
         <main className="flex-grow">
-          <Layout article={article} />
+          <KreadoaiLayout article={article} />
         </main>
-        <Footer />
+        <KreadoaiFooter />
       </div>
     );
   } catch (error) {
     console.error('Error fetching article:', error);
-    return notFound();
+    notFound();
   }
 }
 
@@ -117,10 +105,7 @@ export async function generateMetadata({ params }) {
       }
 
       const article = articleData.data[0];
-      console.log('Building metadata for article:', article.title);
-
       const authorConfig = KREADO_METADATA;
-
       const metadata = {
         title: `${authorConfig.title} - ${article.title}`,
         description: article.description || authorConfig.defaultDescription,
@@ -129,7 +114,6 @@ export async function generateMetadata({ params }) {
         icons: authorConfig.icons
       };
 
-      console.log('Final metadata:', metadata);
       return {
         ...metadata,
         other: {
@@ -137,7 +121,6 @@ export async function generateMetadata({ params }) {
         }
       };
     } catch (error) {
-      console.error('Error fetching article for metadata:', error);
       return {
         title: 'No Article Found',
         keywords: 'nokeywords',
@@ -145,7 +128,6 @@ export async function generateMetadata({ params }) {
       };
     }
   } catch (error) {
-    console.error('Metadata generation error:', error);
     return {
       title: 'Error',
       keywords: 'nokeywords',

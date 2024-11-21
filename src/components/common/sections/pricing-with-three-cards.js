@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import buttonLinks from '../../config/buttonLinks';
-import CustomButton from './widget-custom_button';
+import buttonLinks from '../../ui/button/links';
+import CustomButton from '../../ui/button';
 
 const TitleTopPricingDown = ({ data, author }) => {
   const { title, bottomContent } = data;

@@ -1,9 +1,9 @@
 "use client";
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaTwitter, FaFacebook, FaInstagram, FaDiscord, FaLinkedin, FaXTwitter, FaYoutube, FaTiktok } from 'react-icons/fa6';
+import { FaFacebook, FaDiscord, FaXTwitter, FaYoutube } from 'react-icons/fa6';
 
-export const KreadoFooter = () => {
+export const KreadoaiFooter = () => {
   return (
     <footer className="bg-[#262B3A]">
       <div className="max-w-7xl mx-auto py-8 md:py-12 px-4 sm:px-6 lg:px-8">

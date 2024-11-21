@@ -3,8 +3,6 @@ import { useState, useEffect, Fragment, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from 'next/image';
-import '../../styles/globals.css'
-import eventBus from '../../utils/eventBus';
 
 const menuItems = [
     {
@@ -217,25 +215,19 @@ export const Navigation = () => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
   const [mobileSubmenu, setMobileSubmenu] = useState(null);
-
-  // 使用 ref 来存储上一次滚动位置
   const lastScrollY = useRef(0);
-  
-  // 使用 useCallback 来记忆化处理函数
+
   const handleScroll = useCallback(() => {
     if (typeof window === 'undefined') return;
     
     const currentScrollY = window.scrollY;
-    // 你的滚动处理逻辑
-    
-    // 更新上一次滚动位置
+    setHasScrolled(currentScrollY > lastScrollY.current);
     lastScrollY.current = currentScrollY;
   }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // 使用 requestAnimationFrame 来优化滚动性能
     let ticking = false;
     const scrollListener = () => {
       if (!ticking) {
@@ -247,18 +239,10 @@ export const Navigation = () => {
       }
     };
 
-    // 添加滚动事件监听
     window.addEventListener('scroll', scrollListener, { passive: true });
 
-    // 使用新的 eventBus
-    const unsubscribe = eventBus.subscribe('header-event', (data) => {
-      console.log('Received message:', data);
-    });
-
-    // 清理函数
     return () => {
       window.removeEventListener('scroll', scrollListener);
-      unsubscribe();
     };
   }, [handleScroll]);
 
@@ -689,6 +673,6 @@ export const Navigation = () => {
   );
 };
 
-export const KreadoHeader = () => {
+export const KreadoaiHeader = () => {
   return <Navigation />;
 };

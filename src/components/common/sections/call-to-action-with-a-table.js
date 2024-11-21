@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import CustomButton from './widget-custom_button';
-import authorStyles from '../../styles/textStyles';
-import buttonLinks from '../../config/buttonLinks';
+import CustomButton from '../../ui/button';
+import authorStyles from '../../../styles/textStyles';
+import buttonLinks from '../../ui/button/links';
 
 const TitleRightTableLeft = ({ section, author }) => {
   const themes = {
@@ -72,9 +72,9 @@ const TitleRightTableLeft = ({ section, author }) => {
           <h2 className={`${styles.h1.fontSize} ${styles.h1.fontWeight} ${styles.h1.color}`}>
             {section.rightContent.title}
           </h2>
-          <p className={`${styles.paragraph.fontSize} ${styles.paragraph.color}`}>
+          <h3 className={`${styles.paragraph.fontSize} ${styles.paragraph.color}`}>
             {section.rightContent.subtitle}
-          </p>
+          </h3>
           <CustomButton variant={author} href={getButtonLink()}>
             {section.rightContent.buttonText}
           </CustomButton>

@@ -1,39 +1,40 @@
 /** @type {import('next').NextConfig} */
 
-const DOMAIN = process.env.DOMAIN;
-
-const isLocal = process.env.NODE_ENV === 'development';
-
 const nextConfig = {
-  images: {
-    domains: isLocal ? [] : [DOMAIN],
-    unoptimized: true,
-  },
-  async redirects() {
-    return [];
-  },
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
-          },
-        ],
-      },
-    ];
-  },
+  headers: async () => [
+    {
+      source: '/:path*',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
+        },
+      ],
+    },
+  ],
+  transpilePackages: ['@ant-design/icons', 'antd'],
   experimental: {
+    optimizeCss: true,
     scrollRestoration: false,
-    optimizeCss: false,
   },
-  devIndicators: {
-    buildActivity: false,
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            antd: {
+              name: 'antd',
+              test: /[\\/]node_modules[\\/]antd[\\/]/,
+              priority: 10,
+            },
+          },
+        },
+      };
+    }
+    return config;
   },
-  telemetry: false,
-  reactStrictMode: false,
 };
 
 module.exports = nextConfig;

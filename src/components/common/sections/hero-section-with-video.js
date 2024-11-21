@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import CustomButton from './widget-custom_button';
-import buttonLinks from '../../config/buttonLinks';
+import CustomButton from '../../ui/button';
+import buttonLinks from '../../ui/button/links';
 import Image from 'next/image';
-import styles from './styles/hero-section-with-video.module.css';
+import styles from './hero-section-with-video.module.css';
 
 const HeroSectionWithVideo = ({ section, author }) => {
   if (!section?.topContent) {
