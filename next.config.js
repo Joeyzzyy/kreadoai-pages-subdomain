@@ -26,9 +26,13 @@ const nextConfig = {
     ];
   },
   experimental: {
-    scrollRestoration: true,
+    scrollRestoration: false,
     optimizeCss: false,
   },
+  devIndicators: {
+    buildActivity: false,
+  },
+  telemetry: false,
 };
 
 module.exports = nextConfig;

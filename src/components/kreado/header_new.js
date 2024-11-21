@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from 'next/image';
 import '../../styles/globals.css'
-import { getMessageChannel } from '../../utils/safeChannel';
+import eventBus from '../../utils/eventBus';
 
 const menuItems = [
     {
@@ -250,9 +250,15 @@ export const Navigation = () => {
     // 添加滚动事件监听
     window.addEventListener('scroll', scrollListener, { passive: true });
 
+    // 使用新的 eventBus
+    const unsubscribe = eventBus.subscribe('header-event', (data) => {
+      console.log('Received message:', data);
+    });
+
     // 清理函数
     return () => {
       window.removeEventListener('scroll', scrollListener);
+      unsubscribe();
     };
   }, [handleScroll]);
 
@@ -275,20 +281,6 @@ export const Navigation = () => {
   const toggleMobileSubmenu = (key) => {
     setMobileSubmenu(mobileSubmenu === key ? null : key);
   };
-
-  useEffect(() => {
-    const channel = getMessageChannel('header-channel');
-    if (!channel) return;
-
-    const unsubscribe = channel.subscribe('header-event', (data) => {
-      // 处理消息
-      console.log('Received message:', data);
-    });
-
-    return () => {
-      unsubscribe?.();
-    };
-  }, []);
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
