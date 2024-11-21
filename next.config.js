@@ -19,7 +19,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=3600, must-revalidate',
+            value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
           },
         ],
       },
@@ -33,6 +33,7 @@ const nextConfig = {
     buildActivity: false,
   },
   telemetry: false,
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;

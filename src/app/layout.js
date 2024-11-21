@@ -1,12 +1,9 @@
-import './globals.css'
+import '../utils/bfcache-fix';
 
-export default function RootLayout({ children, keywords, robots }) {
+export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <meta name="keywords" content={keywords} />
-      </head>
-      <body suppressHydrationWarning={true} style={{ overflowX: 'hidden' }}>{children}</body>
+    <html lang="zh">
+      <body>{children}</body>
     </html>
-  )
+  );
 }
