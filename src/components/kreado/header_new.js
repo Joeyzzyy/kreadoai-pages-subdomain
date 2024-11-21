@@ -223,40 +223,37 @@ export const Navigation = () => {
   
   // 使用 useCallback 来记忆化处理函数
   const handleScroll = useCallback(() => {
-    // 你的滚动处理逻辑
+    if (typeof window === 'undefined') return;
+    
     const currentScrollY = window.scrollY;
+    // 你的滚动处理逻辑
     
     // 更新上一次滚动位置
     lastScrollY.current = currentScrollY;
-  }, []); // 空依赖数组，因为我们使用 ref
+  }, []);
 
   useEffect(() => {
-    // 使用 passive 选项来优化性能
-    const options = { passive: true };
-    
-    // 只在客户端添加事件监听
-    if (typeof window !== 'undefined') {
-      // 使用 requestAnimationFrame 来节流滚动事件
-      let ticking = false;
-      
-      const scrollListener = () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            handleScroll();
-            ticking = false;
-          });
-          ticking = true;
-        }
-      };
+    if (typeof window === 'undefined') return;
 
-      // 添加事件监听
-      window.addEventListener('scroll', scrollListener, options);
+    // 使用 requestAnimationFrame 来优化滚动性能
+    let ticking = false;
+    const scrollListener = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
 
-      // 清理函数
-      return () => {
-        window.removeEventListener('scroll', scrollListener, options);
-      };
-    }
+    // 添加滚动事件监听
+    window.addEventListener('scroll', scrollListener, { passive: true });
+
+    // 清理函数
+    return () => {
+      window.removeEventListener('scroll', scrollListener);
+    };
   }, [handleScroll]);
 
   const handleMouseEnter = (key) => {
@@ -281,15 +278,15 @@ export const Navigation = () => {
 
   useEffect(() => {
     const channel = getMessageChannel('header-channel');
-    
-    const unsubscribe = channel.subscribe((message) => {
+    if (!channel) return;
+
+    const unsubscribe = channel.subscribe('header-event', (data) => {
       // 处理消息
-      console.log('Received message:', message);
+      console.log('Received message:', data);
     });
 
-    // 清理函数
     return () => {
-      unsubscribe();
+      unsubscribe?.();
     };
   }, []);
 

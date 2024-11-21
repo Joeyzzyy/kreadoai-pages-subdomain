@@ -1,54 +1,65 @@
-export class SafeMessageChannel {
-  constructor(channelName) {
-    this.listeners = new Set();
-    this.channelName = channelName;
-    
-    // 只在客户端创建 channel
-    if (typeof window !== 'undefined') {
-      try {
-        this.channel = new BroadcastChannel(channelName);
-        this.channel.onmessage = (event) => {
-          this.listeners.forEach(listener => listener(event.data));
-        };
-      } catch (error) {
-        console.warn('BroadcastChannel not supported');
-      }
-    }
+class EventEmitter {
+  constructor() {
+    this.events = new Map();
   }
 
-  subscribe(listener) {
-    this.listeners.add(listener);
+  subscribe(event, callback) {
+    if (!this.events.has(event)) {
+      this.events.set(event, new Set());
+    }
+    this.events.get(event).add(callback);
+
+    // 返回取消订阅函数
     return () => {
-      this.listeners.delete(listener);
-      // 如果没有监听器了，关闭通道
-      if (this.listeners.size === 0 && this.channel) {
-        this.channel.close();
-        this.channel = null;
+      const callbacks = this.events.get(event);
+      if (callbacks) {
+        callbacks.delete(callback);
+        if (callbacks.size === 0) {
+          this.events.delete(event);
+        }
       }
     };
   }
 
-  post(message) {
-    if (this.channel) {
-      this.channel.postMessage(message);
+  publish(event, data) {
+    const callbacks = this.events.get(event);
+    if (callbacks) {
+      callbacks.forEach(callback => callback(data));
     }
-  }
-
-  close() {
-    if (this.channel) {
-      this.channel.close();
-      this.channel = null;
-    }
-    this.listeners.clear();
   }
 }
 
-// 创建一个单例实例
+// 创建单例实例
 let instance = null;
 
 export const getMessageChannel = (channelName) => {
+  if (typeof window === 'undefined') return null;
+  
   if (!instance) {
-    instance = new SafeMessageChannel(channelName);
+    instance = new EventEmitter();
   }
   return instance;
-}; 
+};
+
+// 为了保持与原有 API 兼容
+export class SafeMessageChannel {
+  constructor(channelName) {
+    this.emitter = getMessageChannel(channelName);
+    this.channelName = channelName;
+  }
+
+  subscribe(listener) {
+    if (!this.emitter) return () => {};
+    return this.emitter.subscribe(this.channelName, listener);
+  }
+
+  post(message) {
+    if (!this.emitter) return;
+    this.emitter.publish(this.channelName, message);
+  }
+
+  close() {
+    // 清理逻辑
+    this.emitter = null;
+  }
+} 
