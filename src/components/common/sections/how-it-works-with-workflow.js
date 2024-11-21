@@ -5,7 +5,6 @@ import authorStyles from '../../../styles/textStyles';
 import buttonLinks from '../../ui/button/links';
 
 const TitleTopThreeFlowDown = ({ section, author }) => {
-  console.log('hhh current author:', author);
   const styles = authorStyles[author];
   const { bottomContent, topContent } = section;
   

@@ -35,6 +35,10 @@ const nextConfig = {
     }
     return config;
   },
+  reactStrictMode: true,
+  devIndicators: {
+    buildActivity: false
+  },
 };
 
 module.exports = nextConfig;

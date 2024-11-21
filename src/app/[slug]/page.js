@@ -3,7 +3,7 @@ import dynamicImport from 'next/dynamic';
 import { notFound } from 'next/navigation';
 
 // 添加这个配置来启用动态路由
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-static'
 
 // 如果需要的话，也可以添加这个配置来处理不同的域名
 export const dynamicParams = true
