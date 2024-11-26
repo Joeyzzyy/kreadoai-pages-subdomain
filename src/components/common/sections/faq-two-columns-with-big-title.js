@@ -27,7 +27,7 @@ const FAQTwoColumnsWithBigTitle = ({ data, author }) => {
 
         {/* 右侧FAQ列表 */}
         <div className="w-full md:w-2/3">
-          {data.BottomContent.map((faq, index) => (
+          {data.bottomContent.map((faq, index) => (
             <div 
               key={index} 
               className="mb-4 border-b border-gray-200 pb-4"

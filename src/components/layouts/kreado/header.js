@@ -1,6 +1,6 @@
-import { useState, useEffect, Fragment, useCallback, useRef } from "react";
+"use client";
+import { useState, useEffect, Fragment } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Image from 'next/image';
 
 const menuItems = [
@@ -207,43 +207,35 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export const Navigation = () => {
-  const pathname = usePathname();
+export const Navigation = ({ theme = 'light' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
   const [mobileSubmenu, setMobileSubmenu] = useState(null);
-  const lastScrollY = useRef(0);
 
-  const handleScroll = useCallback(() => {
-    if (typeof window === 'undefined') return;
-    
-    const currentScrollY = window.scrollY;
-    setHasScrolled(currentScrollY > lastScrollY.current);
-    lastScrollY.current = currentScrollY;
-  }, []);
+  // 添加主题相关的样式配置
+  const themeStyles = {
+    light: {
+      text: 'text-gray-900',
+      hoverText: 'hover:text-blue-600',
+      mobileText: 'text-gray-900',
+    },
+    dark: {
+      text: 'text-white',
+      hoverText: 'hover:text-blue-300',
+      mobileText: 'text-white',
+    }
+  };
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    let ticking = false;
-    const scrollListener = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 0);
     };
 
-    window.addEventListener('scroll', scrollListener, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', scrollListener);
-    };
-  }, [handleScroll]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleMouseEnter = (key) => {
     if (timeoutId) {
@@ -308,8 +300,8 @@ export const Navigation = () => {
                     }}
                     className={`text-[15px] font-medium transition-all duration-300 flex items-center ${
                       hasScrolled || activeDropdown
-                        ? 'text-gray-900 hover:text-blue-600'
-                        : 'text-white hover:text-blue-300'
+                        ? themeStyles.light.text + ' ' + themeStyles.light.hoverText
+                        : themeStyles[theme].text + ' ' + themeStyles[theme].hoverText
                     }`}
                   >
                     {item.label}
@@ -378,9 +370,9 @@ export const Navigation = () => {
                                                         {update.type === "row" ? (
                                                             <div className="flex items-center space-x-4 mt-4">
                                                                 {update.items.map((rowItem, rowIndex) => (
-                                                                    <>
+                                                                    <Fragment key={rowIndex}>
                                                                         <a 
-                                                                            key={rowIndex}
+                                                                            key={`${rowIndex}-${rowItem.title}`}
                                                                             href={rowItem.href} 
                                                                             className="text-sm text-gray-600/90 hover:text-blue-600 transition-colors duration-200 flex items-center"
                                                                             target="_blank"
@@ -395,9 +387,9 @@ export const Navigation = () => {
                                                                             {rowItem.title}
                                                                         </a>
                                                                         {rowIndex === 0 && (
-                                                                            <div className="h-4 w-px bg-gray-200"></div>
+                                                                            <div key={`divider-${rowIndex}`} className="h-4 w-px bg-gray-200"></div>
                                                                         )}
-                                                                    </>
+                                                                    </Fragment>
                                                                 ))}
                                                             </div>
                                                         ) : (
@@ -492,7 +484,9 @@ export const Navigation = () => {
             <Link
               href="https://www.kreadoai.com/ai/workbench"
               className={`text-base transition duration-300 ${
-                hasScrolled || activeDropdown ? 'text-gray-800 hover:text-blue-600' : 'text-white hover:text-blue-300'
+                hasScrolled || activeDropdown 
+                  ? themeStyles.light.text + ' ' + themeStyles.light.hoverText
+                  : themeStyles[theme].text + ' ' + themeStyles[theme].hoverText
               }`}
             >
               Home
@@ -504,7 +498,7 @@ export const Navigation = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`p-2 rounded-md ${
-                hasScrolled ? 'text-gray-900' : 'text-white'
+                hasScrolled ? themeStyles.light.text : themeStyles[theme].text
               }`}
             >
               <span className="sr-only">Open menu</span>
@@ -672,6 +666,6 @@ export const Navigation = () => {
   );
 };
 
-export const KreadoaiHeader = () => {
-  return <Navigation />;
+export const KreadoaiHeader = ({ theme = 'light' }) => {
+  return <Navigation theme={theme} />;
 };

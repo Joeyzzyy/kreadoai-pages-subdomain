@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 const UserReviewsWithMovingCards = ({ data }) => {
-  const reviews = data.BottomContent;
+  const reviews = data.bottomContent;
   const [activeIndex, setActiveIndex] = useState(1);
 
   const handleCardClick = (index) => {

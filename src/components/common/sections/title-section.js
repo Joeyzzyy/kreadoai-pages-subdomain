@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import authorStyles from '../../styles/textStyles';
+import authorStyles from '../../../styles/textStyles';
 
 const TitleSection = ({ data, author }) => {
   const styles = authorStyles[author];  // 获取对应的样式

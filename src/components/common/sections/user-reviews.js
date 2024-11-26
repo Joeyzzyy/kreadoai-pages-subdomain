@@ -2,7 +2,7 @@
 import React from 'react';
 
 const UserReviews = ({ data }) => {
-  const reviews = data.BottomContent;
+  const reviews = data.bottomContent;
   return (
     <div className="py-8 md:py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">

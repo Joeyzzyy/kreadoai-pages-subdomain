@@ -15,7 +15,7 @@ const KreadoaiFooter = dynamic(
 export function ClientWrapper({ children }) {
   return (
     <div className="flex flex-col min-h-screen">
-      <KreadoaiHeader />
+      <KreadoaiHeader theme="light" />
       {children}
       <KreadoaiFooter />
     </div>

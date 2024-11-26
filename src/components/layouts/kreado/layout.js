@@ -10,6 +10,8 @@ import Faqs from '../../common/sections/faqs';
 import ProductComparisonTable from '../../common/sections/product-comparison-table';
 import MoreInsightsWithFourCards from '../../common/sections/more-insights-with-four-cards';
 import ImageBanner from '../../common/sections/image-banner';
+import TitleSection from '../../common/sections/title-section';
+import TitleSectionWithImage from '../../common/sections/title-section-with-image';
 
 // 更新组件映射表
 const COMPONENT_MAP = {
@@ -23,7 +25,9 @@ const COMPONENT_MAP = {
   MoreInsightsWithFourCards: MoreInsightsWithFourCards,
   ImageBanner: ImageBanner,
   ProductComparisonTable: ProductComparisonTable,
-  HeroSectionWithVideo: HeroSectionWithVideo
+  HeroSectionWithVideo: HeroSectionWithVideo,
+  TitleSection: TitleSection,
+  TitleSectionWithImage: TitleSectionWithImage
 };
 
 const generateSchemaMarkup = (article) => {
@@ -52,8 +56,8 @@ const KreadoaiLayout = ({ article, keywords }) => {
 
   // 将 sections 分成两部分：CallToAction 和其他组件
   const sections = article?.sections || [];
-  const callToActionSection = sections.find(s => s.componentName === 'CallToAction');
-  const otherSections = sections.filter(s => s.componentName !== 'CallToAction');
+  const callToActionSection = sections.find(s => s.componentName === 'CallToAction' || s.componentName === 'CallToActionWithImage');
+  const otherSections = sections.filter(s => s.componentName !== 'CallToAction' && s.componentName !== 'CallToActionWithImage');
   
   // 先对其他组件按位置排序，然后在末尾添加 CallToAction
   const sortedSections = [
@@ -75,6 +79,7 @@ const KreadoaiLayout = ({ article, keywords }) => {
               key={`${section.componentName}-${section.position}`} 
               data={section}
               author={author}
+              date={article.createdAt}
             />
           );
         })}

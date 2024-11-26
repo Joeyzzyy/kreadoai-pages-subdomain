@@ -25,7 +25,7 @@ const HeroSectionWithVideo = ({ data }) => {
             className="object-fill"
             unoptimized
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white opacity-20" />
+          <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-white/50 via-white/8 via-white/3 to-transparent"></div>
         </div>
 
         <div className="relative z-10 pt-16 md:pt-20 lg:pt-24">
@@ -73,7 +73,7 @@ const HeroSectionWithVideo = ({ data }) => {
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-72 bg-gradient-to-t from-white via-white/20 via-white/5 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-72 bg-gradient-to-t from-white/50 via-white/8 via-white/3 to-transparent"></div>
       </div>
     </div>
   );

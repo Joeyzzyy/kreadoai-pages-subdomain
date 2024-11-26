@@ -1,16 +1,20 @@
 'use client';
 import React from 'react';
-import authorStyles from '../../styles/textStyles';
+import authorStyles from '../../../styles/textStyles';
 
-const TitleSectionWithImage = ({ data, author }) => {
+const TitleSectionWithImage = ({ data, author, date }) => {
   const styles = authorStyles[author];
-  const leftContent = data?.leftContent || {};
-  const rightContent = data?.rightContent || {};
   
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // 转换成 YYYY-MM-DD 格式
+  };
+
   return (
-    <div className="relative z-10 min-h-[50vh] flex items-center">
+    <div className="relative z-10 min-h-[80vh] py-20 flex items-center bg-gradient-to-b from-[#EBEDFF] to-[#FAF8FF]">
       <header className="header w-full">
-        <div className="w-[80%] mx-auto">
+        <div className="w-[70%] mx-auto">
           <div className="flex flex-col md:flex-row gap-8 items-center">
             {/* 左侧内容区域 */}
             <div className="w-full md:w-1/2">
@@ -19,48 +23,42 @@ const TitleSectionWithImage = ({ data, author }) => {
                   {data.title}
                 </h1>
               )}
-              {data?.subtitle && (
+              {data?.subTitle && (
                 <h2 className={`${styles.h2.fontSize} ${styles.h2.fontWeight} ${styles.h2.color} mb-8 leading-tight max-w-xl`}>
-                  {data.subtitle}
+                  {data.subTitle}
                 </h2>
               )}
               
               <div className="flex gap-8">
-                {author && leftContent.author && (
-                  <div className="mt-4">
-                    <span className={`${styles.paragraph.fontSize} ${styles.paragraph.color} block mb-1 text-gray-600`}>
-                      WRITTEN BY
-                    </span>
-                    <span className={`${styles.paragraph.fontSize} ${styles.paragraph.color} text-gray-600`}>
-                      {leftContent.author}
-                    </span>
-                  </div>
-                )}
+                <div className="mt-4">
+                  <span className={`${styles.paragraph.fontSize} ${styles.paragraph.color} block mb-1 text-gray-600`}>
+                    WRITTEN BY
+                  </span>
+                  <span className={`${styles.paragraph.fontSize} ${styles.paragraph.color} text-gray-600`}>
+                    {author}
+                  </span>
+                </div>
                 
-                {leftContent.publishDate && (
-                  <div className="mt-4">
-                    <span className={`${styles.paragraph.fontSize} ${styles.paragraph.color} block mb-1 text-gray-600`}>
-                      PUBLISHED ON
-                    </span>
-                    <span className={`${styles.paragraph.fontSize} ${styles.paragraph.color} text-gray-600`}>
-                      {leftContent.publishDate}
-                    </span>
-                  </div>
-                )}
+                <div className="mt-4">
+                  <span className={`${styles.paragraph.fontSize} ${styles.paragraph.color} block mb-1 text-gray-600`}>
+                    PUBLISHED ON
+                  </span>
+                  <span className={`${styles.paragraph.fontSize} ${styles.paragraph.color} text-gray-600`}>
+                    {formatDate(date)}
+                  </span>
+                </div>
               </div>
             </div>
             
             {/* 右侧图片区域 */}
             <div className="w-full md:w-1/2 flex items-center justify-center">
-              {rightContent.image && (
-                <div className="relative w-full h-[75%]">
-                  <img 
-                    src={rightContent.image}
-                    alt={data?.title || 'Featured image'}
-                    className="rounded-lg w-full h-full object-cover"
-                  />
-                </div>
-              )}
+              <div className="relative w-full h-[75%]">
+                <img 
+                  src='/images/kreado-demo-pic1.webp'
+                  alt={data?.title || 'Featured image'}
+                  className="rounded-lg w-full h-full object-cover"
+                />
+              </div>  
             </div>
           </div>
         </div>
