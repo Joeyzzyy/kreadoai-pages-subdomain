@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import CustomButton from '../../ui/button';
+import CustomButton from './widget-custom_button';
 import authorStyles from '../../../styles/textStyles';
 import buttonLinks from '../../ui/button/links';
 
-const TitleLeftFourModulesRight = ({ section, author }) => {
+const ProductBenefitsWithFourBlocksq = ({ data, author }) => {
   const getButtonLink = () => {
     return buttonLinks.workbench || '#';
   };
@@ -23,22 +23,24 @@ const TitleLeftFourModulesRight = ({ section, author }) => {
   const styles = authorStyles[author];
   
   return (
-    <div className="flex justify-center bg-white py-10">
-      <div className="w-[80%] flex items-center">
-        <div className="w-2/5 p-10 flex flex-col space-y-8">
-          <h2 className={`${styles.h1.fontSize} ${styles.h1.fontWeight} ${styles.h1.color}`}>
-            {section.leftContent.title}
+    <div className="flex justify-center bg-white py-6 md:py-10">
+      <div className="w-[95%] md:w-[90%] lg:w-[80%] flex flex-col md:flex-row items-center">
+        <div className="w-full md:w-2/5 p-4 md:p-10 flex flex-col space-y-6 md:space-y-8">
+          <h2 className={`text-center md:text-left ${styles.h1.fontSize} ${styles.h1.fontWeight} ${styles.h1.color}`}>
+            {data.leftContent.title}
           </h2>
-          <p className={`${styles.paragraph.fontSize} ${styles.paragraph.color}`}>
-            {section.leftContent.description}
+          <p className={`text-center md:text-left ${styles.paragraph.fontSize} ${styles.paragraph.color}`}>
+            {data.leftContent.description}
           </p>
-          <CustomButton variant={author} href={getButtonLink()}>
-            {section.leftContent.buttonText}
-          </CustomButton>
+          <div className="flex justify-center md:justify-start">
+            <CustomButton variant={author} href={getButtonLink()}>
+              {data.leftContent.buttonText}
+            </CustomButton>
+          </div>
         </div>
 
-        <div className="w-3/5 p-10 grid grid-cols-2 gap-6 content-start">
-          {section.rightContent.map((module, index) => {
+        <div className="w-full md:w-3/5 p-4 md:p-10 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 content-start">
+          {data.rightContent.map((module, index) => {
             const colors = ['blue', 'purple', 'green', 'orange'];
             const moduleColor = colors[index % colors.length];
 
@@ -47,7 +49,7 @@ const TitleLeftFourModulesRight = ({ section, author }) => {
                 key={index} 
                 className={`
                   relative
-                  p-6 
+                  p-4 md:p-6 
                   rounded-xl 
                   backdrop-blur-xl
                   bg-gradient-to-br ${getModuleStyle(moduleColor)}
@@ -80,4 +82,4 @@ const TitleLeftFourModulesRight = ({ section, author }) => {
   );
 };
 
-export default TitleLeftFourModulesRight;
+export default ProductBenefitsWithFourBlocksq;

@@ -1,12 +1,12 @@
 'use client';
 import React from 'react';
-import CustomButton from '../../ui/button';
+import CustomButton from './widget-custom_button';
 import authorStyles from '../../../styles/textStyles';
 import buttonLinks from '../../ui/button/links';
 
-const TitleTopThreeFlowDown = ({ section, author }) => {
+const HowItWorksWithWorkflow = ({ data, author }) => {
   const styles = authorStyles[author];
-  const { bottomContent, topContent } = section;
+  const { bottomContent, topContent } = data;
   
   const getButtonLink = () => {
     return buttonLinks.workbench || '#';
@@ -50,4 +50,4 @@ const TitleTopThreeFlowDown = ({ section, author }) => {
   );
 };
 
-export default TitleTopThreeFlowDown;
+export default HowItWorksWithWorkflow;

@@ -199,9 +199,9 @@ const getIconByFeatureName = (featureName) => {
   return bestMatch.score > 0 ? bestMatch.icon : FaTools;
 };
 
-const ComparisonTable = ({ author, section }) => {
+const ProductComparisonTable = ({ data, author }) => {
   const styles = authorStyles[author];
-  const tableData = section;
+  const tableData = data;
 
   return (
     <div className="bg-gradient-radial from-gray-50 via-white to-gray-50 py-8 md:py-20 px-4">
@@ -290,8 +290,8 @@ const ComparisonTable = ({ author, section }) => {
   );
 };
 
-ComparisonTable.propTypes = {
+ProductComparisonTable.propTypes = {
   author: PropTypes.oneOf(['HIXAI', 'JOGGAI', 'JohnsmithAI', 'KREADO'])
 };
 
-export default ComparisonTable;
+export default ProductComparisonTable;

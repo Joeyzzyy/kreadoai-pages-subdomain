@@ -1,23 +1,19 @@
 'use client';
 import React from 'react';
-import CustomButton from '../../ui/button';
+import CustomButton from './widget-custom_button';
 import buttonLinks from '../../ui/button/links';
 import Image from 'next/image';
-import styles from './hero-section-with-video.module.css';
+import styles from './styles/hero-section-with-video.module.css';
 
-const HeroSectionWithVideo = ({ section, author }) => {
-  if (!section?.topContent) {
-    return null;
-  }
-
-  const topContent = section.topContent;
+const HeroSectionWithVideo = ({ data }) => {
+  const topContent = data.topContent;
 
   const getButtonLink = () => {
-    return buttonLinks?.workbench || '#';
+    return buttonLinks.workbench || '#';
   };
 
   return (
-    <div className="relative overflow-x-hidden" key="page-top-tool">
+    <div className="relative overflow-x-hidden">
       <div className={`banner-container w-full bg-cover bg-center bg-no-repeat ${styles['banner-height']}`}>
         <div className="absolute inset-0">
           <Image
@@ -43,9 +39,9 @@ const HeroSectionWithVideo = ({ section, author }) => {
         </div>
 
         <div className="relative z-10 pt-8 md:pt-6 mb-10 md:mb-8 px-4">
-          <h1 className="text-center text-2xl md:text-3xl font-bold text-white">
+          <h2 className="text-center text-2xl md:text-3xl font-bold text-white">
             {topContent.title}
-          </h1>
+          </h2>
           {topContent.description && (
             <p className="text-center text-base md:text-lg mt-2 md:mt-3 text-white/90 max-w-3xl mx-auto">
               {topContent.description}
@@ -70,8 +66,6 @@ const HeroSectionWithVideo = ({ section, author }) => {
                     loop
                     muted
                     playsInline
-                    loading="lazy"
-                    preload="none"
                   />
                 </div>
               </div>

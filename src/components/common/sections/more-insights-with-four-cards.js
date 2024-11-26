@@ -2,18 +2,20 @@
 import React from 'react';
 import Image from 'next/image';
 
-const MoreInsights = ({ data }) => {
-  const insights = data.topContent;
+const MoreInsightsWithFourCards = ({ data }) => {
+  const insights = data.bottomContent;
 
   return (
-    <div className="more-insights mt-0 container mx-auto px-4">
-      <h2 className="text-3xl mb-8 text-gray-900 font-bold tracking-tight text-center">More Insights</h2>
+    <div className="more-insights my-16 container mx-auto px-4">
+      <h2 className="text-4xl mb-12 font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent text-center">
+        More Insights
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
         {insights.map((insight, index) => (
           <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
             <div className="relative h-48">
               <Image
-                src={insight.imageUrl || '/images/kreado-demo-pic1.webp'}
+                src={insight.imageUrl || '/images/placeholder.webp'}
                 alt={insight.title}
                 layout="fill"
                 objectFit="cover"
@@ -31,4 +33,4 @@ const MoreInsights = ({ data }) => {
   );
 };
 
-export default MoreInsights;
+export default MoreInsightsWithFourCards;

@@ -28,6 +28,9 @@ export function middleware(request) {
   
   // 添加调试日志
   console.log('Rewritten pathname:', url.pathname);
+
+  // 添加缓存相关的头部
+  response.headers.set('Cache-Control', 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400');
   
   return NextResponse.rewrite(url);
 }

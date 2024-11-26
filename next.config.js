@@ -15,7 +15,7 @@ const nextConfig = {
   transpilePackages: ['@ant-design/icons', 'antd'],
   experimental: {
     optimizeCss: true,
-    scrollRestoration: false,
+    scrollRestoration: true,
   },
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {

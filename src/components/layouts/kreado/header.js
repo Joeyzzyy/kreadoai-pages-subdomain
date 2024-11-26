@@ -1,4 +1,3 @@
-"use client";
 import { useState, useEffect, Fragment, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

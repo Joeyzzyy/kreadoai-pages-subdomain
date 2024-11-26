@@ -1,4 +1,3 @@
-"use client";
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaFacebook, FaDiscord, FaXTwitter, FaYoutube } from 'react-icons/fa6';

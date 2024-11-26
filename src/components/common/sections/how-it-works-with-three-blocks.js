@@ -2,10 +2,10 @@
 
 import React from 'react';
 import buttonLinks from '../../ui/button/links';
-import CustomButton from '../../ui/button';
+import CustomButton from './widget-custom_button';
 
-const TitleLeftModulesRight = ({ section, author }) => {
-  const { leftContent, rightContent } = section;
+const HowItWorksWithThreeBlocks = ({ data, author }) => {
+  const { leftContent, rightContent } = data;
   
   const getButtonLink = () => {
     return buttonLinks.workbench || '#';
@@ -22,7 +22,7 @@ const TitleLeftModulesRight = ({ section, author }) => {
 
   return (
     <div className="flex justify-center bg-white">
-      <div className="w-full md:w-[80%] flex flex-col md:flex-row min-h-screen p-4">
+      <div className="w-full md:w-[80%] flex flex-col md:flex-row py-20 p-4">
         {/* 左侧内容 */}
         <div className="w-full md:w-2/5 p-6 md:p-20 flex flex-col justify-center space-y-6 md:space-y-8">
           <div className="text-4xl md:text-6xl">{leftContent.icon}</div>
@@ -38,7 +38,7 @@ const TitleLeftModulesRight = ({ section, author }) => {
         </div>
 
         {/* 右侧模块 */}
-        <div className="w-full md:w-3/5 p-4 md:p-10 grid grid-cols-1 md:grid-cols-1 gap-4 md:gap-6">
+        <div className="w-full md:w-3/5 p-4 md:p-10 flex flex-col justify-center gap-4 md:gap-6">
           {rightContent.map((module, index) => (
             <div 
               key={index} 
@@ -56,6 +56,7 @@ const TitleLeftModulesRight = ({ section, author }) => {
                 duration-300
                 overflow-hidden
                 group
+                flex-1
               `}
             >
               {/* 添加光晕效果 */}
@@ -79,4 +80,4 @@ const TitleLeftModulesRight = ({ section, author }) => {
   );
 };
 
-export default TitleLeftModulesRight;
+export default HowItWorksWithThreeBlocks;

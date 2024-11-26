@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import CustomButton from '../../ui/button';
-import authorStyles from '../../../styles/textStyles';
-import buttonLinks from '../../ui/button/links';
+import CustomButton from './widget-custom_button';
+import authorStyles from '../../styles/textStyles';
+import buttonLinks from '../../config/buttonLinks';
 
-const TitleRightTableLeft = ({ section, author }) => {
+const ProductBenefitsWithATable = ({ data, author }) => {
   const themes = {
     default: {
       bgColor: 'bg-white',
@@ -31,8 +31,6 @@ const TitleRightTableLeft = ({ section, author }) => {
     }
   };
 
-  console.log('Current author:', author);
-
   const currentTheme = themes[author] || themes.default;
 
   const styles = authorStyles[author];
@@ -47,7 +45,7 @@ const TitleRightTableLeft = ({ section, author }) => {
         <div className="w-full md:w-3/5 p-4 md:p-12 flex items-center overflow-x-auto">
           <table className={`w-full border-collapse ${currentTheme.tableStyle} min-w-[500px]`}>
             <tbody>
-              {section.leftContent.map((item, index) => (
+              {data.leftContent.map((item, index) => (
                 <tr key={index} className={currentTheme.rowStyle}>
                   <td className="py-4 md:py-6 px-4 md:px-8 w-2/5">
                     <div className="flex items-center space-x-2 md:space-x-4">
@@ -68,15 +66,15 @@ const TitleRightTableLeft = ({ section, author }) => {
           </table>
         </div>
         <div className="w-full md:w-2/5 p-6 md:p-20 flex flex-col justify-center space-y-4 md:space-y-8">
-          <div className="text-4xl md:text-6xl">{section.rightContent.icon}</div>
+          <div className="text-4xl md:text-6xl">{data.rightContent.icon}</div>
           <h2 className={`${styles.h1.fontSize} ${styles.h1.fontWeight} ${styles.h1.color}`}>
-            {section.rightContent.title}
+            {data.rightContent.title}
           </h2>
-          <h3 className={`${styles.paragraph.fontSize} ${styles.paragraph.color}`}>
-            {section.rightContent.subtitle}
-          </h3>
+          <p className={`${styles.paragraph.fontSize} ${styles.paragraph.color}`}>
+            {data.rightContent.subtitle}
+          </p>
           <CustomButton variant={author} href={getButtonLink()}>
-            {section.rightContent.buttonText}
+            {data.rightContent.buttonText}
           </CustomButton>
         </div>
       </div>
@@ -84,4 +82,4 @@ const TitleRightTableLeft = ({ section, author }) => {
   );
 };
 
-export default TitleRightTableLeft;
+export default ProductBenefitsWithATable;

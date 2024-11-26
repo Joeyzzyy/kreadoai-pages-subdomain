@@ -1,6 +1,6 @@
 import { getArticleBySlug } from '../../lib/api/index';
-import dynamicImport from 'next/dynamic';
 import { notFound } from 'next/navigation';
+import { ClientWrapper } from '../../components/layouts/client-wrapper';
 
 // 添加这个配置来启用动态路由
 export const dynamic = 'force-static'
@@ -38,20 +38,14 @@ const KREADO_METADATA = {
 // 添加缓存控制
 export const revalidate = 86400; // 24小时重新验证一次
 
-// 动态导入客户端组件
-const KreadoaiHeader = dynamicImport(() => import('../../components/layouts/kreado/header').then(mod => mod.KreadoaiHeader), {
-  ssr: false
-});
-const KreadoaiFooter = dynamicImport(() => import('../../components/layouts/kreado/footer').then(mod => mod.KreadoaiFooter), {
-  ssr: false
-});
-
 // Layout 组件可以正常导入，因为它是服务器组件
 import KreadoaiLayout from '../../components/layouts/kreado/layout';
 
 // 主页面组件
 export default async function ArticlePage({ params }) {
-  const { slug } = params;
+  // 确保等待 params 解析完成
+  const resolvedParams = await params;
+  const { slug } = resolvedParams;
   
   try {
     const articleData = await getArticleBySlug(slug, process.env.TOKEN);
@@ -63,13 +57,11 @@ export default async function ArticlePage({ params }) {
     const article = articleData.data[0];
 
     return (
-      <div className="flex flex-col min-h-screen"> 
-        <KreadoaiHeader />
+      <ClientWrapper>
         <main className="flex-grow">
           <KreadoaiLayout article={article} />
         </main>
-        <KreadoaiFooter />
-      </div>
+      </ClientWrapper>
     );
   } catch (error) {
     console.error('Error fetching article:', error);
@@ -89,7 +81,10 @@ export async function generateMetadata({ params }) {
   console.log('generateMetadata called with params:', params);
 
   try {
-    const { slug } = params;
+    // 确保等待 params 解析完成
+    const resolvedParams = await params;
+    const { slug } = resolvedParams;
+    
     console.log('Fetching article data for slug:', slug);
 
     try {

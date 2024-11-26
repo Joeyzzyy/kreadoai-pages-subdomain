@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import buttonLinks from '../../ui/button/links';
-import CustomButton from '../../ui/button';
+import buttonLinks from '../../config/buttonLinks';
+import CustomButton from './widget-custom_button';
 
-const TitleTopPricingDown = ({ data, author }) => {
+const PricingWithThreeCards = ({ data, author }) => {
   const { title, bottomContent } = data;
   
   const getButtonLink = () => {
@@ -11,27 +11,24 @@ const TitleTopPricingDown = ({ data, author }) => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-[rgb(248,250,254)]">
+    <div className="flex flex-col items-center bg-[rgb(248,250,254)] py-16">
       {/* Title Section */}
-      <div className="w-[70%] text-center mt-8 py-8">
-        <h1 className="text-4xl font-bold">{title}</h1>
+      <div className="w-full max-w-6xl text-center mb-12">
+        <h2 className="text-4xl font-bold">{title}</h2>
       </div>
 
       {/* Pricing Cards Section */}
-      <div className="w-[70%] grid grid-cols-3 gap-8 py-12">
-        {/* planOne Plan */}
-        <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow relative overflow-hidden">
-          <div className="absolute top-4 right-4 bg-yellow-400 text-black text-sm font-bold px-3 py-1 rounded-full transform rotate-12">
-            {bottomContent.planOne.discount}
-          </div>
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+        {/* Basic Plan */}
+        <div className="bg-white text-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
           <div className="text-center">
-            <h3 className="text-xl font-bold mb-4">{bottomContent.planOne.name}</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-900">{bottomContent.planOne.name}</h3>
             <div className="mb-4">
-              <span className="text-4xl font-bold">{bottomContent.planOne.price}</span>
-              <span>/month</span>
+              <span className="text-4xl font-bold text-gray-900">{bottomContent.planOne.price}</span>
+              <span className="text-gray-600">/month</span>
             </div>
-            <div className="border-t border-white/20 pt-4">
-              <ul className="space-y-2 text-left text-xs">
+            <div className="border-t border-white/20 pt-4 mb-8">
+              <ul className="space-y-2 text-left text-xs mb-6">
                 {bottomContent.planOne.features.map((feature, index) => (
                   <li key={index} className="flex items-center">
                     <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,25 +39,24 @@ const TitleTopPricingDown = ({ data, author }) => {
                 ))}
               </ul>
             </div>
-            <CustomButton variant={author} href={getButtonLink()}>
-              {bottomContent.planOne.buttonText}
-            </CustomButton>
+            <div className="mt-auto">
+              <CustomButton variant={author} href={getButtonLink()}>
+                {bottomContent.planOne.buttonText}
+              </CustomButton>
+            </div>
           </div>
         </div>
 
-        {/* planTwo Plan */}
-        <div className="bg-gradient-to-br from-purple-600 to-pink-500 text-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow transform scale-105 relative overflow-hidden">
-          <div className="absolute top-4 right-4 bg-yellow-400 text-black text-sm font-bold px-3 py-1 rounded-full transform rotate-12">
-            {bottomContent.planTwo.discount}
-          </div>
+        {/* Pro Plan */}
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform scale-105 z-10 border-2 border-blue-200">
           <div className="text-center">
-            <h3 className="text-xl font-bold mb-4">{bottomContent.planTwo.name}</h3>
+            <h3 className="text-xl font-bold mb-4 text-blue-900">{bottomContent.planTwo.name}</h3>
             <div className="mb-4">
-              <span className="text-4xl font-bold">{bottomContent.planTwo.price}</span>
-              <span>/month</span>
+              <span className="text-4xl font-bold text-blue-900">{bottomContent.planTwo.price}</span>
+              <span className="text-blue-700">/month</span>
             </div>
-            <div className="border-t border-white/20 pt-4">
-              <ul className="space-y-2 text-left text-xs">
+            <div className="border-t border-white/20 pt-4 mb-8">
+              <ul className="space-y-2 text-left text-xs mb-6">
                 {bottomContent.planTwo.features.map((feature, index) => (
                   <li key={index} className="flex items-center">
                     <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,24 +67,23 @@ const TitleTopPricingDown = ({ data, author }) => {
                 ))}
               </ul>
             </div>
-            <CustomButton variant={author} href={getButtonLink()}>
-              {bottomContent.planTwo.buttonText}
-            </CustomButton>
+            <div className="mt-auto">
+              <CustomButton variant={author} href={getButtonLink()}>
+                {bottomContent.planTwo.buttonText}
+              </CustomButton>
+            </div>
           </div>
         </div>
 
-        {/* planThree Plan */}
-        <div className="bg-gradient-to-br from-indigo-600 to-blue-500 text-white rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow relative overflow-hidden">
-          <div className="absolute top-4 right-4 bg-yellow-400 text-black text-sm font-bold px-3 py-1 rounded-full transform rotate-12">
-            {bottomContent.planThree.discount}
-          </div>
+        {/* Enterprise Plan */}
+        <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200">
           <div className="text-center">
-            <h3 className="text-xl font-bold mb-4">{bottomContent.planThree.name}</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-900">{bottomContent.planThree.name}</h3>
             <div className="mb-4">
-              <span className="text-4xl font-bold">{bottomContent.planThree.price}</span>
+              <span className="text-4xl font-bold text-gray-900">{bottomContent.planThree.price}</span>
             </div>
-            <div className="border-t border-white/20 pt-4">
-              <ul className="space-y-2 text-left text-xs">
+            <div className="border-t border-white/20 pt-4 mb-8">
+              <ul className="space-y-2 text-left text-xs mb-6">
                 {bottomContent.planThree.features.map((feature, index) => (
                   <li key={index} className="flex items-center">
                     <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,9 +94,11 @@ const TitleTopPricingDown = ({ data, author }) => {
                 ))}
               </ul>
             </div>
-            <CustomButton variant={author} href={getButtonLink()}>
-              {bottomContent.planThree.buttonText}
-            </CustomButton>
+            <div className="mt-auto">
+              <CustomButton variant={author} href={getButtonLink()}>
+                {bottomContent.planThree.buttonText}
+              </CustomButton>
+            </div>
           </div>
         </div>
       </div>
@@ -109,4 +106,4 @@ const TitleTopPricingDown = ({ data, author }) => {
   );
 };
 
-export default TitleTopPricingDown;
+export default PricingWithThreeCards;

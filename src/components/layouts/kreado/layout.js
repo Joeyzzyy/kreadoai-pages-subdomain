@@ -1,24 +1,20 @@
 import React from 'react';
 import HeroSectionWithVideo from '../../common/sections/hero-section-with-video';
-import TextBlock from '../../common/sections/text-block';
 import CallToAction from '../../common/sections/call-to-action';
 import HowItWorksWithThreeBlocks from '../../common/sections/how-it-works-with-three-blocks';
 import WhyChooseUsWithTwoHugeBlocks from '../../common/sections/why-choose-us-with-two-huge-blocks';
 import WhyChooseUsWithSixSmallBlocks from '../../common/sections/why-choose-us-with-six-small-blocks';
 import HowItWorksWithWorkflow from '../../common/sections/how-it-works-with-workflow';
 import ProductBenefitsWithFourBlocks from '../../common/sections/product-benefits-with-four-blocks';
-import CallToActionWithTable from '../../common/sections/call-to-action-with-a-table';
 import Faqs from '../../common/sections/faqs';
-import ProductComparisonTable from '../../common/sections/product_comparison_table';
+import ProductComparisonTable from '../../common/sections/product-comparison-table';
 import MoreInsightsWithFourCards from '../../common/sections/more-insights-with-four-cards';
 import ImageBanner from '../../common/sections/image-banner';
 
 // 更新组件映射表
 const COMPONENT_MAP = {
-  TextBlock: TextBlock,
   CallToAction: CallToAction,
   Faqs: Faqs,
-  CallToActionWithTable: CallToActionWithTable,
   HowItWorksWithThreeBlocks: HowItWorksWithThreeBlocks,
   ProductBenefitsWithFourBlocks: ProductBenefitsWithFourBlocks,
   HowItWorksWithWorkflow: HowItWorksWithWorkflow,
@@ -77,7 +73,7 @@ const KreadoaiLayout = ({ article, keywords }) => {
           return (
             <Component 
               key={`${section.componentName}-${section.position}`} 
-              section={section}
+              data={section}
               author={author}
             />
           );
