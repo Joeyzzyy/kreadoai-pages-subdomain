@@ -1,6 +1,7 @@
-import { getArticleBySlug } from '../../lib/api/index';
+import { getArticleBySlug } from '../../../lib/api/index';
 import { notFound } from 'next/navigation';
-import { ClientWrapper } from '../../components/layouts/client-wrapper';
+import { ClientWrapper } from '../../../components/layouts/client-wrapper';
+import KreadoaiLayout from '../../../components/layouts/kreado/layout';
 
 // 添加这个配置来启用动态路由
 export const dynamic = 'force-static'
@@ -8,7 +9,7 @@ export const dynamic = 'force-static'
 // 如果需要的话，也可以添加这个配置来处理不同的域名
 export const dynamicParams = true
 
-// 添加一个新的常量映射来存储不同作者的元数据配置
+// 保持原有的 KREADO_METADATA 配置
 const KREADO_METADATA = {
   title: 'KreadoAI',
   defaultDescription: 'AI Creation Generates Multilingual Videos',
@@ -39,16 +40,18 @@ const KREADO_METADATA = {
 export const revalidate = 86400; // 24小时重新验证一次
 
 // Layout 组件可以正常导入，因为它是服务器组件
-import KreadoaiLayout from '../../components/layouts/kreado/layout';
 
 // 主页面组件
 export default async function ArticlePage({ params }) {
-  // 确保等待 params 解析完成
-  const resolvedParams = await params;
-  const { slug } = resolvedParams;
+  const { lang, slug } = params;
   
+  // 验证语言参数
+  if (!['en', 'zh'].includes(lang)) {
+    notFound();
+  }
+
   try {
-    const articleData = await getArticleBySlug(slug, process.env.TOKEN);
+    const articleData = await getArticleBySlug(slug, lang, process.env.TOKEN);
     
     if (!articleData?.data?.[0]) {
       notFound();
@@ -69,26 +72,16 @@ export default async function ArticlePage({ params }) {
   }
 }
 
-// 从host中提取主域名
-function getMainDomain(host) {
-  const parts = host.split('.');
-  // 兼容主域名和子域名
-  return parts.length > 2 ? parts.slice(-3).join('.') : parts.slice(-2).join('.'); // 如果有子域名，返回最后三个部分
-}
-
 // 修改 generateMetadata 函数
 export async function generateMetadata({ params }) {
   console.log('generateMetadata called with params:', params);
 
   try {
-    // 确保等待 params 解析完成
-    const resolvedParams = await params;
-    const { slug } = resolvedParams;
-    
+    const { lang = 'en', slug } = params;
     console.log('Fetching article data for slug:', slug);
 
     try {
-      const articleData = await getArticleBySlug(slug, process.env.TOKEN);
+      const articleData = await getArticleBySlug(slug, lang, process.env.TOKEN);
       console.log('Article data received:', articleData?.data?.[0] ? 'success' : 'not found');
 
       if (!articleData?.data?.[0]) {

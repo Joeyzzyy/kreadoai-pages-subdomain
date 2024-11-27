@@ -68,14 +68,17 @@ export async function getArticles(batchId, page, limit) {
   }
 };
 
-// 根据 id 获取单篇文章
-export async function getArticleBySlug(id, token) {
+// 根据 slug 获取单篇文章
+export async function getArticleBySlug(slug, locale, token) {
   try {
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
-    const response = await axios.get(`${API_URL}/pages/${id}`, { headers });
+    const response = await axios.get(`${API_URL}/pages/${slug}`, { 
+      headers,
+      // params: { locale }
+    });
     return response.data;
   } catch (error) {
-    console.error('Error fetching article by id:', error.response?.data || error.message);
+    console.error('Error fetching article by slug:', error.response?.data || error.message);
     throw error;
   }
 }

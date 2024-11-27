@@ -5,12 +5,10 @@ export function middleware(request) {
   const isDevelopment = process.env.NODE_ENV === 'development';
   const DOMAIN = process.env.DOMAIN || '';
   
-  // 添加调试日志
-  console.log('Original pathname:', pathname);
-  
-  // 如果路径已经包含 /articles，直接返回
-  if (pathname.startsWith('/articles')) {
-    console.log('Path contains /articles, skipping rewrite');
+  // 只处理 /{lang}/{slug} 格式的路径
+  const pathRegex = /^\/[a-z]{2}\/[\w-]+$/;
+  if (!pathRegex.test(pathname)) {
+    console.log('Path does not match /{lang}/{slug} format, skipping middleware');
     return NextResponse.next();
   }
 
@@ -22,21 +20,22 @@ export function middleware(request) {
     }
   }
 
-  // 重写路径
+  // 重写路径，直接添加 /en 前缀
   const url = request.nextUrl.clone();
-  url.pathname = `/articles${pathname}`;
+  url.pathname = `/en${pathname}`;
   
-  // 添加调试日志
   console.log('Rewritten pathname:', url.pathname);
 
-  // 添加缓存相关的头部
+  const response = NextResponse.rewrite(url);
   response.headers.set('Cache-Control', 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400');
   
-  return NextResponse.rewrite(url);
+  return response;
 }
 
 export const config = {
   matcher: [
+    '/:lang/:slug*',
+    // 排除特定路径
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 };
