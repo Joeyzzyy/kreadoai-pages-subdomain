@@ -65,6 +65,7 @@ export default async function ArticlePage({ params: paramsPromise }) {
 
     // 获取推荐文章
     const recommendations = await getCustomRecommendations({
+      pageId: article.pageId,
       customerId: article.customerId, // 确保这个字段存在
       title: article.title,
       category: article.category, // 确保这个字段存在s
@@ -72,13 +73,12 @@ export default async function ArticlePage({ params: paramsPromise }) {
     });
 
     console.log('recommendations is', recommendations)
-
     // 如果有推荐文章，将其添加到 sections 中
-    if (recommendations && recommendations.length >= 4) {
+    if (recommendations && recommendations.recommended_articles.length >= 4) {
       const recommendationSection = {
         componentName: "MoreInsightsWithFourCards",
-        bottomContent: recommendations.map(rec => ({
-          imageUrl: rec.imageUrl || '/images/kreado-demo-pic1.webp', // 使用推荐文章的图片或默认图片
+        bottomContent: recommendations.recommended_articles.map(rec => ({
+          imageUrl: rec.imageUrl,
           subTitle: rec.category?.toUpperCase() || 'ARTICLE',
           title: rec.title
         })).slice(0, 4) // 确保只取前4篇文章

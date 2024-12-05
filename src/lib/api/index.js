@@ -41,27 +41,11 @@ export async function getArticleBySlug(slug, lang, token) {
   }
 }
 
-// 根据标题和分类获取文章推荐
-export async function getRecommendedArticles(title, category, limit = 4) {
-  try {
-    const response = await apiClient.get('/pages/recommendations', {
-      params: {
-        title,
-        category,
-        limit
-      }
-    });
-    return response.data;
-  } catch (error) {
-    console.error('获取推荐文章失败:', error);
-    return null;
-  }
-}
-
 // 获取客户定制推荐
-export async function getCustomRecommendations({ customerId, title, category, lang }) {
+export async function getCustomRecommendations({ pageId, customerId, title, category, lang }) {
   try {
     const response = await apiClient.post('/kreado/recommend', {
+      pageId,
       customerId,
       title,
       category,
