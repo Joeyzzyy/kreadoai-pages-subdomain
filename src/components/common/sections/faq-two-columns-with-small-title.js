@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import authorStyles from '../../styles/textStyles';
+import authorStyles from '../../../styles/textStyles';
 
 const FAQTwoColumnsWithSmallTitle = ({ data, author }) => {
   const styles = authorStyles[author];
@@ -12,6 +12,10 @@ const FAQTwoColumnsWithSmallTitle = ({ data, author }) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const isChineseContent = (content) => {
+    return /[\u4e00-\u9fa5]/.test(content[0]?.question);
+  };
+
   return (
     <div className="flex justify-center bg-white py-8 md:py-12">
       <div className="w-[95%] md:w-[70%] flex flex-col md:flex-row items-start gap-8">
@@ -21,7 +25,7 @@ const FAQTwoColumnsWithSmallTitle = ({ data, author }) => {
             FAQ
           </span>
           <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Frequently asked questions
+            {isChineseContent(data.bottomContent) ? '常见问题解答' : 'Frequently asked questions'}
           </h2>
         </div>
 

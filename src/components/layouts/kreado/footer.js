@@ -1,8 +1,23 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaFacebook, FaDiscord, FaXTwitter, FaYoutube } from 'react-icons/fa6';
+import { footerText } from '@/locales/footerText';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export const KreadoaiFooter = () => {
+  const [currentLang, setCurrentLang] = useState('en');
+  const pathname = usePathname();
+
+  // 监听路径变化并更新当前语言
+  useEffect(() => {
+    const pathParts = pathname.split('/');
+    const lang = pathParts[1] === 'zh' ? 'zh' : 'en';
+    setCurrentLang(lang);
+  }, [pathname]);
+
+  const text = footerText[currentLang];
+
   return (
     <footer className="bg-[#262B3A]">
       <div className="max-w-7xl mx-auto py-8 md:py-12 px-4 sm:px-6 lg:px-8">
@@ -20,7 +35,7 @@ export const KreadoaiFooter = () => {
               />
             </Link>
             <p className="text-gray-300 text-base text-center sm:text-left">
-              AIGC Digital Marketing Creation
+              {text.slogan}
             </p>
           </div>
           
@@ -66,27 +81,30 @@ export const KreadoaiFooter = () => {
 
         <div className="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-400">
           <a href="mailto:support@kreadoai.com" className="hover:text-gray-200">
-            support@kreadoai.com
+            {text.links.email}
           </a>
           <span className="hidden sm:inline">|</span>
-          <a href="https://help.kreadoai.com/zh-CN/" className="hover:text-gray-200">
-            Help Center
+          <a 
+            href={`https://help.kreadoai.com/${currentLang === 'zh' ? 'zh-CN' : 'en'}/`} 
+            className="hover:text-gray-200"
+          >
+            {text.links.helpCenter}
           </a>
           <span className="hidden sm:inline">|</span>
           <a href="https://www.kreadoai.com/terms-of-service" className="hover:text-gray-200">
-            Service Terms
+            {text.links.serviceTerms}
           </a>
           <span className="hidden sm:inline">|</span>
           <a href="https://www.kreadoai.com/privacy-policy" className="hover:text-gray-200">
-            Privacy Policy
+            {text.links.privacyPolicy}
           </a>
           <span className="hidden sm:inline">|</span>
-          <p>Copyright © www.kreadoai.com</p>
+          <p>{text.copyright}</p>
           <span className="hidden sm:inline">|</span>
-          <p>陕ICP备16009628号-11</p>
+          <p>{text.icp}</p>
           <span className="hidden sm:inline">|</span>
           <a href="https://beian.cac.gov.cn/#/index" className="hover:text-gray-200">
-            网信算备610102726918801240017号
+            {text.cac}
           </a>
         </div>
       </div>

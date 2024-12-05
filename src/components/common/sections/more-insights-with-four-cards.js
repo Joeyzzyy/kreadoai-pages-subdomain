@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import authorStyles from '../../../styles/textStyles';
 
 const MoreInsightsWithFourCards = ({ data }) => {
   const insights = data.bottomContent;
@@ -8,7 +9,7 @@ const MoreInsightsWithFourCards = ({ data }) => {
   return (
     <div className="more-insights my-16 flex justify-center">
       <div className="w-[95%] md:w-[80%]">
-        <h2 className="text-4xl mb-12 font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent text-center">
+        <h2 className={`${authorStyles.h2.fontSize} ${authorStyles.h2.fontWeight} ${authorStyles.h2.color} text-center mb-8`}>
           More Insights
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">

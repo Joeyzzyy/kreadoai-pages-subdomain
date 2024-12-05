@@ -1,10 +1,8 @@
 'use client';
 import React, { useState } from 'react';
-import authorStyles from '../../styles/textStyles';
+import authorStyles from '../../../styles/textStyles';
 
-const FAQTwoColumnsWithBigTitle = ({ data, author }) => {
-  const styles = authorStyles[author];
-  
+const FAQTwoColumnsWithBigTitle = ({ data }) => {
   // 添加展开/收起状态控制
   const [openIndex, setOpenIndex] = useState(null);
 
@@ -12,16 +10,20 @@ const FAQTwoColumnsWithBigTitle = ({ data, author }) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const isChineseContent = (content) => {
+    return /[\u4e00-\u9fa5]/.test(content[0]?.question);
+  };
+
   return (
     <div className="flex justify-center bg-white py-8 md:py-12 px-4 md:px-8">
       <div className="w-full md:w-[70%] flex flex-col md:flex-row items-start gap-8">
         {/* 左侧标题区域 */}
         <div className="w-full md:w-1/3">
-          <h2 className="text-7xl font-bold mb-4 text-black">
-            FAQs
+          <h2 className="text-5xl font-bold mb-4 text-gray-700">
+            {isChineseContent(data.bottomContent) ? '常见问题' : 'FAQs'}
           </h2>
           <p className="text-lg text-black mb-4">
-            AI-powered video creation made simple
+            {isChineseContent(data.bottomContent) ? 'AI驱动的内容创作从未如此简单' : 'AI-powered video creation made simple'}
           </p>
         </div>
 

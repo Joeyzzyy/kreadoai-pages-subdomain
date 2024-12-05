@@ -7,16 +7,35 @@ import WhyChooseUsWithSixSmallBlocks from '../../common/sections/why-choose-us-w
 import HowItWorksWithWorkflow from '../../common/sections/how-it-works-with-workflow';
 import ProductBenefitsWithFourBlocks from '../../common/sections/product-benefits-with-four-blocks';
 import Faqs from '../../common/sections/faqs';
+import FAQTwoColumnsWithBigTitle from '../../common/sections/faq-two-columns-with-big-title';
+import FAQTwoColumnsWithSmallTitle from '../../common/sections/faq-two-columns-with-small-title';
 import ProductComparisonTable from '../../common/sections/product-comparison-table';
 import MoreInsightsWithFourCards from '../../common/sections/more-insights-with-four-cards';
 import ImageBanner from '../../common/sections/image-banner';
 import TitleSection from '../../common/sections/title-section';
 import TitleSectionWithImage from '../../common/sections/title-section-with-image';
+import KeyResultsWithImage from '../../common/sections/key-results-with-image';
+import KeyResultsWithTextBlock from '../../common/sections/key-results-with-text-block';
 
 // 更新组件映射表
+const FAQ_COMPONENTS = {
+  Faqs: Faqs,
+  FAQTwoColumnsWithSmallTitle: FAQTwoColumnsWithSmallTitle,
+  FAQTwoColumnsWithBigTitle: FAQTwoColumnsWithBigTitle
+};
+
+const getRandomFaqComponent = () => {
+  const components = Object.values(FAQ_COMPONENTS);
+  const randomIndex = Math.floor(Math.random() * components.length);
+  return components[randomIndex];
+};
+
 const COMPONENT_MAP = {
   CallToAction: CallToAction,
-  Faqs: Faqs,
+  Faqs: (props) => {
+    const RandomFaqComponent = getRandomFaqComponent();
+    return <RandomFaqComponent {...props} />;
+  },
   HowItWorksWithThreeBlocks: HowItWorksWithThreeBlocks,
   ProductBenefitsWithFourBlocks: ProductBenefitsWithFourBlocks,
   HowItWorksWithWorkflow: HowItWorksWithWorkflow,
@@ -27,7 +46,9 @@ const COMPONENT_MAP = {
   ProductComparisonTable: ProductComparisonTable,
   HeroSectionWithVideo: HeroSectionWithVideo,
   TitleSection: TitleSection,
-  TitleSectionWithImage: TitleSectionWithImage
+  TitleSectionWithImage: TitleSectionWithImage,
+  KeyResultsWithImage: KeyResultsWithImage,
+  KeyResultsWithTextBlock: KeyResultsWithTextBlock
 };
 
 const generateSchemaMarkup = (article) => {

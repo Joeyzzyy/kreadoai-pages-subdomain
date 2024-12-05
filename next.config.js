@@ -9,6 +9,11 @@ const nextConfig = {
           key: 'Cache-Control',
           value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
         },
+        // 下面的配置是禁止搜索引擎索引
+        {
+          key: 'X-Robots-Tag',
+          value: 'noindex, nofollow',
+        },
       ],
     },
   ],

@@ -2,7 +2,7 @@
 import React from 'react';
 
 const KeyResultsWithImage = ({ data }) => {
-  const comparisons = data.BottomContent;
+  const comparisons = data.bottomContent;
   return (
     <div className="py-8 md:py-12">
       <div className="max-w-7xl mx-auto px-4">
@@ -11,7 +11,7 @@ const KeyResultsWithImage = ({ data }) => {
             {comparisons.map((item, index) => (
               <div key={index} className="flex flex-col items-start text-left">
                 <div className="text-5xl md:text-6xl font-bold text-purple-600 mb-2">
-                  {item.percentage}%
+                  {item.percentage}
                 </div>
                 <p className="text-gray-700">
                   {item.description}

@@ -5,10 +5,7 @@ import authorStyles from '../../../styles/textStyles';
 import buttonLinks from '../../ui/button/links';
 import Image from 'next/image';
 
-const CallToAction = ({ data, author }) => {
-  const styles = authorStyles[author];
-  const paragraphColorClass = 'text-white';
-
+const CallToAction = ({ data }) => {
   const getButtonLink = () => {
     return buttonLinks.workbench || '#';
   };
@@ -34,14 +31,13 @@ const CallToAction = ({ data, author }) => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20" />
 
         <div className="relative z-10 text-center max-w-3xl mx-auto py-8 md:py-16 px-4">
-          <h2 className={`${styles.h2.fontSize} ${styles.h2.fontWeight} ${styles.h2.color} mb-4 md:mb-8`}>
+          <h2 className={`${authorStyles.h2.fontSize} ${authorStyles.h2.fontWeight} ${authorStyles.h2.color} mb-4 md:mb-8`}>
             {data.title}
           </h2>
-          <p className={`${styles.paragraph.fontSize} ${paragraphColorClass} mb-6 md:mb-10 px-4 leading-relaxed`}>
+          <p className={`${authorStyles.subtitle.fontSize} ${authorStyles.subtitle.color} mb-6 md:mb-10 px-4 leading-relaxed`}>
             {data.subTitle}
           </p>
           <CustomButton 
-            variant={author}
             href={getButtonLink()}
           >
             {data.buttonText}

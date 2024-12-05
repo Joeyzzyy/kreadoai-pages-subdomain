@@ -2,210 +2,18 @@
 import { useState, useEffect, Fragment } from "react";
 import Link from "next/link";
 import Image from 'next/image';
-
-const menuItems = [
-    {
-        key: "features",
-        label: "Features",
-        href: "#",
-        submenu: {
-            updates: {
-                title: "LATEST UPDATES ➜",
-                items: [
-                    {
-                        title: "KreadoAl's 450+ Digital Avatars Unlocks Endless Possibilities",
-                        href: "https://help.kreadoai.com/en/articles/10062778-kreadoai-s-450-digital-avatars-unlocks-endless-possibilities"
-                    },
-                    {
-                        title: "Effortless Al Video Creation: KreadoAl Launches New Animation Features",
-                        href: "https://help.kreadoai.com/en/articles/10038547-effortless-ai-video-creation-kreadoai-launches-new-animation-features"
-                    }
-                ],
-                action: {
-                    label: "View All Updates",
-                    href: "https://help.kreadoai.com/en/collections/7626091-latest-upadates"
-                }
-            },
-            categories: [
-                {
-                    title: "VIDEO CREATIVE",
-                    items: [
-                        {
-                            icon: "/images/icons/avatar.svg",
-                            title: "🎬 Digital Avatar Video",
-                            description: "More than 300 kinds of real-life digital characters",
-                            href: "https://www.kreadoai.com/digital-avatar"
-                        },
-                        {
-                            icon: "/images/icons/text-video.svg",
-                            title: "📺 Live Streaing",
-                            description: "Quickly set up a live streamingroom, digital people live",
-                            href: "https://www.kreadoai.com/liveStreaming"
-                        },
-                        {
-                            icon: "/images/icons/translation.svg",
-                            title: "🗣️ Talking Photo",
-                            description: "Al generates photos of people,input text ta generate spoken",
-                            href: "https://www.kreadoai.com/talking-photo"
-                        },
-                        {
-                            icon: "/images/icons/customize.svg",
-                            title: "🤖 Al intelligent Guide",
-                            description: "Digital Avatar real-timeinteractive communication",
-                            href: "https://www.kreadoai.com/smartShopping"
-                        },
-                        {
-                            icon: "/images/icons/template.svg",
-                            title: "📊 Digital Human PPT Creation",
-                            description: "Upload PPT to make digital population broadcast video",
-                            href: "https://www.kreadoai.com/digital-ppt-creation"
-                        },
-                        {
-                            icon: "/images/icons/batch.svg",
-                            title: "🔗 URL-to-Video",
-                            description: "Just enter the URl and quicklygenerate popular short videos",
-                            href: "https://www.kreadoai.com/url-to-video"
-                        }
-                    ]
-                },
-                {
-                    title: "AI TOOLS",
-                    items: [
-                        {
-                            icon: "/images/icons/voice.svg",
-                            title: "👥 Avatar Clone",
-                            description: "Record the video, restore the character 1:1",
-                            href: "https://www.kreadoai.com/avatarClone"
-                        },
-                        {
-                            icon: "/images/icons/script.svg",
-                            title: "🎙️ Voice Clone",
-                            description: "Reproduct the voice and temperament",
-                            href: "https://www.kreadoai.com/voiceClone"
-                        },
-                        {
-                            icon: "/images/icons/subtitle.svg",
-                            title: "🌐 AI Text Dubbing",
-                            description: "Support 140 languages",
-                            href: "https://www.kreadoai.com/ai/dubbing"
-                        },
-                        {
-                            icon: "/images/icons/dub.svg",
-                            title: "✍️ AI Copywriting",
-                            description: "20 languages worldwide",
-                            href: "https://www.kreadoai.com/ai/marketing"
-                        }
-                    ]
-                },
-                {
-                    title: "PICTURE IDEAS",
-                    items: [
-                        {
-                            icon: "/images/icons/background.svg",
-                            title: "👤 Real Mddel Generated",
-                            description: "Quickly generate real-life models with different skin",
-                            href: "https://www.kreadoai.com/model"
-                        },
-                        {
-                            icon: "/images/icons/style.svg",
-                            title: "✂️ AI Smart Cutout",
-                            description: "Remove image background",
-                            href: "https://www.kreadoai.com/ai/cutout"
-                        },
-                        {
-                            icon: "/images/icons/enhance.svg",
-                            title: "👱‍♀️ Virtual Wigs Try-On",
-                            description: "Scan your face and virtually try on wig products",
-                            href: "https://www.kreadoai.com/model/VirtualTryOn"
-                        }
-                    ]
-                }
-            ]
-        }
-    },
-    {
-        key: "resource",
-        label: "Resource",
-        href: "#",
-        submenu: {
-            updates: {
-                title: "👉 GETTING STARTED",
-                items: [
-                    {
-                        title: "Learn more about KreadoAI!",
-                        href: "https://help.kreadoai.com/en/collections/7626106-general"
-                    },
-                    {
-                        title: "How to create free account?",
-                        href: "https://help.kreadoai.com/en/articles/8696921-account-create-account-verified-email-reset-password"
-                    },
-                    {
-                        title: "How to create a Video?",
-                        href: "https://help.kreadoai.com/en/collections/7700517-ai-video-creation"
-                    },
-                    {
-                        type: "row",
-                        items: [
-                            {
-                                title: "HelpCenter",
-                                href: "https://help.kreadoai.com/en"
-                            },
-                            {
-                                title: "Email",
-                                href: "mailto:support@kreadoai.com"
-                            }
-                        ]
-                    }
-                ]
-            },
-            categories: [
-                {
-                    title: "HELP CENTER",
-                    items: [
-                        {
-                            icon: "/images/icons/guide.svg",
-                            title: "📚 User Guides",
-                            description: "Step-by-step tutorials and user manuals",
-                            href: "https://help.kreadoai.com/en/collections/7626088-tutorials"
-                        },
-                        {
-                            icon: "/images/icons/faq.svg",
-                            title: "❓ FAQ",
-                            description: "Frequently asked questions and answers",
-                            href: "https://help.kreadoai.com/en/collections/7626087-faqs"
-                        },
-                        {
-                            icon: "/images/icons/support.svg",
-                            title: "🎯 Technical Support",
-                            description: "Get help with technical issues",
-                            href: "https://tally.so/r/m6NBNJ"
-                        },
-                        {
-                            icon: "/images/icons/community.svg",
-                            title: "👥 Community",
-                            description: "Join our community of creators",
-                            href: "https://help.kreadoai.com/en/collections/7825250-blog"
-                        }
-                    ]
-                }
-            ]
-        }
-    },
-    {
-        key: "pricing",
-        label: "Pricing",
-        href: "https://www.kreadoai.com/price"
-    },
-    {
-        key: "api",
-        label: "API Docs",
-        href: "https://help.kreadoai.com/en/articles/8855686-api-support-documentation"
-    }
-];
+import { usePathname, useRouter } from 'next/navigation';
+import { menuItems } from '@/locales/menuItems';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
+
+// 右侧链接文本也需要支持多语言
+const rightLinkText = {
+  en: "Home",
+  zh: "首页"
+};
 
 export const Navigation = ({ theme = 'light' }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -213,6 +21,9 @@ export const Navigation = ({ theme = 'light' }) => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
   const [mobileSubmenu, setMobileSubmenu] = useState(null);
+  const pathname = usePathname();
+  const router = useRouter();
+  const [currentLang, setCurrentLang] = useState('en');
 
   // 添加主题相关的样式配置
   const themeStyles = {
@@ -257,10 +68,28 @@ export const Navigation = ({ theme = 'light' }) => {
     setMobileSubmenu(mobileSubmenu === key ? null : key);
   };
 
+  // 监听路径变化并更新当前语言
+  useEffect(() => {
+    const pathParts = pathname.split('/');
+    const lang = pathParts[1] === 'zh' ? 'zh' : 'en';
+    setCurrentLang(lang);
+  }, [pathname]);
+
+  const handleLanguageChange = (newLang) => {
+    const pathParts = pathname.split('/');
+    if (currentLang === newLang) return;
+    
+    pathParts[1] = newLang;
+    const newPath = pathParts.join('/');
+    router.push(newPath);
+    setCurrentLang(newLang);
+  };
+
+  // 获取当前语言的菜单项
+  const currentMenuItems = menuItems[currentLang];
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      hasScrolled || activeDropdown ? 'bg-white shadow' : 'bg-transparent'
-    }`}>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow">
       <div className="max-w-[1450px] mx-auto px-6">
         {/* 主导航栏 */}
         <div className="flex justify-between h-[4.2rem]">
@@ -282,7 +111,7 @@ export const Navigation = ({ theme = 'light' }) => {
           {/* 桌面端菜单 */}
           <div className="hidden md:flex items-center justify-center flex-1">
             <div className="flex space-x-8">
-              {menuItems.map((item) => (
+              {currentMenuItems.map((item) => (
                 <div
                   key={item.key}
                   className="relative"
@@ -480,7 +309,7 @@ export const Navigation = ({ theme = 'light' }) => {
           </div>
 
           {/* 右侧链接 */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center space-x-6">
             <Link
               href="https://www.kreadoai.com/ai/workbench"
               className={`text-base transition duration-300 ${
@@ -489,8 +318,33 @@ export const Navigation = ({ theme = 'light' }) => {
                   : themeStyles[theme].text + ' ' + themeStyles[theme].hoverText
               }`}
             >
-              Home
+              {rightLinkText[currentLang]}
             </Link>
+
+            {/* 语言切换器 */}
+            <div className="flex items-center space-x-2 text-sm">
+              <button
+                onClick={() => handleLanguageChange('en')}
+                className={`px-2 py-1 rounded transition-colors duration-200 ${
+                  currentLang === 'en' 
+                    ? 'text-blue-600 font-medium' 
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                EN
+              </button>
+              <span className="text-gray-300">|</span>
+              <button
+                onClick={() => handleLanguageChange('zh')}
+                className={`px-2 py-1 rounded transition-colors duration-200 ${
+                  currentLang === 'zh' 
+                    ? 'text-blue-600 font-medium' 
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                中文
+              </button>
+            </div>
           </div>
 
           {/* 移动端菜单按钮 */}
