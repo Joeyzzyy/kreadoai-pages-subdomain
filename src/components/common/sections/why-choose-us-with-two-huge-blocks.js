@@ -26,10 +26,10 @@ const WhyChooseUsWithTwoHugeBlocks = ({ data, author }) => {
     <div className="flex flex-col items-center bg-blue-500/1">
       {/* 顶部标题区域 */}
       <div className="w-full md:w-[70%] text-center mt-4 md:mt-8 py-4 md:py-8 px-4">
-        <h2 className={`${styles.h1.fontSize} ${styles.h1.fontWeight} ${styles.h1.color} mb-4 md:mb-6`}>
+        <h2 className={`${authorStyles.h1.fontSize} ${authorStyles.h1.fontWeight} ${authorStyles.h1.color} mb-4 md:mb-6`}>
           {topContent.title}
         </h2>
-        <p className={`${styles.paragraph.fontSize} ${styles.paragraph.color} max-w-3xl mx-auto`}>
+        <p className={`${authorStyles.paragraph.fontSize} ${authorStyles.paragraph.color} max-w-3xl mx-auto`}>
           {topContent.subtitle}
         </p>
       </div>
