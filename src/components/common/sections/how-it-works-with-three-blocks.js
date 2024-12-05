@@ -24,7 +24,7 @@ const HowItWorksWithThreeBlocks = ({ data, author }) => {
     <div className="flex justify-center bg-white">
       <div className="w-full md:w-[80%] flex flex-col md:flex-row py-20 p-4">
         {/* 左侧内容 */}
-        <div className="w-full md:w-2/5 p-6 md:p-20 flex flex-col justify-center space-y-6 md:space-y-8">
+        <div className="w-full md:w-2/5 p-6 flex flex-col justify-center space-y-6 md:space-y-8">
           <div className="text-4xl md:text-6xl">{leftContent.icon}</div>
           <h2 className="text-3xl md:text-4xl font-bold">{leftContent.title}</h2>
           <p style={{ color: 'rgb(55, 83, 117)' }} className="text-lg md:text-xl">

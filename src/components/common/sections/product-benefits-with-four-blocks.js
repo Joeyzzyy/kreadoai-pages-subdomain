@@ -2,8 +2,8 @@
 
 import React from 'react';
 import CustomButton from './widget-custom_button';
-import authorStyles from '../../../styles/textStyles';
 import buttonLinks from '../../ui/button/links';
+import authorStyles from '../../../styles/textStyles';
 
 const ProductBenefitsWithFourBlocksq = ({ data, author }) => {
   const getButtonLink = () => {
@@ -26,10 +26,10 @@ const ProductBenefitsWithFourBlocksq = ({ data, author }) => {
     <div className="flex justify-center bg-white py-6 md:py-10">
       <div className="w-[95%] md:w-[90%] lg:w-[80%] flex flex-col md:flex-row items-center">
         <div className="w-full md:w-2/5 p-4 md:p-10 flex flex-col space-y-6 md:space-y-8">
-          <h2 className={`text-center md:text-left ${styles.h1.fontSize} ${styles.h1.fontWeight} ${styles.h1.color}`}>
+          <h2 className={`text-center md:text-left ${authorStyles.h2.fontSize} ${authorStyles.h2.fontWeight} ${authorStyles.h2.color}`}>
             {data.leftContent.title}
           </h2>
-          <p className={`text-center md:text-left ${styles.paragraph.fontSize} ${styles.paragraph.color}`}>
+          <p className={`text-center md:text-left ${authorStyles.paragraph.fontSize} ${authorStyles.paragraph.color}`}>
             {data.leftContent.description}
           </p>
           <div className="flex justify-center md:justify-start">
@@ -66,10 +66,10 @@ const ProductBenefitsWithFourBlocksq = ({ data, author }) => {
                 <div className="absolute -top-1/2 -left-1/2 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:translate-x-4 transition-transform duration-700" />
                 
                 <div className="relative z-10">
-                  <h3 className={`${styles.h3.fontSize} ${styles.h3.fontWeight} text-white mb-2 text-shadow-sm`}>
+                  <h3 className={`${authorStyles.h3.fontSize} ${authorStyles.h3.fontWeight} text-white mb-2 text-shadow-sm`}>
                     {module.title}
                   </h3>
-                  <p className={`${styles.paragraph.fontSize} text-white font-medium text-shadow-sm`}>
+                  <p className={`${authorStyles.paragraph.fontSize} text-white font-medium text-shadow-sm`}>
                     {module.content}
                   </p>
                 </div>
