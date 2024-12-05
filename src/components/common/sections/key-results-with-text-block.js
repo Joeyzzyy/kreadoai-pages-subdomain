@@ -77,10 +77,10 @@ const KeyResultsWithTextBlock = ({ data }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 pt-20 pb-12">
       <div className="w-[80%] mx-auto">
-        <div className="grid grid-cols-[400px_1fr] gap-8" ref={containerRef}>
-          <div className="relative">
-            <div ref={stickyRef} className="sticky top-128">
-              <div className="bg-gray-50 p-8 rounded-lg mb-4">
+        <div className="grid grid-cols-[350px_1fr] gap-12" ref={containerRef}>
+          <div className="relative w-[350px]">
+            <div ref={stickyRef} className="sticky top-128 inline-block" style={{ width: '350px' }}>
+              <div className="bg-gray-50 p-8 rounded-lg mb-4 w-full">
                 <h3 className="text-xl font-bold mb-4">
                   {isChineseContent(rightContent) ? '目录' : 'Table of Contents'}
                 </h3>

@@ -6,7 +6,7 @@ const KeyResultsWithImage = ({ data }) => {
   return (
     <div className="flex justify-center py-8 md:py-12 bg-white">
       <div className="w-full md:w-[80%] flex flex-col md:flex-row mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 flex-1">
           {comparisons.map((item, index) => (
             <div key={index} className="flex flex-col items-start text-left">
               <div className="text-5xl md:text-6xl font-bold text-purple-600 mb-2">
@@ -19,7 +19,7 @@ const KeyResultsWithImage = ({ data }) => {
           ))}
         </div>
         
-        <div className="hidden md:block w-1/3">
+        <div className="hidden md:block w-1/2">
           <img 
             src="/images/kreado-header-menu.webp"
             alt="Achievement"

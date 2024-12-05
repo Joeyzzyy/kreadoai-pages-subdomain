@@ -2,12 +2,20 @@
 import React from 'react';
 
 const KeyResultsWithThreeCards = ({ data }) => {
-  const comparisons = data.BottomContent;
+  const title = data.title;
+  const comparisons = data.bottomContent;
+  
+  const isChinese = (str) => {
+    return /[\u4e00-\u9fa5]/.test(str);
+  };
+  
+  const buttonText = isChinese(title) ? "查看案例" : "Read Case Study";
+  
   return (
     <div className="py-8 md:py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-8">
-          Performance Comparison
+          {title}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -20,7 +28,7 @@ const KeyResultsWithThreeCards = ({ data }) => {
               />
               
               <div className="text-6xl md:text-7xl font-bold text-blue-600 mb-2">
-                {item.percentage}%
+                {item.percentage}
               </div>
               
               <p className="text-sm text-gray-600 mb-4">
@@ -32,7 +40,7 @@ const KeyResultsWithThreeCards = ({ data }) => {
               </p>
 
               <button className="flex items-center text-blue-600 hover:text-blue-700 font-medium">
-                Read Case Study
+                {buttonText}
                 <svg 
                   className="w-5 h-5 ml-2" 
                   fill="none" 

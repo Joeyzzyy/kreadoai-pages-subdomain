@@ -16,6 +16,8 @@ import TitleSection from '../../common/sections/title-section';
 import TitleSectionWithImage from '../../common/sections/title-section-with-image';
 import KeyResultsWithImage from '../../common/sections/key-results-with-image';
 import KeyResultsWithTextBlock from '../../common/sections/key-results-with-text-block';
+import KeyResultsWithThreeCards from '@/components/common/sections/key-results-with-three-cards';
+import ProductBenefitsWithTable from '@/components/common/sections/product-benefits-with-a-table';
 
 // 更新组件映射表
 const FAQ_COMPONENTS = {
@@ -48,7 +50,9 @@ const COMPONENT_MAP = {
   TitleSection: TitleSection,
   TitleSectionWithImage: TitleSectionWithImage,
   KeyResultsWithImage: KeyResultsWithImage,
-  KeyResultsWithTextBlock: KeyResultsWithTextBlock
+  KeyResultsWithTextBlock: KeyResultsWithTextBlock,
+  KeyResultsWithThreeCards: KeyResultsWithThreeCards,
+  ProductBenefitsWithTable: ProductBenefitsWithTable
 };
 
 const generateSchemaMarkup = (article) => {

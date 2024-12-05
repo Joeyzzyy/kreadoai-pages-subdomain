@@ -2,8 +2,8 @@
 
 import React from 'react';
 import CustomButton from './widget-custom_button';
-import authorStyles from '../../styles/textStyles';
-import buttonLinks from '../../config/buttonLinks';
+import authorStyles from '../../../styles/textStyles';
+import buttonLinks from '../../ui/button/links';
 
 const ProductBenefitsWithATable = ({ data, author }) => {
   const themes = {
@@ -32,8 +32,6 @@ const ProductBenefitsWithATable = ({ data, author }) => {
   };
 
   const currentTheme = themes[author] || themes.default;
-
-  const styles = authorStyles[author];
 
   const getButtonLink = () => {
     return buttonLinks.workbench || '#';
@@ -67,10 +65,10 @@ const ProductBenefitsWithATable = ({ data, author }) => {
         </div>
         <div className="w-full md:w-2/5 p-6 md:p-20 flex flex-col justify-center space-y-4 md:space-y-8">
           <div className="text-4xl md:text-6xl">{data.rightContent.icon}</div>
-          <h2 className={`${styles.h1.fontSize} ${styles.h1.fontWeight} ${styles.h1.color}`}>
+          <h2 className={`${authorStyles.h1.fontSize} ${authorStyles.h1.fontWeight} ${authorStyles.h1.color}`}>
             {data.rightContent.title}
           </h2>
-          <p className={`${styles.paragraph.fontSize} ${styles.paragraph.color}`}>
+          <p className={`${authorStyles.paragraph.fontSize} ${authorStyles.paragraph.color}`}>
             {data.rightContent.subtitle}
           </p>
           <CustomButton variant={author} href={getButtonLink()}>
