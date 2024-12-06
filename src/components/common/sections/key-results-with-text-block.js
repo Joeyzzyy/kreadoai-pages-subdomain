@@ -1,6 +1,52 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 
+// 添加解析HTML字符串的辅助函数
+const parseHtmlContent = (htmlString) => {
+  if (!htmlString) return [];
+  
+  const result = [];
+  let currentIndex = 0;
+  const linkRegex = /<a\s+(?:[^>]*?\s+)?href="([^"]*)"[^>]*>(.*?)<\/a>/g;
+  
+  let match;
+  while ((match = linkRegex.exec(htmlString)) !== null) {
+    // 添加链接前的文本
+    if (match.index > currentIndex) {
+      result.push({
+        type: 'text',
+        content: htmlString.slice(currentIndex, match.index)
+      });
+    }
+    
+    // 处理链接URL
+    let href = match[1];
+    // 如果链接不是以 http:// 或 https:// 开头，添加 https://
+    if (!href.match(/^https?:\/\//)) {
+      href = `https://${href}`;
+    }
+    
+    // 添加链接
+    result.push({
+      type: 'link',
+      href: href,
+      content: match[2]
+    });
+    
+    currentIndex = match.index + match[0].length;
+  }
+  
+  // 添加最后剩余的文本
+  if (currentIndex < htmlString.length) {
+    result.push({
+      type: 'text',
+      content: htmlString.slice(currentIndex)
+    });
+  }
+  
+  return result;
+};
+
 const KeyResultsWithTextBlock = ({ data }) => {
   const { title, leftContent, rightContent } = data;
   const containerRef = useRef(null);
@@ -75,9 +121,9 @@ const KeyResultsWithTextBlock = ({ data }) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-20 pb-12">
-      <div className="w-[80%] mx-auto">
-        <div className="grid grid-cols-[350px_1fr] gap-12" ref={containerRef}>
+    <div className="max-w-[1440px] mx-auto px-4 pt-20 pb-12">
+      <div className="w-[90%] mx-auto">
+        <div className="grid grid-cols-[350px_1fr] gap-20" ref={containerRef}>
           <div className="relative w-[350px]">
             <div ref={stickyRef} className="sticky top-128 inline-block" style={{ width: '350px' }}>
               <div className="bg-gray-50 p-8 rounded-lg mb-4 w-full">
@@ -122,24 +168,44 @@ const KeyResultsWithTextBlock = ({ data }) => {
           </div>
 
           <div>
-            {/* <header className="header">
-              <div className="max-w-4xl pr-4">
-                <h2 className="text-xl md:text-2xl font-bold mb-8 text-gray-900 leading-tight">
-                  {title}
-                </h2>
-              </div>
-            </header> */}
-
-            <main className="main-content mt-8">
-              <article className="article max-w-4xl pr-4">
+            <main className="main-content">
+              <article className="article max-w-[800px] pr-4">
                 {rightContent.map((content, index) => (
                   <div key={index} className="mb-10 last:mb-0" id={`section-${index}`}>
-                    <h3 className="text-lg md:text-xl font-semibold mb-4 text-gray-800">
-                      {content.contentTitle}
+                    <h3 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800">
+                      {parseHtmlContent(content.contentTitle).map((part, i) => (
+                        part.type === 'link' ? (
+                          <a 
+                            key={i}
+                            href={part.href}
+                            className="text-blue-500 hover:text-blue-700 hover:underline font-bold"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {part.content}
+                          </a>
+                        ) : (
+                          <span key={i}>{part.content}</span>
+                        )
+                      ))}
                     </h3>
-                    <p className="text-base md:text-lg leading-relaxed text-gray-700 whitespace-pre-line">
-                      {content.contentText}
-                    </p>
+                    <div className="text-lg md:text-xl leading-[1.8] text-gray-700 whitespace-pre-line">
+                      {parseHtmlContent(content.contentText).map((part, i) => (
+                        part.type === 'link' ? (
+                          <a 
+                            key={i}
+                            href={part.href}
+                            className="text-blue-500 hover:text-blue-700 hover:underline font-bold"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {part.content}
+                          </a>
+                        ) : (
+                          <span key={i}>{part.content}</span>
+                        )
+                      ))}
+                    </div>
                   </div>
                 ))}
               </article>            
