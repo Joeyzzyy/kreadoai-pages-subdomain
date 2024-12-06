@@ -19,12 +19,12 @@ export default function NotFound() {
         </p>
         
         <Link 
-          href="/" 
+          href="https://kreadoai.com/" 
           className="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 
                      text-white rounded-lg transition-colors duration-200
                      transform hover:scale-105"
         >
-          Back to Home
+          Back to Kreadoai
         </Link>
       </div>
     </div>

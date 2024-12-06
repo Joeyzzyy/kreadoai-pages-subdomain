@@ -122,13 +122,13 @@ const KeyResultsWithTextBlock = ({ data }) => {
           </div>
 
           <div>
-            <header className="header">
+            {/* <header className="header">
               <div className="max-w-4xl pr-4">
                 <h2 className="text-xl md:text-2xl font-bold mb-8 text-gray-900 leading-tight">
                   {title}
                 </h2>
               </div>
-            </header>
+            </header> */}
 
             <main className="main-content mt-8">
               <article className="article max-w-4xl pr-4">
