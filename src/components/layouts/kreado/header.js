@@ -81,8 +81,7 @@ export const Navigation = ({ theme = 'light' }) => {
     
     pathParts[1] = newLang;
     const newPath = pathParts.join('/');
-    router.push(newPath);
-    setCurrentLang(newLang);
+    window.location.href = newPath;
   };
 
   // 获取当前语言的菜单项

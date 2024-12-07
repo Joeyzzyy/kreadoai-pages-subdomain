@@ -1,12 +1,22 @@
 'use client';
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import CustomButton from './widget-custom_button';
 import buttonLinks from '../../ui/button/links';
 import Image from 'next/image';
 import styles from './styles/hero-section-with-video.module.css';
 
 const HeroSectionWithVideo = ({ data }) => {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef(null);
   const topContent = data.topContent;
+  
+  const toggleMute = () => {
+    if (videoRef.current) {
+      const newMutedState = !isMuted;
+      videoRef.current.muted = newMutedState;
+      setIsMuted(newMutedState);
+    }
+  };
 
   const getButtonLink = () => {
     return buttonLinks.workbench || '#';
@@ -56,15 +66,33 @@ const HeroSectionWithVideo = ({ data }) => {
 
         <div className={`relative w-full max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 ${styles['video-container']}`}>
           <div className="flex justify-center">
-            <div className={`w-full md:max-w-[800px] max-w-[580px] ${styles['video-wrapper']}`}>
+            <div className={`w-full md:max-w-[800px] max-w-[580px] ${styles['video-wrapper']} relative`}>
+              <button
+                onClick={toggleMute}
+                className="absolute bottom-4 right-4 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors z-50 cursor-pointer"
+                aria-label={isMuted ? "取消静音" : "静音"}
+                type="button"
+              >
+                {isMuted ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  </svg>
+                )}
+              </button>
               <div className="bg-white/80 rounded-xl shadow-lg overflow-hidden backdrop-blur-lg border border-indigo-100/20">
                 <div className={styles['video-aspect-ratio']}>
                   <video
+                    ref={videoRef}
                     className="absolute top-0 left-0 w-full h-full object-cover"
-                    src="https://www.kreadoai.com/img/home/newHome/video/brand-video-en.mp4"
+                    src={topContent.videoUrl}
                     autoPlay
                     loop
-                    muted
+                    muted={isMuted}
                     playsInline
                   />
                 </div>

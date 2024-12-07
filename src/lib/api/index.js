@@ -12,9 +12,10 @@ const apiClient = axios.create({
 });
 
 // 获取批次历史数据
-export async function getArticles(batchId, page, limit) {
+export async function getArticles(customerId, token) {
   try {
-    const response = await apiClient.get('/pages', {params: {batchId, page, limit}});
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const response = await axios.get(`${API_URL}/pages/article/${customerId}`, {headers});
     return response.data;
   } catch (error) {
     console.error('获取批次历史数据失败:', error);
