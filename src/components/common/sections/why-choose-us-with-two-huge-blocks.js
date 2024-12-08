@@ -5,17 +5,6 @@ import authorStyles from '../../../styles/textStyles';
 import buttonLinks from '../../ui/button/links';
 
 const WhyChooseUsWithTwoHugeBlocks = ({ data, author }) => {
-  const styles = authorStyles[author];
-
-  // 获取图片源地址
-  const getImageSrc = (imagePath, index) => {
-    // KREADO 作者使用特定的演示图片
-    return `/images/kreado-demo-pic${index + 1}.webp`;
-
-    // 其他作者使用原有的图片验证逻辑
-    // return (imagePath && validImages[imagePath]) ? imagePath : '/images/placeholder.webp';
-  };
-
   // 获取作者对应的workbench链接
   const getButtonLink = () => {
     return buttonLinks.workbench || '#';
@@ -50,7 +39,7 @@ const WhyChooseUsWithTwoHugeBlocks = ({ data, author }) => {
               </div>
               <div className="w-full md:w-1/2">
                 <img 
-                  src={getImageSrc(content.image, 0)}
+                  src={content.imageUrl}
                   alt="Business Growth" 
                   className="w-full h-full object-cover rounded-lg"
                 />
@@ -60,7 +49,7 @@ const WhyChooseUsWithTwoHugeBlocks = ({ data, author }) => {
             <>
               <div className="w-full md:w-1/2 order-2 md:order-1">
                 <img 
-                  src={getImageSrc(content.image, 1)}
+                  src={content.imageUrl}
                   alt="Business Innovation" 
                   className="w-full h-full object-cover rounded-lg mb-6 md:mb-0"
                 />
