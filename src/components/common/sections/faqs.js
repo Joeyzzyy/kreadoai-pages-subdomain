@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import authorStyles from '../../../styles/textStyles';
+import fontStyles from '../../../styles/textStyles';
 
 const FAQs = ({ data }) => {
   return (

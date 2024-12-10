@@ -25,4 +25,4 @@ const fontStyles = {
     }
 };
 
-export default authorStyles;
+export default fontStyles;

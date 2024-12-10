@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import authorStyles from '../../../styles/textStyles';
+import fontStyles from '../../../styles/textStyles';
 
 const FAQTwoColumnsWithBigTitle = ({ data }) => {
   // 添加展开/收起状态控制

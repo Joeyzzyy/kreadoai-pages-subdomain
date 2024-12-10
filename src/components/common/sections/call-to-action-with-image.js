@@ -1,12 +1,12 @@
 'use client';
 import React from 'react';
 import CustomButton from './widget-custom_button';
-import authorStyles from '../../styles/textStyles';
+import fontStyles from '../../styles/textStyles';
 import buttonLinks from '../../config/buttonLinks';
 import Image from 'next/image';
 
 const CallToActionWithImage = ({ data, author }) => {
-  const styles = authorStyles[author];
+  const styles = fontStyles[author];
   const paragraphColorClass = 'text-white';
 
   const getButtonLinks = () => ({

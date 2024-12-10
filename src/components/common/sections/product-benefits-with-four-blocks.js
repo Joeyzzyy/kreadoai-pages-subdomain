@@ -3,7 +3,7 @@
 import React from 'react';
 import CustomButton from './widget-custom_button';
 import buttonLinks from '../../ui/button/links';
-import authorStyles from '../../../styles/textStyles';
+import fontStyles from '../../../styles/textStyles';
 
 const ProductBenefitsWithFourBlocksq = ({ data, author }) => {
   const getButtonLink = () => {
@@ -20,7 +20,7 @@ const ProductBenefitsWithFourBlocksq = ({ data, author }) => {
     return styles[colorKey] || styles.blue;
   };
 
-  const styles = authorStyles[author];
+  const styles = fontStyles[author];
   
   return (
     <div className="flex justify-center bg-white py-6 md:py-10">

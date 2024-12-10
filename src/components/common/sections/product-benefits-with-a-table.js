@@ -2,7 +2,7 @@
 
 import React from 'react';
 import CustomButton from './widget-custom_button';
-import authorStyles from '../../../styles/textStyles';
+import fontStyles from '../../../styles/textStyles';
 import buttonLinks from '../../ui/button/links';
 
 const ProductBenefitsWithATable = ({ data, author }) => {

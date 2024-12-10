@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import authorStyles from '../../../styles/textStyles';
+import fontStyles from '../../../styles/textStyles';
 
 const TitleSectionWithImage = ({ data, author, date }) => {
   // 添加判断中文的函数
