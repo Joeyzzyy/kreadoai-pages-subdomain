@@ -1,28 +1,26 @@
 'use client';
 import React from 'react';
-import authorStyles from '../../../styles/textStyles';
+import fontStyles from '../../../styles/textStyles';
 
 const TitleSection = ({ data, author }) => {
-  const styles = authorStyles[author];  // 获取对应的样式
-  
   return (
-    <div className="relative z-10 min-h-[40vh] flex items-center justify-center">
+    <div className="relative z-10 py-12 md:py-16 flex items-center justify-center">
       <header className="header w-full">
-        <div className="w-[80%] mx-auto text-center">
+        <div className="w-full max-w-4xl mx-auto px-4 text-center">
           {data?.title && (
-            <h1 className={`${styles.h1.fontSize} ${styles.h1.fontWeight} ${styles.h1.color} mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-gradient`}>
+            <h1 className={`${fontStyles.h1.fontSize} ${fontStyles.h1.fontWeight} ${fontStyles.h1.color} mb-4`}>
               {data.title}
             </h1>
           )}
           {data?.subtitle && (
-            <h2 className={`${styles.h2.fontSize} ${styles.h2.fontWeight} ${styles.h2.color} mb-8 leading-relaxed`}>
+            <h2 className={`${fontStyles.subtitle.fontSize} ${fontStyles.subtitle.fontWeight} ${fontStyles.subtitle.color} mb-6`}>
               {data.subtitle}
             </h2>
           )}
           {author && (
-            <div className="mt-4">
-              <span className={`${styles.paragraph.fontSize} ${styles.paragraph.color}`}>
-                Author: {author}
+            <div className="mt-3">
+              <span className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color}`}>
+                Author：{author}
               </span>
             </div>
           )}

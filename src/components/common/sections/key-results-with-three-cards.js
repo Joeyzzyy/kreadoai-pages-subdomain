@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import fontStyles from '../../../styles/textStyles';
 
 const KeyResultsWithThreeCards = ({ data }) => {
   const title = data.title;
@@ -12,49 +13,54 @@ const KeyResultsWithThreeCards = ({ data }) => {
   const buttonText = isChinese(title) ? "查看案例" : "Read Case Study";
   
   return (
-    <div className="py-8 md:py-12 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8">
+    <div className="bg-white py-12 md:py-16">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className={`${fontStyles.h2.fontSize} ${fontStyles.h2.fontWeight} ${fontStyles.h2.color} text-center`}>
           {title}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {comparisons.map((item, index) => (
-            <div key={index} className="bg-indigo-50 p-8 rounded-lg flex flex-col h-full items-center text-center">
-              <img 
-                src="/images/kreado-logo.webp"
-                alt={`${item.competitorName} logo`}
-                className="h-10 object-contain mb-10"
-              />
-              
-              <div className="text-6xl md:text-7xl font-bold text-blue-600 mb-2">
-                {item.percentage}
-              </div>
-              
-              <p className="text-sm text-gray-600 mb-4">
-                {item.metric}
-              </p>
-              
-              <p className="text-gray-700 flex-grow mb-6">
-                {item.description}
-              </p>
+            <div 
+              key={index} 
+              className="p-6 rounded-lg border border-gray-100 hover:border-[#3374FF]/20 hover:shadow-sm transition-all duration-200"
+            >
+              <div className="flex flex-col items-center text-center">
+                <img 
+                  src={item.competitorLogo}
+                  alt={item.competitorLogoAlt}
+                  className="h-8 object-contain mb-8"
+                />
+                
+                <div className="text-5xl md:text-6xl font-bold text-[#3374FF] mb-2">
+                  {item.percentage}
+                </div>
+                
+                <p className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color} mb-4`}>
+                  {item.metric}
+                </p>
+                
+                <p className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color} mb-6`}>
+                  {item.description}
+                </p>
 
-              <button className="flex items-center text-blue-600 hover:text-blue-700 font-medium">
-                {buttonText}
-                <svg 
-                  className="w-5 h-5 ml-2" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
+                <button className="inline-flex items-center text-[#3374FF] hover:text-[#3374FF]/80 font-medium transition-colors duration-200">
+                  {buttonText}
+                  <svg 
+                    className="w-4 h-4 ml-1" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           ))}
         </div>

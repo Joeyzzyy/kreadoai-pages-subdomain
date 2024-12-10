@@ -48,7 +48,7 @@ const parseHtmlContent = (htmlString) => {
 };
 
 const KeyResultsWithTextBlock = ({ data }) => {
-  const { title, leftContent, rightContent } = data;
+  const { leftContent, rightContent } = data;
   const containerRef = useRef(null);
   const stickyRef = useRef(null);
 

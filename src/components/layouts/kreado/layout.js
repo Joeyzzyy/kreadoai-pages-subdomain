@@ -11,7 +11,6 @@ import FAQTwoColumnsWithBigTitle from '../../common/sections/faq-two-columns-wit
 import FAQTwoColumnsWithSmallTitle from '../../common/sections/faq-two-columns-with-small-title';
 import ProductComparisonTable from '../../common/sections/product-comparison-table';
 import MoreInsightsWithFourCards from '../../common/sections/more-insights-with-four-cards';
-import ImageBanner from '../../common/sections/image-banner';
 import TitleSection from '../../common/sections/title-section';
 import TitleSectionWithImage from '../../common/sections/title-section-with-image';
 import KeyResultsWithImage from '../../common/sections/key-results-with-image';
@@ -44,7 +43,6 @@ const COMPONENT_MAP = {
   WhyChooseUsWithSixSmallBlocks: WhyChooseUsWithSixSmallBlocks,
   WhyChooseUsWithTwoHugeBlocks: WhyChooseUsWithTwoHugeBlocks,
   MoreInsightsWithFourCards: MoreInsightsWithFourCards,
-  ImageBanner: ImageBanner,
   ProductComparisonTable: ProductComparisonTable,
   HeroSectionWithVideo: HeroSectionWithVideo,
   TitleSection: TitleSection,
