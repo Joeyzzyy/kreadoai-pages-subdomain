@@ -1,10 +1,11 @@
 'use client';
 import React from 'react';
 import fontStyles from '../../../styles/textStyles';
+import { gradients } from './shared-gradient-styles';
 
 const FAQs = ({ data }) => {
   return (
-    <div className="flex flex-col items-center bg-white">
+    <div className={`flex flex-col items-center ${gradients.light.primary}`}>
       <div className="w-full md:w-[70%] text-center mt-4 md:mt-8 mb-2 px-4">
         <h2 className={`${fontStyles.h1.fontSize} ${fontStyles.h1.fontWeight} ${fontStyles.h1.color}`}>
           {data.title}

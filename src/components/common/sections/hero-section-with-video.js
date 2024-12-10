@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import CustomButton from './widget-custom_button';
 import buttonLinks from '../../ui/button/links';
 import fontStyles from '../../../styles/textStyles';
+import { gradients } from './shared-gradient-styles';
 
 const HeroSectionWithVideo = ({ data }) => {
   const [isMuted, setIsMuted] = useState(true);
@@ -22,8 +23,8 @@ const HeroSectionWithVideo = ({ data }) => {
   };
 
   return (
-    <div className="relative py-12 md:py-16">
-      <div className="w-full bg-white">
+    <div className={`relative py-12 md:py-16 ${gradients.medium.primary}`}>
+      <div className="w-full">
         <div className="relative z-10 pt-8 md:pt-12 mb-8 md:mb-12 px-4">
           <h2 className={`text-center ${fontStyles.h2.fontSize} ${fontStyles.h2.fontWeight} ${fontStyles.h2.color}`}>
             {topContent.title}
@@ -38,7 +39,7 @@ const HeroSectionWithVideo = ({ data }) => {
             <CustomButton 
               variant="KREADO" 
               href={getButtonLink()}
-              className="block mx-auto text-[#3374FF] hover:bg-[#3374FF] hover:text-white font-medium px-6 md:px-8 rounded-md text-sm h-10 flex items-center gap-2 transition-colors duration-200"
+              className="block mx-auto bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 font-medium px-6 md:px-8 rounded-md text-sm h-10 flex items-center gap-2 transition-all duration-200"
             >
               {topContent.buttonText}
             </CustomButton>
@@ -65,7 +66,15 @@ const HeroSectionWithVideo = ({ data }) => {
                   </svg>
                 )}
               </button>
-              <div className="bg-white rounded-md shadow-sm overflow-hidden border border-black/10">
+              <div className={`
+                relative rounded-xl overflow-hidden
+                shadow-[0_0_30px_rgba(59,130,246,0.2)]
+                before:absolute before:inset-0
+                before:rounded-xl
+                before:p-[1px]
+                before:bg-gradient-to-r
+                before:from-blue-400/50 before:via-indigo-400/50 before:to-purple-400/50
+              `}>
                 <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                   <video
                     ref={videoRef}

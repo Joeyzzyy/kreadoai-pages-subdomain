@@ -1,12 +1,13 @@
 'use client';
 import React from 'react';
 import fontStyles from '../../../styles/textStyles';
+import { gradients } from './shared-gradient-styles';
 
 const KeyResultsWithImage = ({ data }) => {
   const dataSet = data.leftContent;
   const image = data.rightContent;
   return (
-    <div className="bg-white py-12 md:py-16">
+    <div className={`${gradients.medium.primary} py-12 md:py-16`}>
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex flex-col md:flex-row gap-8 md:gap-12">
           {/* 左侧数据 */}

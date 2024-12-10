@@ -4,6 +4,8 @@ import React from 'react';
 import CustomButton from './widget-custom_button';
 import buttonLinks from '../../ui/button/links';
 import fontStyles from '../../../styles/textStyles';
+import { gradients } from './shared-gradient-styles';
+
 
 const ProductBenefitsWithFourBlocksq = ({ data, author }) => {
   const getButtonLink = () => {
@@ -23,9 +25,9 @@ const ProductBenefitsWithFourBlocksq = ({ data, author }) => {
   const styles = fontStyles[author];
   
   return (
-    <div className="flex justify-center bg-white py-6 md:py-10">
+    <div className={`flex justify-center ${gradients.medium.primary}`}>
       <div className="w-[95%] md:w-[90%] lg:w-[80%] flex flex-col md:flex-row items-center">
-        <div className="w-full md:w-2/5 p-4 md:p-10 flex flex-col space-y-6 md:space-y-8">
+      <div className="w-full md:w-2/5 pr-4 md:pr-10 pt-4 pb-4 md:pt-10 md:pb-10 flex flex-col space-y-6 md:space-y-8">
           <h2 className={`text-center md:text-left ${fontStyles.h2.fontSize} ${fontStyles.h2.fontWeight} ${fontStyles.h2.color}`}>
             {data.leftContent.title}
           </h2>

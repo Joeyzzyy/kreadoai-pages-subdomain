@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import fontStyles from '../../../styles/textStyles';
+import { gradients } from './shared-gradient-styles';
 
 const TitleSectionWithImage = ({ data, author }) => {
   const containsChinese = (text) => {
@@ -18,7 +19,7 @@ const TitleSectionWithImage = ({ data, author }) => {
   const dateLabel = isChineseTitle ? '发布日期' : 'PUBLISHED ON';
 
   return (
-    <div className="relative z-10 pt-24 pb-12 md:pt-32 md:pb-16 flex items-center bg-white">
+    <div className={`relative z-10 pt-24 pb-12 md:pt-32 md:pb-16 flex items-center ${gradients.medium.secondary}`}>
       <header className="w-full">
         <div className="w-full max-w-6xl mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
