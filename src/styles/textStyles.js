@@ -1,4 +1,4 @@
-const authorStyles = {
+const fontStyles = {
     h1: {
       fontSize: 'text-4xl',
       fontWeight: 'font-bold',

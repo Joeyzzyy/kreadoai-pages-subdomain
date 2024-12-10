@@ -65,10 +65,10 @@ const ProductBenefitsWithATable = ({ data, author }) => {
         </div>
         <div className="w-full md:w-2/5 p-6 md:p-20 flex flex-col justify-center space-y-4 md:space-y-8">
           <div className="text-4xl md:text-6xl">{data.rightContent.icon}</div>
-          <h2 className={`${authorStyles.h1.fontSize} ${authorStyles.h1.fontWeight} ${authorStyles.h1.color}`}>
+          <h2 className={`${fontStyles.h1.fontSize} ${fontStyles.h1.fontWeight} ${fontStyles.h1.color}`}>
             {data.rightContent.title}
           </h2>
-          <p className={`${authorStyles.paragraph.fontSize} ${authorStyles.paragraph.color}`}>
+          <p className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color}`}>
             {data.rightContent.subtitle}
           </p>
           <CustomButton variant={author} href={getButtonLink()}>

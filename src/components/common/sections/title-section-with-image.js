@@ -27,31 +27,31 @@ const TitleSectionWithImage = ({ data, author, date }) => {
             {/* 左侧内容区域 */}
             <div className="w-full md:w-1/2">
               {data?.title && (
-                <h1 className={`${authorStyles.h1.fontSize} ${authorStyles.h1.fontWeight} ${authorStyles.h1.color} mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-gradient text-3xl md:text-4xl lg:text-5xl`}>
+                <h1 className={`${fontStyles.h1.fontSize} ${fontStyles.h1.fontWeight} ${fontStyles.h1.color} mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-gradient text-3xl md:text-4xl lg:text-5xl`}>
                   {data.title}
                 </h1>
               )}
               {data?.subTitle && (
-                <h2 className={`${authorStyles.h2.fontSize} ${authorStyles.h2.fontWeight} ${authorStyles.h2.color} mb-8 leading-tight max-w-xl text-sm md:text-base lg:text-lg`}>
+                <h2 className={`${fontStyles.h2.fontSize} ${fontStyles.h2.fontWeight} ${fontStyles.h2.color} mb-8 leading-tight max-w-xl text-sm md:text-base lg:text-lg`}>
                   {data.subTitle}
                 </h2>
               )}
               
               <div className="flex gap-8">
                 <div className="mt-4">
-                  <span className={`${authorStyles.paragraph.fontSize} ${authorStyles.paragraph.color} block mb-1 text-gray-600 text-xs md:text-sm`}>
+                  <span className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color} block mb-1 text-gray-600 text-xs md:text-sm`}>
                     {authorLabel}
                   </span>
-                  <span className={`${authorStyles.paragraph.fontSize} ${authorStyles.paragraph.color} text-gray-600 text-xs md:text-sm`}>
+                  <span className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color} text-gray-600 text-xs md:text-sm`}>
                     {author}
                   </span>
                 </div>
                 
                 <div className="mt-4">
-                  <span className={`${authorStyles.paragraph.fontSize} ${authorStyles.paragraph.color} block mb-1 text-gray-600 text-xs md:text-sm`}>
+                  <span className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color} block mb-1 text-gray-600 text-xs md:text-sm`}>
                     {dateLabel}
                   </span>
-                  <span className={`${authorStyles.paragraph.fontSize} ${authorStyles.paragraph.color} text-gray-600 text-xs md:text-sm`}>
+                  <span className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color} text-gray-600 text-xs md:text-sm`}>
                     {formatDate(date)}
                   </span>
                 </div>

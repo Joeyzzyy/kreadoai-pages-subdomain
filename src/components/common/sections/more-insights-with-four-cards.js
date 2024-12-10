@@ -9,7 +9,7 @@ const MoreInsightsWithFourCards = ({ data }) => {
   return (
     <div className="more-insights my-16 flex justify-center">
       <div className="w-[95%] md:w-[80%]">
-        <h2 className={`${authorStyles.h2.fontSize} ${authorStyles.h2.fontWeight} ${authorStyles.h2.color} text-center mb-8`}>
+        <h2 className={`${fontStyles.h2.fontSize} ${fontStyles.h2.fontWeight} ${fontStyles.h2.color} text-center mb-8`}>
           More Insights
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">

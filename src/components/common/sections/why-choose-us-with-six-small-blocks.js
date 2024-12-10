@@ -6,16 +6,16 @@ import authorStyles from '../../../styles/textStyles';
 const WhyChooseUsWithSixSmallBlocks = ({ data }) => {
   const { topContent, bottomContent } = data;
   const { emoji, title, subtitle } = topContent;
-  const styles = authorStyles.KREADOAI;
+  const styles = fontStyles.KREADOAI;
 
   return (
     <div className="flex flex-col items-center bg-gradient-to-b from-white via-indigo-100 to-white">
       <div className="w-full md:w-[85%] lg:w-[70%] text-center mt-4 md:mt-8 p-4 md:p-8">
         <div className="text-6xl md:text-8xl mb-4 md:mb-6">{emoji}</div>
-        <h2 className={`${authorStyles.h1.fontSize} ${authorStyles.h1.fontWeight} ${authorStyles.h1.color} mb-4 md:mb-6`}>
+        <h2 className={`${fontStyles.h1.fontSize} ${fontStyles.h1.fontWeight} ${fontStyles.h1.color} mb-4 md:mb-6`}>
           {title}
         </h2>
-        <p className={`${authorStyles.paragraph.fontSize} ${authorStyles.paragraph.color} text-lg md:text-xl max-w-3xl mx-auto`}>
+        <p className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color} text-lg md:text-xl max-w-3xl mx-auto`}>
           {subtitle}
         </p>
       </div>
@@ -27,10 +27,10 @@ const WhyChooseUsWithSixSmallBlocks = ({ data }) => {
               <span className="text-3xl md:text-4xl">{module.icon}</span>
             </div>
             <div>
-              <h3 className={`${authorStyles.h3.fontSize} ${authorStyles.h3.fontWeight} ${authorStyles.h3.color} mb-2`}>
+              <h3 className={`${fontStyles.h3.fontSize} ${fontStyles.h3.fontWeight} ${fontStyles.h3.color} mb-2`}>
                 {module.title}
               </h3>
-              <p className={`${authorStyles.paragraph.fontSize} ${authorStyles.paragraph.color}`}>
+              <p className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color}`}>
                 {module.content}
               </p>
             </div>
