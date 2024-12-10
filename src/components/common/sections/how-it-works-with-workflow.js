@@ -45,7 +45,7 @@ const HowItWorksWithWorkflow = ({ data, author }) => {
           <CustomButton 
             variant={author} 
             href={getButtonLink()}
-            className="inline-flex items-center px-6 h-10 border-2 border-[#3374FF] text-[#3374FF] hover:bg-[#3374FF] hover:text-white text-sm font-medium rounded-md transition-colors duration-200 whitespace-nowrap"
+            className="inline-flex items-center px-6 h-10 text-[#3374FF] hover:bg-[#3374FF] hover:text-white text-sm font-medium rounded-md transition-colors duration-200 whitespace-nowrap"
           >
             {topContent.buttonText}
           </CustomButton>
