@@ -22,6 +22,20 @@ import UserReviewsWithSquareCards from '@/components/common/sections/user-review
 import UserReviews from '@/components/common/sections/user-reviews';
 import TrustedByLogos from '@/components/common/sections/trusted-by-logos';
 
+// 添加用户评论组件映射
+const USER_REVIEW_COMPONENTS = {
+  UserReviews: UserReviews,
+  UserReviewsWithMovingCards: UserReviewsWithMovingCards,
+  UserReviewsWithSquareCards: UserReviewsWithSquareCards
+};
+
+// 获取随机用户评论组件
+const getRandomUserReviewComponent = () => {
+  const components = Object.values(USER_REVIEW_COMPONENTS);
+  const randomIndex = Math.floor(Math.random() * components.length);
+  return components[randomIndex];
+};
+
 // 更新组件映射表
 const FAQ_COMPONENTS = {
   Faqs: Faqs,
@@ -36,29 +50,40 @@ const getRandomFaqComponent = () => {
 };
 
 const COMPONENT_MAP = {
+  TitleSection: TitleSection,
+  TitleSectionWithImage: TitleSectionWithImage,
+
+  HeroSectionWithVideo: HeroSectionWithVideo,
+  
+  HowItWorksWithThreeBlocks: HowItWorksWithThreeBlocks,
+  HowItWorksWithWorkflow: HowItWorksWithWorkflow,
+
+  ProductBenefitsWithFourBlocks: ProductBenefitsWithFourBlocks,
+  ProductBenefitsWithTable: ProductBenefitsWithTable,
+  
+  WhyChooseUsWithSixSmallBlocks: WhyChooseUsWithSixSmallBlocks,
+  WhyChooseUsWithTwoHugeBlocks: WhyChooseUsWithTwoHugeBlocks,
+
+  MoreInsightsWithFourCards: MoreInsightsWithFourCards,
+  
+  KeyResultsWithImage: KeyResultsWithImage,
+  KeyResultsWithTextBlock: KeyResultsWithTextBlock,
+  KeyResultsWithThreeCards: KeyResultsWithThreeCards,
+  
+  UserReviewsWithMovingCards: UserReviewsWithMovingCards,
+  UserReviewsWithSquareCards: UserReviewsWithSquareCards,
+  UserReviews: (props) => {
+    const RandomUserReviewComponent = getRandomUserReviewComponent();
+    return <RandomUserReviewComponent {...props} />;
+  },
+  TrustedByLogos: TrustedByLogos,
+
   CallToAction: CallToAction,
+
   Faqs: (props) => {
     const RandomFaqComponent = getRandomFaqComponent();
     return <RandomFaqComponent {...props} />;
   },
-  HowItWorksWithThreeBlocks: HowItWorksWithThreeBlocks,
-  ProductBenefitsWithFourBlocks: ProductBenefitsWithFourBlocks,
-  HowItWorksWithWorkflow: HowItWorksWithWorkflow,
-  WhyChooseUsWithSixSmallBlocks: WhyChooseUsWithSixSmallBlocks,
-  WhyChooseUsWithTwoHugeBlocks: WhyChooseUsWithTwoHugeBlocks,
-  MoreInsightsWithFourCards: MoreInsightsWithFourCards,
-  ProductComparisonTable: ProductComparisonTable,
-  HeroSectionWithVideo: HeroSectionWithVideo,
-  TitleSection: TitleSection,
-  TitleSectionWithImage: TitleSectionWithImage,
-  KeyResultsWithImage: KeyResultsWithImage,
-  KeyResultsWithTextBlock: KeyResultsWithTextBlock,
-  KeyResultsWithThreeCards: KeyResultsWithThreeCards,
-  ProductBenefitsWithTable: ProductBenefitsWithTable,
-  UserReviewsWithMovingCards: UserReviewsWithMovingCards,
-  UserReviewsWithSquareCards: UserReviewsWithSquareCards,
-  UserReviews: UserReviews,
-  TrustedByLogos: TrustedByLogos
 };
 
 const generateSchemaMarkup = (article) => {
@@ -103,6 +128,8 @@ const TRUSTED_BY_LOGOS = [
   'buick.webp',
 ].map(filename => `/images/trusted-by-logos/${filename}`);
 
+import userReviewsData from '@/data/user-reviews.json';
+
 const KreadoaiLayout = ({ article, keywords }) => {
   const title = article?.title || 'Default Title';
   const description = article?.description || 'Default description';
@@ -122,6 +149,11 @@ const KreadoaiLayout = ({ article, keywords }) => {
     if (section.componentName === 'Faqs' || 
         section.componentName === 'FAQTwoColumnsWithSmallTitle' || 
         section.componentName === 'FAQTwoColumnsWithBigTitle') {
+      processedSections.push({
+        componentName: 'UserReviews',
+        bottomContent: userReviewsData.reviews // 使用导入的数据
+      });
+      // 添加原有的 TrustedByLogos
       processedSections.push({
         componentName: 'TrustedByLogos',
         logos: TRUSTED_BY_LOGOS

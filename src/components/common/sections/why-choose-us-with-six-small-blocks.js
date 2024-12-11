@@ -1,12 +1,10 @@
 'use client';
-
 import React from 'react';
 import fontStyles from '../../../styles/textStyles';
 
 const WhyChooseUsWithSixSmallBlocks = ({ data }) => {
   const { topContent, bottomContent } = data;
-  const { emoji, title, subtitle } = topContent;
-  const styles = fontStyles.KREADOAI;
+  const { emoji, title, subTitle } = topContent;
 
   return (
     <div className="flex flex-col items-center bg-gradient-to-b from-white via-indigo-100 to-white">
@@ -16,7 +14,7 @@ const WhyChooseUsWithSixSmallBlocks = ({ data }) => {
           {title}
         </h2>
         <p className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color} text-lg md:text-xl max-w-3xl mx-auto`}>
-          {subtitle}
+          {subTitle}
         </p>
       </div>
 
