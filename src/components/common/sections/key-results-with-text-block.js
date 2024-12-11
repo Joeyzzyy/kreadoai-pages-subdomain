@@ -121,7 +121,7 @@ const KeyResultsWithTextBlock = ({ data }) => {
   };
 
   return (
-    <div className="max-w-[1440px] mx-auto px-4 pt-20 pb-12">
+    <div className="max-w-[1440px] mx-auto px-4 pt-24 pb-20">
       <div className="w-[90%] mx-auto">
         <div className="grid grid-cols-[350px_1fr] gap-20" ref={containerRef}>
           <div className="relative w-[350px]">

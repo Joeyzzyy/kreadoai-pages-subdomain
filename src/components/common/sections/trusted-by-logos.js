@@ -1,17 +1,26 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import fontStyles from '../../../styles/textStyles';
 
-const TrustedByLogos = ({ logos = [1, 2, 3, 4, 5, 6] }) => {
+const TrustedByLogos = ({ logos }) => {
+  const pathname = usePathname();
   const [position, setPosition] = useState(0);
+  console.log('logos', logos);
   
+  const getHeadingText = () => {
+    const pathParts = pathname.split('/');
+    const lang = pathParts[1] === 'zh' ? 'zh' : 'en';
+    return lang === 'zh' ? '我们的客户有...' : 'We are trusted by...';
+  };
+
   useEffect(() => {
-    const itemWidth = 128; // logo宽度(96px) + 间距(32px)
+    const itemWidth = 128;
     const totalWidth = itemWidth * logos.length;
-    
     const interval = setInterval(() => {
       setPosition(prev => {
         const newPosition = prev - 1;
-        // 当第一组完全移出视图时，重置位置
         if (Math.abs(newPosition) >= totalWidth) {
           return 0;
         }
@@ -22,18 +31,18 @@ const TrustedByLogos = ({ logos = [1, 2, 3, 4, 5, 6] }) => {
     return () => clearInterval(interval);
   }, [logos.length]);
 
-  // 创建三组logo以确保无缝滚动
   const tripleLogos = [...logos, ...logos, ...logos];
 
   return (
-    <div className="relative z-10 py-8 md:py-12 overflow-hidden">
-      {/* 左侧渐变遮罩 */}
+    <div className="relative z-10 py-12 md:py-36 overflow-hidden">
+      <h2 className={`text-center mb-8 ${fontStyles.h2.fontSize} ${fontStyles.h2.fontWeight} ${fontStyles.h2.color}`}>
+        {getHeadingText()}
+      </h2>
+      
       <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-white to-transparent z-10" />
       
-      {/* 显示区域容器 */}
-      <div className="relative mx-auto" style={{ width: '512px' }}>
+      <div className="relative mx-auto" style={{ width: '80%' }}>
         <div className="flex items-center justify-center overflow-hidden">
-          {/* 滚动容器 */}
           <div 
             className="flex items-center gap-8"
             style={{
@@ -41,21 +50,24 @@ const TrustedByLogos = ({ logos = [1, 2, 3, 4, 5, 6] }) => {
               transition: 'none',
             }}
           >
-            {tripleLogos.map((logo, index) => (
+            {tripleLogos.map((logoPath, index) => (
               <div
-                key={`${logo}-${index}`}
+                key={`${logoPath}-${index}`}
                 className="flex-shrink-0 w-24 h-24 flex items-center justify-center bg-white rounded-xl shadow-sm border border-gray-100"
               >
-                <span className="text-3xl font-bold text-gray-700">
-                  {logo}
-                </span>
+                <Image
+                  src={logoPath}
+                  alt={`we are trusted by ${index + 1}`}
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
               </div>
             ))}
           </div>
         </div>
       </div>
       
-      {/* 右侧渐变遮罩 */}
       <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-white to-transparent z-10" />
     </div>
   );

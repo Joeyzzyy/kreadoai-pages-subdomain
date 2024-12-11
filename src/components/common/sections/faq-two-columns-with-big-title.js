@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import fontStyles from '../../../styles/textStyles';
 
 const FAQTwoColumnsWithBigTitle = ({ data }) => {
-  // 添加展开/收起状态控制
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleFAQ = (index) => {

@@ -13,7 +13,7 @@ const KeyResultsWithThreeCards = ({ data }) => {
   const buttonText = isChinese(title) ? "查看案例" : "Read Case Study";
   
   return (
-    <div className="bg-white py-12 md:py-16">
+    <div className="bg-white py-16 md:py-24">
       <div className="max-w-6xl mx-auto px-4">
         <h2 className={`${fontStyles.h2.fontSize} ${fontStyles.h2.fontWeight} ${fontStyles.h2.color} text-center`}>
           {title}

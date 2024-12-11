@@ -17,7 +17,7 @@ const fontStyles = {
     subtitle: {
       fontSize: 'text-lg',
       fontWeight: 'font-semibold',
-      color: 'text-white'
+      color: 'text-black'
     },
     paragraph: {
       fontSize: 'text-base',

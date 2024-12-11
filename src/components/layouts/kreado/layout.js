@@ -17,6 +17,10 @@ import KeyResultsWithImage from '../../common/sections/key-results-with-image';
 import KeyResultsWithTextBlock from '../../common/sections/key-results-with-text-block';
 import KeyResultsWithThreeCards from '@/components/common/sections/key-results-with-three-cards';
 import ProductBenefitsWithTable from '@/components/common/sections/product-benefits-with-a-table';
+import UserReviewsWithMovingCards from '@/components/common/sections/user-reviews-with-moving-cards';
+import UserReviewsWithSquareCards from '@/components/common/sections/user-reviews-with-square-cards';
+import UserReviews from '@/components/common/sections/user-reviews';
+import TrustedByLogos from '@/components/common/sections/trusted-by-logos';
 
 // 更新组件映射表
 const FAQ_COMPONENTS = {
@@ -50,7 +54,11 @@ const COMPONENT_MAP = {
   KeyResultsWithImage: KeyResultsWithImage,
   KeyResultsWithTextBlock: KeyResultsWithTextBlock,
   KeyResultsWithThreeCards: KeyResultsWithThreeCards,
-  ProductBenefitsWithTable: ProductBenefitsWithTable
+  ProductBenefitsWithTable: ProductBenefitsWithTable,
+  UserReviewsWithMovingCards: UserReviewsWithMovingCards,
+  UserReviewsWithSquareCards: UserReviewsWithSquareCards,
+  UserReviews: UserReviews,
+  TrustedByLogos: TrustedByLogos
 };
 
 const generateSchemaMarkup = (article) => {
@@ -73,29 +81,65 @@ const generateSchemaMarkup = (article) => {
   };
 };
 
+// 定义trusted-by-logos中的图片文件名数组
+const TRUSTED_BY_LOGOS = [
+  'airbnb.webp',
+  'aliexpress.webp',
+  'calssi.webp',
+  'cgtn.webp',
+  'cupom.webp',
+  'essec.webp',
+  'grin.webp',
+  'keep.webp',
+  'lazada.webp',
+  'link.webp',
+  'nyu.webp',
+  'omg.webp',
+  'shein.webp',
+  'tencent.webp',
+  'trip.webp',
+  'viacom.webp',
+  'volkswagan.webp',
+  'buick.webp',
+].map(filename => `/images/trusted-by-logos/${filename}`);
+
 const KreadoaiLayout = ({ article, keywords }) => {
   const title = article?.title || 'Default Title';
   const description = article?.description || 'Default description';
+  const author = article?.author || 'KreadoAI';
 
   // 将 sections 分成两部分：CallToAction 和其他组件
   const sections = article?.sections || [];
   const callToActionSection = sections.find(s => s.componentName === 'CallToAction' || s.componentName === 'CallToActionWithImage');
   const otherSections = sections.filter(s => s.componentName !== 'CallToAction' && s.componentName !== 'CallToActionWithImage');
-  
   // 先对其他组件按位置排序，然后在末尾添加 CallToAction
   const sortedSections = [
     ...otherSections.sort((a, b) => a.position - b.position),
     ...(callToActionSection ? [callToActionSection] : [])
   ];
+  const processedSections = [];
+  sortedSections.forEach(section => {
+    if (section.componentName === 'Faqs' || 
+        section.componentName === 'FAQTwoColumnsWithSmallTitle' || 
+        section.componentName === 'FAQTwoColumnsWithBigTitle') {
+      processedSections.push({
+        componentName: 'TrustedByLogos',
+        logos: TRUSTED_BY_LOGOS
+      });
+    }
+    processedSections.push(section);
+  });
   
-  const author = article?.author || 'default';
-
   return (
     <div suppressHydrationWarning>
       <div className="flex-1 w-full max-w-[100vw] overflow-x-hidden">
-        {sortedSections.map(section => {
+        {processedSections.map(section => {
           const Component = COMPONENT_MAP[section.componentName];
           if (!Component) return null;
+          
+          if (section.componentName === 'TrustedByLogos') {
+            return <Component key={`${section.componentName}`} logos={section.logos} />;
+          }
           
           return (
             <Component 
