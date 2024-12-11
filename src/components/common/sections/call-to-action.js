@@ -34,9 +34,9 @@ const CallToAction = ({ data }) => {
           <h2 className={`${fontStyles.h2.fontSize} ${fontStyles.h2.fontWeight} ${fontStyles.h2.color} mb-4 md:mb-8`}>
             {data.title}
           </h2>
-          <p className={`${fontStyles.subtitle.fontSize} ${fontStyles.subtitle.color} mb-6 md:mb-10 px-4 leading-relaxed`}>
+          <h3 className={`${fontStyles.h3.fontSize} ${fontStyles.h3.color} mb-6 md:mb-10 px-4 leading-relaxed`}>
             {data.subTitle}
-          </p>
+          </h3>
           <CustomButton 
             href={getButtonLink()}
           >

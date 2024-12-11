@@ -30,9 +30,9 @@ const HeroSectionWithVideo = ({ data }) => {
             {topContent.title}
           </h2>
           {topContent.description && (
-            <p className={`text-center ${fontStyles.subtitle.fontSize} ${fontStyles.subtitle.color} mt-3 max-w-3xl mx-auto`}>
+            <h3 className={`text-center ${fontStyles.h3.fontSize} ${fontStyles.h3.color} mt-3 max-w-3xl mx-auto`}>
               {topContent.description}
-            </p>
+            </h3>
           )}
           
           <div className="mt-8">

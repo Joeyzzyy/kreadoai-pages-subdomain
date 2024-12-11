@@ -21,7 +21,7 @@ const HowItWorksWithWorkflow = ({ data, author }) => {
           </h2>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start mb-12">
+        <div className="flex flex-col md:flex-row justify-between items-stretch mb-12">
           {bottomContent.map((block, index) => (
             <React.Fragment key={block.number}>
               <div className={`
@@ -35,13 +35,13 @@ const HowItWorksWithWorkflow = ({ data, author }) => {
                 <div className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">
                   {block.number}
                 </div>
-                <p className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color} px-4`}>
+                <h3 className={`${fontStyles.h3.fontSize} ${fontStyles.h3.color} px-4`}>
                   {block.content}
-                </p>
+                </h3>
               </div>
               
               {index < bottomContent.length - 1 && (
-                <div className="hidden md:block text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">
+                <div className="hidden md:flex items-center justify-center self-stretch text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">
                   →
                 </div>
               )}

@@ -10,9 +10,9 @@ const fontStyles = {
       color: 'bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent'
     },
     h3: {
-      fontSize: 'text-xl',
+      fontSize: 'text-xl', 
       fontWeight: 'font-semibold',
-      color: 'bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent'
+      color: 'bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent'
     },
     subtitle: {
       fontSize: 'text-lg',

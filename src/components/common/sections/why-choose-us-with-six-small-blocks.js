@@ -7,7 +7,7 @@ const WhyChooseUsWithSixSmallBlocks = ({ data }) => {
   const { emoji, title, subTitle } = topContent;
 
   return (
-    <div className="flex flex-col items-center bg-gradient-to-b from-white via-indigo-100 to-white">
+    <div className="flex flex-col items-center bg-gradient-to-b from-white via-indigo-100 to-white pb-12 md:pb-16">
       <div className="w-full md:w-[85%] lg:w-[70%] text-center mt-4 md:mt-8 p-4 md:p-8">
         <div className="text-6xl md:text-8xl mb-4 md:mb-6">{emoji}</div>
         <h2 className={`${fontStyles.h1.fontSize} ${fontStyles.h1.fontWeight} ${fontStyles.h1.color} mb-4 md:mb-6`}>

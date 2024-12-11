@@ -14,7 +14,7 @@ const UserReviews = ({ data }) => {
   const displayedReviews = getRandomReviews(reviews, 6);
 
   return (
-    <div className="py-8 md:py-12 bg-gray-50">
+    <div className="py-16 md:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className={`${fontStyles.h2.fontSize} ${fontStyles.h2.fontWeight} ${fontStyles.h2.color} mb-8 text-center`}>
           See What Our Customers Say

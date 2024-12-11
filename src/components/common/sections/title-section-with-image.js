@@ -31,9 +31,9 @@ const TitleSectionWithImage = ({ data, author, date }) => {
                 </h1>
               )}
               {data?.subTitle && (
-                <p className={`${fontStyles.subtitle.fontSize} ${fontStyles.subtitle.fontWeight} ${fontStyles.subtitle.color} mb-6`}>
+                <h2 className={`${fontStyles.h3.fontSize} ${fontStyles.h3.fontWeight} ${fontStyles.h3.color} mb-6`}>
                   {data.subTitle}
-                </p>
+                </h2>
               )}
               
               <div className="flex gap-8">

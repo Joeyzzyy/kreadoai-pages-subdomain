@@ -7,7 +7,6 @@ import Image from 'next/image';
 
 const CallToActionWithImage = ({ data, author }) => {
   const styles = fontStyles[author];
-  const paragraphColorClass = 'text-white';
 
   const getButtonLinks = () => ({
     primary: buttonLinks.workbench || '#',
@@ -32,9 +31,9 @@ const CallToActionWithImage = ({ data, author }) => {
               <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold ${styles.h2.color} mb-6 leading-[1.1] tracking-normal pb-1`}>
                 {data?.title || ''}
               </h2>
-              <p className={`${styles.paragraph.fontSize} ${paragraphColorClass} mb-8 leading-relaxed`}>
-                {data?.subtitle || data?.subTitle || ''}
-              </p>
+              <h3 className={`${fontStyles.h3.fontSize} ${fontStyles.h3.color} mb-8 leading-relaxed`}>
+                {data?.subTitle || data?.subTitle || ''}
+              </h3>
               <div className="flex flex-wrap gap-4">
                 <CustomButton 
                   variant={author}
