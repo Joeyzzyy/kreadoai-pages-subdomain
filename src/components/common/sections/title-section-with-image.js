@@ -3,7 +3,7 @@ import React from 'react';
 import fontStyles from '../../../styles/textStyles';
 import { gradients } from './shared-gradient-styles';
 
-const TitleSectionWithImage = ({ data, author }) => {
+const TitleSectionWithImage = ({ data, author, date }) => {
   const containsChinese = (text) => {
     return /[\u4e00-\u9fa5]/.test(text);
   };
@@ -51,7 +51,7 @@ const TitleSectionWithImage = ({ data, author }) => {
                     {dateLabel}
                   </span>
                   <span className={`${fontStyles.paragraph.fontSize} ${fontStyles.paragraph.color}`}>
-                    {formatDate(data.leftContent.publishDate)}
+                    {formatDate(date)}
                   </span>
                 </div>
               </div>
