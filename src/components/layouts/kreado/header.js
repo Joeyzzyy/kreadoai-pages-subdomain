@@ -373,7 +373,7 @@ export const Navigation = ({ theme = 'light' }) => {
           <div className="md:hidden bg-[#FAFBFF] border-t border-gray-200">
             <div className="max-h-[80vh] overflow-y-auto">
               <div className="px-4 py-4 space-y-2">
-                {menuItems.map((item) => (
+                {currentMenuItems.map((item) => (
                   <div key={item.key} className="relative">
                     {/* 主菜单项 */}
                     <div
