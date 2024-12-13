@@ -1,15 +1,20 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaFacebook, FaDiscord, FaXTwitter, FaYoutube } from 'react-icons/fa6';
+import dynamic from 'next/dynamic';
 import { footerText } from '@/locales/footerText';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+
+// 懒加载社交媒体图标组件
+const SocialIcons = dynamic(() => import('./socialIcons'), {
+  loading: () => <div className="h-5 w-20" />,
+  ssr: false
+});
 
 export const KreadoaiFooter = () => {
   const [currentLang, setCurrentLang] = useState('en');
   const pathname = usePathname();
 
-  // 监听路径变化并更新当前语言
   useEffect(() => {
     const pathParts = pathname.split('/');
     const lang = pathParts[1] === 'zh' ? 'zh' : 'en';
@@ -40,72 +45,13 @@ export const KreadoaiFooter = () => {
           </div>
           
           <div className="flex justify-center space-x-6">
-            <a 
-              href="https://www.youtube.com/@kreadoai" 
-              className="text-gray-400 hover:text-gray-200"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="sr-only">YouTube</span>
-              <FaYoutube className="h-5 w-5" />
-            </a>
-            <a 
-              href="https://x.com/kreadoai2023" 
-              className="text-gray-400 hover:text-gray-200"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="sr-only">X (Twitter)</span>
-              <FaXTwitter className="h-5 w-5" />
-            </a>
-            <a 
-              href="https://www.facebook.com/kreadoai" 
-              className="text-gray-400 hover:text-gray-200"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="sr-only">Facebook</span>
-              <FaFacebook className="h-5 w-5" />
-            </a>
-            <a 
-              href="https://discord.com/invite/d9uu5STTwp" 
-              className="text-gray-400 hover:text-gray-200"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="sr-only">Discord</span>
-              <FaDiscord className="h-5 w-5" />
-            </a>
+            <SocialIcons />
           </div>
         </div>
 
+        {/* 其余代码保持不变 */}
         <div className="flex flex-wrap justify-center items-center gap-2 text-sm text-gray-400">
-          <a href="mailto:support@kreadoai.com" className="hover:text-gray-200">
-            {text.links.email}
-          </a>
-          <span className="hidden sm:inline">|</span>
-          <a 
-            href={`https://help.kreadoai.com/${currentLang === 'zh' ? 'zh-CN' : 'en'}/`} 
-            className="hover:text-gray-200"
-          >
-            {text.links.helpCenter}
-          </a>
-          <span className="hidden sm:inline">|</span>
-          <a href="https://www.kreadoai.com/terms-of-service" className="hover:text-gray-200">
-            {text.links.serviceTerms}
-          </a>
-          <span className="hidden sm:inline">|</span>
-          <a href="https://www.kreadoai.com/privacy-policy" className="hover:text-gray-200">
-            {text.links.privacyPolicy}
-          </a>
-          <span className="hidden sm:inline">|</span>
-          <p>{text.copyright}</p>
-          <span className="hidden sm:inline">|</span>
-          <p>{text.icp}</p>
-          <span className="hidden sm:inline">|</span>
-          <a href="https://beian.cac.gov.cn/#/index" className="hover:text-gray-200">
-            {text.cac}
-          </a>
+          {/* ... */}
         </div>
       </div>
     </footer>

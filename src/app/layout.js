@@ -1,5 +1,13 @@
 import './globals.css'
 
+export const metadata = {
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    viewportFit: 'cover',
+  }
+}
+
 export default function RootLayout({ children, keywords, robots }) {
   return (
     <html lang="en">

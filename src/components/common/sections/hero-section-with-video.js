@@ -6,6 +6,7 @@ import fontStyles from '../../../styles/textStyles';
 import { gradients } from './shared-gradient-styles';
 
 const HeroSectionWithVideo = ({ data }) => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef(null);
   const topContent = data.topContent;
@@ -20,6 +21,10 @@ const HeroSectionWithVideo = ({ data }) => {
 
   const getButtonLink = () => {
     return buttonLinks.workbench || '#';
+  };
+
+  const handleVideoLoad = () => {
+    setIsVideoLoaded(true);
   };
 
   return (
@@ -76,6 +81,9 @@ const HeroSectionWithVideo = ({ data }) => {
                 before:from-blue-400/50 before:via-indigo-400/50 before:to-purple-400/50
               `}>
                 <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                  {!isVideoLoaded && (
+                    <div className="absolute top-0 left-0 w-full h-full bg-gray-100 animate-pulse" />
+                  )}
                   <video
                     ref={videoRef}
                     className="absolute top-0 left-0 w-full h-full object-cover"
@@ -84,6 +92,9 @@ const HeroSectionWithVideo = ({ data }) => {
                     loop
                     muted={isMuted}
                     playsInline
+                    onLoadedData={handleVideoLoad}
+                    preload="auto"
+                    loading="eager"
                   />
                 </div>
               </div>

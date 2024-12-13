@@ -38,6 +38,8 @@ const KeyResultsWithImage = ({ data }) => {
             <img 
               src={image.imageUrl}
               alt={image.imageAlt}
+              width={500} // 添加固定宽度
+              height={300} // 添加固定高度
               className="w-full h-auto object-contain max-w-[500px] mx-auto"
             />
           </div>
