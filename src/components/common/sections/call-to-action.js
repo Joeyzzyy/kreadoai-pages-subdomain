@@ -20,7 +20,7 @@ const CallToAction = ({ data }) => {
         }}
       >
         <Image
-          src="/images/kreado-header-bg.png"
+          src="/images/kreado-header-bg.webp"
           alt="Background"
           fill
           priority
